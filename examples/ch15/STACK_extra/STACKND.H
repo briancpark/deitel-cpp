@@ -1,0 +1,47 @@
+// STACKND.H
+// Definition of template class StackNode
+#ifndef STACKND_H
+#define STACKND_H
+
+template<class T> class Stack;
+
+template <class T>
+class StackNode {
+   friend class Stack<T>;
+public:
+   StackNode( const T & = 0, StackNode * = 0 );
+   T getData() const;
+private:
+   T data;
+   StackNode *nextPtr;
+};
+
+// Member function definitions for class StackNode
+template <class T>
+StackNode<T>::StackNode( const T &d, StackNode<T> *ptr )
+{
+   data = d;
+   nextPtr = ptr;
+}
+
+template <class T>
+T StackNode<T>::getData() const { return data; }
+
+#endif
+
+
+
+/**************************************************************************
+ * (C) Copyright 2000 by Deitel & Associates, Inc. and Prentice Hall.     *
+ * All Rights Reserved.                                                   *
+ *                                                                        *
+ * DISCLAIMER: The authors and publisher of this book have used their     *
+ * best efforts in preparing the book. These efforts include the          *
+ * development, research, and testing of the theories and programs        *
+ * to determine their effectiveness. The authors and publisher make       *
+ * no warranty of any kind, expressed or implied, with regard to these    *
+ * programs or to the documentation contained in these books. The authors *
+ * and publisher shall not be liable in any event for incidental or       *
+ * consequential damages in connection with, or arising out of, the       *
+ * furnishing, performance, or use of these programs.                     *
+ *************************************************************************/

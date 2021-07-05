@@ -1,0 +1,56 @@
+
+[Windows 95 Params]														
+	WndTitle   = MSDN Library Setup													
+	WndMess    = Starting MSDN Library Setup, please wait...													
+	TmpDirSize = 2000													
+	TmpDirName = tmp													
+
+	CmdLine    = acmsetup /T MSDN98.STF /S %s %s													
+
+	DrvModName = ACMSETUP													
+	DrvWinClass = Stuff-Shell													
+														
+[Windows 95 Files]														
+	setup\acmsetup.exe = acmsetup.exe 													
+	setup\acmsetup.hlp = acmsetup.hlp 													
+	setup\mssetup.dll = mssetup.dll 													
+
+	setup\MSDN98.DLL = MSDN98.DLL													
+	setup\COMMON98.DLL = COMMON98.DLL													
+														
+	EULA.TXT = EULA.TXT													
+														
+	setup\MSDN98.INF = MSDN98.INF													
+	setup\MSDN98.STF = MSDN98.STF													
+														
+	setup\ie4check.ini=ie4check.ini													
+	setup\ie_min.ini=ie_min.ini													
+	setup\hhsetup.dll=hhsetup.dll													
+
+[NT Intel Params]														
+	WndTitle   = MSDN Library Setup													
+	WndMess    = Starting MSDN Library Setup, please wait...													
+	TmpDirSize = 2000													
+	TmpDirName = tmp													
+
+	CmdLine    = acmsetup /T MSDN98.STF /S %s %s													
+
+	DrvModName = ACMSETUP													
+	DrvWinClass = Stuff-Shell													
+														
+[NT Intel Files]														
+	setup\acmsetup.exe = acmsetup.exe													
+	setup\acmsetup.hlp = acmsetup.hlp													
+	setup\mssetup.dll = mssetup.dll													
+
+	setup\MSDN98.DLL = MSDN98.DLL													
+	setup\COMMON98.DLL = COMMON98.DLL													
+
+	EULA.TXT = EULA.TXT													
+	setup\MSDN98.INF = MSDN98.INF													
+	setup\MSDN98.STF = MSDN98.STF													
+														
+	setup\ie4check.ini=ie4check.ini													
+	setup\ie_min.ini=ie_min.ini													
+	setup\hhsetup.dll=hhsetup.dll													
+

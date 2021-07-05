@@ -1,0 +1,3697 @@
+													
+	==vc Header ETF (vchdstf.etf)===													
+App Name	Visual C++ 6.0 Introductory Edition													
+App Version	6.0.0.0.0806 (1033)													
+													
+Frame Caption	Visual C++ 6.0 Introductory Setup													
+Dialog Caption Base	Visual C++ 6.0 Introductory													
+													
+About Box String	Microsoft Visual C++ 6.0 Setup\n\nCopyright (C) 1998 Microsoft Corporation.													
+Check Modules	ThunderRT5Main,Microsoft Visual Basic,ThunderRTMain,Microsoft VB Runtime,RaidClass,Microsoft Raid,MSVCED50,Microsoft Developer Studio,wndclass_desked_gsk,Microsoft Development Environment							
+Check Modules2	Fox_4000001,Microsoft Visual FoxPro, graph, MS Graph, ed, MS Draw, msinfo, MS Info,odbcad32,ODBC administrator,odbcjt32, ODBC Driver, !Microsoft Exchange!, Microsoft Exchange
+Check Modules3	OMain,Microsoft Access, msaccess,MS Access,msarn110,MS Access Runtime,msarn200,MS Access Runtime,MS:SCC:REFRESH,Microsoft Visual SourceSafe,MSOfficeWClass,Microsoft Office Manager
+Check Modules4	VFP66400000,Microsoft Visual FoxPro,valecstart,Visual Studio Analyzer Server
+MSAPPS Mode	local													
+													
+Inf File Name	VC98Bok.INF													
+													
+Maximum Object ID	2960													
+Floppy Mode Root Object ID	3:1 2 													
+Maintenance Mode Root Object ID	4:1 2 													
+Batch Mode Root Object ID	3:1 2 													
+Setup Version	3.0.0.1210													
+													
+ObjID	Install During Batch Mode	Title	Descr	Type	Data	BMP Id	Vital	Shared	Dir Chang	Dest Dir	Check Dir	Installed By Us														
+													
+1				CustomAction	"""COMMON98.DLL"", ""SetDefaultDir"", ""VC98;HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup\Microsoft Visual C++,ProductDir"" "					%D				
+2		Microsoft Visual C++ 6.0 Introductory Edition		AppSearch	"%1,,,128,yes,no"									
+													
+ 														
+													
+ 														
+	=== Visual C++ Install Modes (mainstf.etf) ===													
+													
+3	yes	Floppy Install		AppMainDlg	291 292  : 41 21 5 2351 					%2				
+4	yes	C&ustom	Setup will allow you to customize which components to install	CustomDlg	296 298 306 317 1791 2362  293 : 1511 1521 294  41 21 5  	VC98Bok.DLL,103			Yes					
+													
+5				Group	6 7 8 9									
+6				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup,VSCommonDir"" "					%p\Microsoft Visual Studio\Common				
+7				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup\Microsoft Visual SourceSafe,ProductDir"" "					%6\VSS				
+													
+8				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,SOFTWARE\Microsoft\Windows\CurrentVersion,CommonFilesDir"" "					%p\Common<%p\Common Files>				
+													
+9				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""10"""					%d				
+10				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup,VSCommonDir,%s"					%6				
+													
+ 														
+													
+ 
+														
+  														
+														
+  														
+														
+ 														
+			
+ 
+													
+	=== Main CAH/Detection (MainCah.etf) ===													
+													
+21				Group	22 23									
+22				CustomAction	"COMMON98.DLL,DetectWzRegKey,Microsoft Visual C++"									
+													
+23				Group	33 27 28 29 30 26  25									
+													
+	=== EULA (MainCah.etf) ===													
+24				CustomAction	"COMMON98.DLL,LicenseDlg,Setup;eula_txt"									
+													
+25				CustomAction	"PHOLDER.DLL,SPPlaceHolderCAH"									
+													
+	=== IE4 Check (MainCah.etf) ===													
+26				CustomAction	"COMMON98.DLL,CheckRegKey,""LOCAL,Software\Microsoft\Internet Explorer,Version"""									
+	=== Set DestDir to Program Items (MainCah.etf) ===													
+27				CustomAction	"COMMON98.DLL,GetWindowsPathFromReg,""Programs, True"""									
+													
+	=== Check Operating System (MainCah.etf) ===													
+28		IsWin95		CustomAction	"COMMON98.DLL,DetectOS,Win95 "									
+29		IsWinnt3x		CustomAction	"COMMON98.DLL, DetectOS, winnt3x"									
+30		IsWinNT40		CustomAction	"COMMON98.DLL, DetectOS, winnt40"									
+31		Is40Shell		CustomAction	"COMMON98.DLL, DetectOS, 40shell"									
+32		IsWinNT50		CustomAction	"COMMON98.DLL, DetectOS, winnt50"									
+													
+	=== Check Admin Privileges (MainCah.etf) ===													
+33		Check Adminstrator		CustomAction	"COMMON98.DLL,DetectAdminPrivileges"									
+													
+	=== Sys Always (system.etf) ===													
+													
+41				Group	51 61 1661 151 201 161 2711 2661 71 141 131 121 101 111					%d				
+													
+	=== vc MSVCRT40.DLL Sys ===														
+51				InstallSysFile	"vc MSVCRT40 DLL,msvcrt40_dll"		vital			%M				
+													
+	=== VC CRT OS Retail (IO) (crtdllio.etf) ===													
+61				Group	62									
+													
+62		msvcirt.dll		InstallSysFile	"Sys Files - CRT (IO) Dlls,msvcirt_dll"					%m				
+													
+	=== vc MFC Os Ansi Retail component (OSRETAIL.ETF) ===													
+ 														
+71				Group	72 73 75 76 78 79 81 82 84 85 87 88 90 91 93 94 96 97					%M				
+ 														
+72				InstallSysFile	"vc MFC Os Retail, mfc42_dll"					%M				
+73				Depend	72 ? 74									
+74		mfc42.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc MFC Os Retail,mfc42_dll,1"""					%72				
+ 														
+													
+75				CustomAction	"COMMON98.DLL,LangCheckCAH,CHS"									
+76				Depend	"75 ? 77"									
+77				InstallSysFile	"vc MFC Os Retail, mfc42chs_dll"					%M				
+													
+78				CustomAction	"COMMON98.DLL,LangCheckCAH,CHT"									
+79				Depend	"78 ? 80"									
+80				InstallSysFile	"vc MFC Os Retail, mfc42cht_dll"					%M				
+													
+81				CustomAction	"COMMON98.DLL,LangCheckCAH,KOR"									
+82				Depend	"81 ? 83"									
+83				InstallSysFile	"vc MFC Os Retail, mfc42kor_dll"					%M				
+													
+84				CustomAction	"COMMON98.DLL,LangCheckCAH,JPN"									
+85				Depend	"84 ? 86"									
+86				InstallSysFile	"vc MFC Os Retail, mfc42jpn_dll"					%M				
+													
+87				CustomAction	"COMMON98.DLL,LangCheckCAH,DEU"									
+88				Depend	"87 ? 89"									
+89				InstallSysFile	"vc MFC Os Retail, mfc42deu_dll"					%M				
+													
+90				CustomAction	"COMMON98.DLL,LangCheckCAH,FRA"									
+91				Depend	"90 ? 92"									
+92				InstallSysFile	"vc MFC Os Retail, mfc42fra_dll"					%M				
+													
+93				CustomAction	"COMMON98.DLL,LangCheckCAH,ESP"									
+94				Depend	"93 ? 95"									
+95				InstallSysFile	"vc MFC Os Retail, mfc42esp_dll"					%M				
+													
+96				CustomAction	"COMMON98.DLL,LangCheckCAH,ITA"									
+97				Depend	"96 ? 98"									
+98				InstallSysFile	"vc MFC Os Retail, mfc42ita_dll"					%M				
+													
+	=== RegSvr32 Component ( RegSvr32.etf ) ===													
+													
+101				Group	102 									
+102		regsvr32.exe		InstallSysFile	"Sys Files - Regsrv32, regsvr32_exe_3"					%m				
+													
+	=== Binding Manager (vbbndmgr.etf)===													
+111				Group	112 113							
+112				InstallShared	"VB Binding Manager,msbind_dll,msbind.dll,,2713"					%M				
+113				Depend	"112?114 115"							
+114				CopyFile	"VB Binding Manager,msbind_dep"					%112				
+115		msbind.dll		SelfReg	"VB Binding Manager,msbind_dll,,, "					%112		
+													
+	=== MSSTDFMT (vbstdfmt.etf) ===													
+121				Group	122 123 									
+122				InstallShared	"VB STDFMT,msstdfmt_dll,msstdfmt.dll,,2713"					%M				
+123				Depend	"122?124 125"									
+124				CopyFile	"VB STDFMT,msstdfmt_dep"					%122				
+125		msstdfmt.dll		CustomAction	"COMMON98.DLL,RegisterFile,""VB STDFMT,msstdfmt_dll,3"""					%122				
+													
+====Debugger NT4 psapi(dbgpsapi.etf)======
+131				Group	132					%D
+132				Depend	"30? 133"
+133				InstallShared	"Debugger NT4 psapi,psapi2_dll,psapi.dll,,2713"					%M
+														
+	=== VB OLEAUT32 Files (vboleaut.etf)===													
+141				Group	142 143 144 145 146 									
+142				InstallSysFile	"VB Oleaut Files,oleaut32_dll"					%M				
+143				InstallSysFile	"VB Oleaut Files,stdole2_tlb"					%M				
+144				InstallSysFile	"VB Oleaut Files,olepro32_dll_2"					%M				
+145				InstallSysFile	"VB Oleaut Files,asycflt_dll"					%M				
+146				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""147 148 149"""									
+147		olepro32.dll		SelfReg	"VB Oleaut Files,olepro32_dll_2,,,"					%144				
+148		oleaut32.dll		CustomAction	"COMMON98.DLL,RegisterFile,""VB Oleaut Files,oleaut32_dll,1"""					%142				
+149				CustomAction	"COMMON98.DLL,RegisterTypeLibrary,""VB Oleaut Files;stdole2_tlb"""					%143				
+													
+	=== VC MSVC[I]RT.DLL Sys (crtdll.etf) ===													
+151				Group	152 									
+													
+152		msvcrt.dll		InstallSysFile	"Sys Files - CRT Dlls,msvcrt_dll"					%m				
+													
+	=== dag Jet (jet.etf) ===													
+													
+161				Group	162 163 165 166 167 168 170 171 172 173 191					%M				
+													
+162				InstallSysFile	"dag Jet, msjet35_dll"					%M				
+163				Depend	162 ? 164									
+164		msjet35.dll		SelfReg	"dag Jet, msjet35_dll"					%M				
+													
+165				InstallSysFile	"dag Jet, msjint35_dll"					%M				
+166				InstallSysFile	"dag Jet, msjter35_dll"					%M				
+167				InstallSysFile	"dag Jet, msrd2x35_dll"					%M				
+168				Depend	"167 ? 169"									
+169		msrd2x35.dll		SelfReg	"dag Jet, msrd2x35_dll"					%167				
+170				InstallSysFile	"dag Jet, msrepl35_dll"					%M				
+171				InstallSysFile	"dag Jet, vbar332_dll_1"					%M				
+172				CopySection	"dag Jet Help"					%W\Help				
+173				Group	174 175 176 177 178 179 180 181 182					%W\Help				
+174				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetdef35_fts"									
+175				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetdef35_ftg"									
+176				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetdef35_gid"									
+177				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetsql35_fts"									
+178				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetsql35_ftg"									
+179				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jetsql35_gid"									
+180				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jeterr35_fts"									
+181				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jeterr35_ftg"									
+182				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag Jet Help Remove;jeterr35_gid"									
+														
+	=== Additional VBA Files (vbvbaadd.etf)===													
+191				Group	192 193 194									
+192				InstallSysFile	"VBA Additional Files,expsrv_dll"					%M				
+193				InstallSysFile	"VBA Additional Files,vbajet32_dll"					%M				
+194				InstallSysFile	"VBA Additional Files,vba332me_dll"					%M				
+													
+	=== dag ODBC Core Components & dag ODBC Code Page Translators (odbc.etf) ===													
+													
+201				Group	202 261 251 241					%M				
+													
+202			ODBC Driver Manager	Group	203 204  
+203				CustomAction	odbcstf.dll,AcmeInstallDriverManager,odbckey.inf									
+204				Group	205 215 224 234 229 									
+													
+205			Installs the ODBC Driver Manager	Group	219 206 207 208 209 210 211 212 213 214									
+206				InstallSysFile	"dag ODBC Core Components,odbc32_dll"		vital			%201				
+207				InstallSysFile	"dag ODBC Core Components,odbcad32_exe"		vital			%201				
+208				InstallSysFile	"dag ODBC Core Components,odbccp32_cpl"		vital			%201				
+209				InstallSysFile	"dag ODBC Core Components,odbccp32_dll"		vital			%201				
+210				InstallSysFile	"dag ODBC Core Components,odbccr32_dll"		vital			%201				
+211				InstallSysFile	"dag ODBC Core Components,odbcint_dll"		vital			%201				
+212				InstallSysFile	"dag ODBC Core Components,odbctrac_dll"		vital			%201				
+213				InstallSysFile	"dag ODBC Core Components,mtxdm_dll"		vital			%201				
+214				InstallSysFile	"dag ODBC Core Components,odbccu32_dll"					%201				
+													
+215			Installs the ODBC Brazos Files	Group	216 217 218									
+216				InstallSysFile	"dag ODBC Brazos Components,odbcji32_dll_1"					%201				
+217				InstallSysFile	"dag ODBC Brazos Components,odbcjt32_dll_1"					%201				
+218				InstallSysFile	"dag ODBC Brazos Components,odbctl32_dll_1"					%201				
+													
+219			Installs ODBC Thunking Layer	Group	220 221 222 223					%201				
+220				InstallSysFile	"dag ODBC Core Components,odbc16gt_dll"		vital			%201				
+221				InstallSysFile	"dag ODBC Core Components,odbc32gt_dll"		vital			%201				
+222				InstallSysFile	"dag ODBC Core Components,ds16gt_dll"		vital			%201				
+223				InstallSysFile	"dag ODBC Core Components,ds32gt_dll"		vital			%201				
+													
+224			ODBC Code Page Translators	Group	225 226 227 228 									
+225				InstallSysFile	"dag ODBC CodePage Trans,mscpxl32_dll"		vital			%201				
+226				InstallSysFile	"dag ODBC CodePage Trans,12520437_cpx"		vital			%201				
+227				InstallSysFile	"dag ODBC CodePage Trans,12520850_cpx"		vital			%201				
+228				CustomAction	odbcstf.dll,AcmeInstallTranslator,odbckey.inf:Translators					%201				
+229			ODBC Help Files	Group	230 231 232 233   									
+230				InstallSysFile	"dag ODBC Help Files,odbcinst_cnt_1"					%201				
+231				InstallSysFile	"dag ODBC Help Files,odbcinst_hlp_1"					%201				
+232				InstallSysFile	"dag ODBC Help Files,odbcjet_cnt_1"					%201				
+233				InstallSysFile	"dag ODBC Help Files,odbcjet_hlp_1"					%201				
+234			ODBC SQL Net Libs	Group	235 236 237    									
+235				InstallSysFile	"dag ODBC SQL Net Libs,dbnmpntw_dll"					%M				
+236				InstallSysFile	"dag ODBC SQL Net Libs,dbmssocn_dll"					%M				
+237				InstallSysFile	"dag ODBC SQL Net Libs,instcat_sql"					%M				
+													
+	=== dag OLEDB DataSourceLocator (OLEDBDSL.ETF) ===													
+													
+241				Group	242 									
+242				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""243 244 245 246 247"""					%8\system\ole db				
+													
+243				CopyFile	"dag OLEDB DataSourceLocator,msdasc_dll"					%242				
+244		msdasc.dll		SelfReg	"dag OLEDB DataSourceLocator, msdasc_dll"					%243				
+245				CopyFile	"dag OLEDB DataSourceLocator,msdasc_chm"					%242				
+246				CopyFile	"dag OLEDB DataSourceLocator,msdasc_cnt"					%242				
+247				CopyFile	"dag OLEDB DataSourceLocator,msdasc_txt"					%242				
+													
+	=== dag Chinook (OLEDB for ODBC) (chinook.etf) ===													
+													
+251				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""252 253 254 255"""					%8\system\ole db				
+													
+252				CopyFile	"dag Chinook,msdasql_dll"					%251				
+253		msdasql.dll		SelfReg	"dag Chinook,msdasql_dll"					%252				
+													
+254				CopyFile	"dag Chinook,msdasqlr_dll"					%251				
+255				CopyFile	"dag Chinook,oledb_me_txt"					%251				
+													
+	=== dag OLEDB Core (oledbcr.etf) ===													
+													
+261				Group	262 263					%8\system\ole db				
+262				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""264 265 266 267 268 269 270"""					%261				
+263				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""271 272 273 274 275 276 277 278 279 280 281"""					%261				
+													
+264				CopyFile	"dag OLEDB Core,msdadc_dll"					%261				
+265		msdadc.dll		SelfReg	"dag OLEDB Core,msdadc_dll"					%264				
+													
+266				CopyFile	"dag OLEDB Core,msdaer_dll"					%261				
+267		msdaer.dll		SelfReg	"dag OLEDB Core,msdaer_dll"					%266				
+													
+268				CopyFile	"dag OLEDB Core,msdaerr_dll"					%261				
+269				CopyFile	"dag OLEDB Core,msdaps_dll"					%261				
+270		MSDAPS.DLL		SelfReg	"dag OLEDB Core,msdaps_dll"					%269				
+271				CopyFile	"dag OLEDB Core,msdatt_dll"					%261				
+272		msdatt.dll		SelfReg	"dag OLEDB Core,msdatt_dll"					%271				
+273				CopyFile	"dag OLEDB Core,msdaenum_dll"					%261				
+274		msdaenum.dll		SelfReg	"dag OLEDB Core,msdaenum_dll"					%273				
+275				CopyFile	"dag OLEDB Core,msdatl2_dll"					%261				
+276				CopyFile	"dag OLEDB Core,oledb32x_dll"					%261				
+277		oledb32x.dll		SelfReg	"dag OLEDB Core,oledb32x_dll"					%276				
+278				CopyFile	"dag OLEDB Core,oledb32_dll"					%261				
+279		oledb32.dll		SelfReg	"dag OLEDB Core,oledb32_dll"					%278				
+280				CopyFile	"dag OLEDB Core,oledb32r_dll"					%261				
+281		oledb32r.dll		SelfReg	"dag OLEDB Core,oledb32r_dll"					%280				
+														
+	=== VC Component ===													
+													
+	 === Target of Setup Installation modes (i.e., choice of Typical, Minimal, or Custom buttons, etc.) (vc.etf)===													
+291	yes	&Typical		Group	296 317 302 304 305 312 308 319 2361  294  293  1781	VC98Bok.DLL,102				%3				
+													
+	STFWIZ	5												
+292	yes	C&ustom	Setup will allow you to customize which components to install	CustomDlg	296 317 298 306 1791 2362  293  : 294 1781	VC98Bok.DLL,103			Yes	%3				
+													
+	====ActiveX Controls=======													
+	STFWIZ	40												
+293	yes	ActiveX Controls	Installs various ActiveX Controls	Group	1851 2081 1801 					%M				
+													
+	 === VC AlwaysDo Components ===													
+													
+294	Yes			Group	1101 1091 1051 861 320 321 1581 331  2761 295 1601 1641 1491 1591 1531 351 2671 751 					%D				
+													
+ ====== Carrying over previous custom settings ====														
+295				CustomAction	"COMMON98.DLL,CarryOver"	
+												
+	=== VC DevStudio Components (IDE) ===													
+	STFWIZ	6												
+296	Yes	VC++ Developer Studio 	Installs Development Environment, Wizards and Debugger.	Group	 421 441 481 501 491 701 631 611 601 571 561 551 461 471 451 1361 1521 1511  1671 297					%6\MSDev98				
+297				CustomAction	"COMMON98.DLL, NopCAH"					%6\MSDev98				
+													
+	====VC Runtime Libraries ======													
+	STFWIZ	7												
+298	Yes	VC++ Runtime Libraries	Installs VC++ Runtime Library Files	OptionDlg	305 302 300 304 : 299 					%D				
+299				CustomAction	"COMMON98.DLL, NopCAH"					%D\Lib				
+													
+	STFWIZ	11												
+300		CRT Source Code	Installs VC++ CRT Source Code Files	Group	301 1071 1021 971 961 951 941 931 921 911					%D				
+301				CustomAction	"COMMON98.DLL, NopCAH"					%D\CRT\SRC				
+	STFWIZ	9												
+302	Yes	Shared CRT Libraries	Installs VC++ Shared CRT Library Files	Group	1081 1061 1041 1011 881 303					%D				
+303				CustomAction	"COMMON98.DLL, NopCAH"					%D\Lib				
+	STFWIZ	10												
+304	Yes	Single Threaded CRT Libraries	Installs VC++ Single Threaded CRT Libraries Files	Group	1081 1061 1041 891 871					%D				
+	STFWIZ	8												
+305	Yes	Static CRT Libraries	Installs VC++ Static CRT Libraries Files	Group	1061 1041 1031 901					%D				
+													
+	=== VC MFC and Template Libraries ===													
+	STFWIZ	12												
+306	Yes	VC++ MFC and Template Libraries	Installs the headers, libraries, sources and browser database for MFC and ATL.	OptionDlg	310 308 : 307					%D				
+307				CustomAction	"COMMON98.DLL, NopCAH"					%D\MFC				
+													
+	STFWIZ	20												
+308	Yes	MS Active Template Libraries	Installs the headers, libraries, and sources for ATL	Group	1481 1471 1461 1451 1441 309					%294									
+309				CustomAction	"COMMON98.DLL, NopCAH"					%D\ATL				
+													
+	STFWIZ	13												
+310	Yes	MS Foundation Class Libraries	Installs the headers, libraries, sources, debug symbols, and browser database for MFC	OptionDlg	  314  315 313 316 : 1351 1341 1381 1331 1321 1311 1301 1291 1281 1111 311					%D				
+311				CustomAction	"COMMON98.DLL, NopCAH"					%D\MFC				
+													
+312				Group	1351 1341 1381 1331 1321 1311 1301 1291 1281  314 316 1111					%294 																							
+	STFWIZ	19												
+313		Browser Database	Installs the MFC.BSC Browser database, which allows for easy browsing of the MFC source files	Group	1401									
+													
+	STFWIZ	15												
+314	Yes	Shared Libraries	Installs the headers, libraries, and debug symbols  for dynamic linkage to the Shared MFC DLLs	Group	1481 1411 1161 1181 1391 1131 1121 1451									
+	STFWIZ	17												
+315		Shared Libraries for Unicode	Installs the headers, libraries, and debug symbols for dynamic linkage to the Shared Unicode MFC DLLs	Group	1481 1191 1411 1391 1141 1121 1451 1171 1151									
+													
+	STFWIZ	18												
+316	Yes	Source Code	Installs the Sources to the Static, Shared, and Unicode MFC Libraries	Group	1421 1371 1271 1261 1231 1251 1241 1211 1201 1221 									
+													
+	=== VC Build Tools Components ===													
+	STFWIZ	21												
+317	yes	VC++ Build Tools	Installs Compiler, Linker, NMAKE, MIDL, Dumpbin, Bscmake, etc.	Group	491  411 851 831 821 811 791 781 771 761 318									
+318				CustomAction	"COMMON98.DLL, NopCAH"					%d\Bin				
+													
+319				Group	1792 1793 1794 1795 1796 1797
+											
+	====VC Universal Reg keys===													
+													
+320	Yes			AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup\Microsoft Visual C++,ProductDir,%s"									
+321				Depend	26 ? 322									
+322				AddRegData	"LOCAL,""Software\Microsoft\IE4\DependentComponents"",""VC98"","""""									
+													
+======= vcregen.etf (vc registration entries)=========
+331				Group	332 338 339					%294
+ ===== Ask Env set display and generating the vcvars32.bat file =====
+332				Depend	"317 ? 333:336"									
+333				Depend	"28? 334:335"									
+334				CustomAction	"COMMON98.DLL,VCVARS95"									
+335				CustomAction	"COMMON98.DLL,VCVARSNT"
+336				Depend	"296 ? 337"
+337				CustomAction	"COMMON98.DLL,AskSetEnv"
+ ======= vc reg entries=======
+338	Yes			AddRegData	"LOCAL,Software\Microsoft\DevStudio\6.0\Products\Microsoft Visual C++,ProductDir,%s"									
+													
+339				Depend	"30? 340"									
+340				Depend	"335? 342 343:341"									
+341				Depend	"337 ? 342 343"
+342				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;path;%s\bin"									
+343				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;path;%s"					%6\Tools				
+													
+ 														
+	=== dag Headers - ADO (ADO_H.ETF) ===													
+351				Group	401 391 381 371 361 					%d  				
+ 														
+ 														
+ 														
+	=== dag Headers - Svc Comp (DA_SVC_LIB.ETF) ===													
+361				Group	362 					%d  				
+ 														
+362				CopySection	"da svc lib"					%d\Lib				 
+ 														
+ 														
+														
+ 														
+	=== dag Headers - Svc Comp (DA_SVC_H.ETF) ===													
+371				Group	372 					%d  				
+ 														
+372				CopySection	"da svc header"					%d\Include				 
+ 														
+ 														
+														
+ 														
+	=== dag Headers - OLEDB (OLEDB_H.ETF) ===													
+381				Group	382 					%d  				
+ 														
+382				CopySection	"oledb header"					%d\Include				 
+ 														
+ 														
+														
+ 														
+	=== dag Headers - ADO (oledb_lib.ETF) ===													
+391				Group	392 					%d  				
+ 														
+392				CopySection	"oledb libs"					%d\Lib				 
+ 														
+ 														
+														
+ 														
+	=== dag Headers - ADO (ADO_H.ETF) ===													
+401				Group	402 					%d  				
+ 														
+402				CopySection	"ado header"					%d\Include				 
+ 														
+ 														
+														
+ ===== vc Common IDE & Tools VC Only =====
+411				Group	412					%6\MSDev98\Bin
+412				CopySection	"vc Only Common IDE and Tools"					%D				
+														
+	===  VC AppWiz Resources Sbyte Component (wizdbres.etf) ===													
+													
+421				Group	422 423 425 426 428 429 431  432					%d\Bin\IDE			 	
+													
+422				CustomAction	"COMMON98.DLL,LangCheckCAH,CHS"									
+423				Depend	"422 ? 424"									
+424				CopyFile	"VC - AppWiz Resources Dbyte,appwzchs_dll"					%d				
+													
+425				CustomAction	"COMMON98.DLL,LangCheckCAH,CHT"									
+426				Depend	"425 ? 427"									
+427				CopyFile	"VC - AppWiz Resources Dbyte,appwzcht_dll"					%d				
+													
+428				CustomAction	"COMMON98.DLL,LangCheckCAH,JPN"									
+429				Depend	"428 ? 430"									
+430				CopyFile	"VC - AppWiz Resources Dbyte,appwzjpn_dll"					%d				
+													
+431				CustomAction	"COMMON98.DLL,LangCheckCAH,KOR"									
+432				Depend	"431 ? 433"									
+433				CopyFile	"VC - AppWiz Resources Dbyte,appwzkor_dll"					%d				
+													
+	=== VC AppWiz Resources Sbyte Component (wizsbres.etf) ===													
+													
+441				Group	442					%d 			 	
+													
+442				CopySection	"VC - AppWiz Resources Sbyte"					%d\Bin\IDE				
+													
+	=== VC MSDEV Object Model Headers Component (vcdvobjh.etf)===													
+													
+451				Group	452					%294			 	
+													
+452				CopySection	"VC - MSDEV ObjMod Header"					%d\Include\ObjModel				
+													
+	=== VC Native Debugger Components (vcdebug.etf)===													
+461				Group	462 463 464 465 466 467 468 469 					%d\Bin				
+													
+462				CopyFile	"VC - Native Debugger,autoexp_dat"									
+463				CopyFile	"VC - Native Debugger,dm_dll"									
+464				CopyFile	"VC - Native Debugger,eecxx_dll"									
+465				CopyFile	"VC - Native Debugger,em_dll"									
+466				CopyFile	"VC - Native Debugger,msvcmon_exe"									
+467				CopyFile	"VC - Native Debugger,tlloc_dll"									
+468				CopyFile	"VC - Native Debugger,tln0t_dll"									
+													
+469				InstallShared	"VC - Native Debugger, shcv_dll,shcv.dll,,2713"	 								
+													
+	=== vc NT DBG Setup Components (vcntdbg.etf)===													
+													
+471				Group	472					%d\Bin				
+													
+472			 	Depend	"30? 473 474 475 476"									
+													
+473				CopyFile	"vc NT DBG Setup, setupdbg_exe"	 								
+474				CopyFile	"vc NT DBG Setup, setupdbg_inf"	 								
+475				InstallShortcut	"%473\%F473,Windows NT Symbols Setup,%473 , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+476				CustomAction	"COMMON98.DLL,ShowDialog,""23;24"""				
+													
+	=== VC ATL Wizard Component (atlwiz.etf)===													
+481				Group	482 483 484 486 487 488 489									
+482				CopyFile	"VC - ATL Wiz, atlwiz_awx"					%d\Bin\IDE				
+													
+	=== VC ATL Wizard Help Component ===													
+													
+	=== vc ATL Wizard SelfReg Component ===													
+483				CopyFile	"VC - ATL Wiz, atlobj_dll"					%d\Bin\IDE				
+													
+484				Depend	483 ? 485									
+485		atlobj.dll		CustomAction	"COMMON98.DLL,RegisterFile,""VC - ATL Wiz,atlobj_dll,3"""					%483				
+													
+	=== VC ATL Wizard Template Component ===													
+486				CopySection	"VC - ATL WizTemplates 1"					%d\Template\ATL				
+487				CopySection	"VC - ATL WizTemplates 2"					%d\Template\ATL				
+488				CopySection	"VC - ATL WizTemplates 3"					%d\Template\ATL				
+489				CopySection	"VC - ATL WizTemplates 4"					%d\Template\ATL				
+													
+	=== vc Common IDE & Tools Files Components (IDETLS.ETF)===													
+													
+491				Group	492					%6\MSDev98\Bin				
+													
+492				Group	 493 494									
+													
+493				InstallShared	"vc IDE and Tools, msdis100_dll, msdis110.dll,,2713"					%D				
+494				InstallShared	"vc IDE and Tools, mspdb50_dll, mspdb60.dll,,2713"					%D				
+													
+	=== VC IDE Component (CORE.ETF)===													
+													
+501				Group	502 515					%D\Bin				
+													
+502				Group	503 504 505 506 507 508 509 510  512 513 514 511 541 543									
+503				InstallShared	"vc Core IDE, msdevb_exe, msdev.exe,,2713"					%D				
+504				InstallShared	"vc Core IDE, autolayt_dll, autolayt.dll,,2713"					%D				
+505				InstallShared	"vc Core IDE, devedit_pkg,devedit_pkg,,2713"					%D				
+506				InstallShared	"vc Core IDE, devprj_pkg,devprj_pkg,,2713"					%D				
+507				InstallShared	"vc Core IDE, devshl_dll,devshl_dll,,2713"					%D				
+508				InstallShared	"vc Core IDE, langext_dat, langext.dat,,2713"					%D				
+509				InstallShared	"vc Core IDE, macrocpp_dat, macrocpp.dat,,2713"					%D				
+510				InstallShared	"vc Core IDE, mfcclwz_dll, mfcclwz.dll,,2713"					%D				
+511				InstallShared	"vc Core IDE,feacp_dll, feacp.dll,,2713"					%D				
+													
+512				InstallShared	"vc Core IDE, sysincl_dat, sysincl.dat,,2713"					%D				
+513				InstallShared	"vc Core IDE, vcspawn_exe, vcspawn.exe,,2713"					%D				
+514				InstallShortcut	"%503\%F503,Microsoft Visual C++ 6.0,,,,,"					%27\Microsoft Visual C++ 6.0				
+													
+515				Group	516 521 527 517 518 519 528 530 520 532					%D				
+516				InstallShared	"vc Core IDE, devtldc_dll, devtldc.dll,,2713"					%M				
+517				InstallShared	"vc Core IDE, crt_ncb,crt.ncb,,2713"					%D				
+518				InstallShared	"vc Core IDE, mfcatl_ncb,mfcatl.ncb,,2713"					%D				
+519				InstallShared	"vc Core IDE, win32_ncb,win32.ncb,,2713"					%D				
+520				InstallShared	"vc Core IDE, msdev_com,msdev.com,,2713"					%D				
+													
+521				Depend 	"503 ? 522 544"									
+													
+522				Depend 	"30? 523 526"									
+523				Depend 	"337 ? 524 525"									
+524				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;MSDevDir;%s"					%6\MSDev98				
+525				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;path;%s"					%6\MSDev98\Bin				
+526				CustomAction	"COMMON98.DLL,DeleteRegValue,HKCU;Environment;MSDevDir"														
+													
+527				CustomAction	"COMMON98.DLL,JIT,""%s\msdev.exe;Software\Microsoft\VisualStudio\6.0\"""					%6\MSDev98\Bin				
+													
+528				Depend	"503 ? 529"									
+529				Group	1541									
+													
+530				Depend	"503 ? 531"									
+531				StampCDInfo	"503,20001, 20000"									
+													
+532				Depend	"503 ? 533 534 535 536 537 538"									
+533				CustomAction	"COMMON98.DLL,DeleteRegKey,HKCU;software\microsoft\devstudio\6.0"									
+534				CustomAction	"COMMON98.DLL,DeleteRegKey,HKLM;software\microsoft\devstudio\6.0"
+535				CustomAction	"COMMON98.DLL,DetectAnyKey,HKLM;software\microsoft\devstudio"
+536				CustomAction	"COMMON98.DLL,DetectAnyKey,HKCU;software\microsoft\devstudio" 
+537				Depend	"535?:539"
+538				Depend	"536?:540"
+539				CustomAction	"COMMON98.DLL,DeleteRegKey,HKLM;software\microsoft\devstudio"				
+540				CustomAction	"COMMON98.DLL,DeleteRegKey,HKCU;software\microsoft\devstudio"						
+541				Depend	"503 ? 542"
+542				CustomAction	"COMMON98.DLL,LaunchExeCAH,""""""%s\msdev.exe"""" /unregister"""					%503														
+543				CustomAction	"COMMON98.DLL,AddTool,0;0;/v ""$(TargetPath)"";Re&gister Control;1;$(TargetDir);Re&gister Control;0;%s\regsvr32.exe;0;"					%M					
+544				AddRegData	"LOCAL,Software\Microsoft\Windows\CurrentVersion\App Paths\msdev.exe,"""",%s\msdev.exe,"""""					%503
+													
+	=== VC IDE Wizards Component (WIZARDS.ETF) ===													
+													
+551				InstallShared	"vc IDE Wizards, appwzenu_dll, appwzenu.dll,,2713"					%D\Bin\IDE				
+													
+	=== VC IDE Templates Component (TEMPLATES.ETF) ===													
+													
+561				InstallShared	"vc IDE Templates, mfc_rct, mfc.rct,,2713"					%D\Template				
+													
+	=== VC IDE Packages Component (PACKAGES.ETF) ===													
+													
+571				Group	572 573 574 575 576 577 578 579 580 581 582 583 584 585 586 588 589 590 591 592 593 594 595					%D\Bin\IDE				
+													
+572				InstallShared	"vc IDE Packages, addinwz_awx, addinwz.awx,,2713"					%D				
+573				InstallShared	"vc IDE Packages, devaut1_pkg, devaut1.pkg,,2713"					%D				
+574				InstallShared	"vc IDE Packages, devbied_pkg, devbied.pkg,,2713"					%D				
+575				InstallShared	"vc IDE Packages, devbld_pkg, devbld.pkg,,2713"					%D				
+576				InstallShared	"vc IDE Packages, devclvw_pkg, devclvw.pkg,,2713"					%D				
+577				InstallShared	"vc IDE Packages, devcpp_pkg, devcpp.pkg,,2713"					%D				
+578				InstallShared	"vc IDE Packages, devdbg_pkg, devdbg.pkg,,2713"					%D				
+579				InstallShared	"vc IDE Packages, devgal_pkg, devgal.pkg,,2713"					%D				
+580				InstallShared	"vc IDE Packages, devhtmx_pkg, devhtmx.pkg,,2713"					%D				
+581				InstallShared	"vc IDE Packages, devncb_pkg, devncb.pkg,,2713"					%D				
+582				InstallShared	"vc IDE Packages, devodl_pkg, devodl.pkg,,2713"					%D				
+583				InstallShared	"vc IDE Packages, devres_pkg, devres.pkg,,2713"					%D				
+584				InstallShared	"vc IDE Packages, devtool_pkg, devtool.pkg,,2713"					%D				
+585				InstallShared	"vc IDE Packages, devxpgl_dll, devxpgl.dll,,2713"					%D				
+586				Depend	"585 ? 587"									
+587		devxpgl.dll		SelfReg	"vc IDE Packages, devxpgl_dll,,,"					%585				
+588				InstallShared	"vc IDE Packages, inetawz_awx, inetawz.awx,,2713"					%D				
+589				InstallShared	"vc IDE Packages, mfcapwz_dll, mfcapwz.dll,,2713"					%D				
+590				InstallShared	"vc IDE Packages, mfctlwz_awx, mfctlwz.awx,,2713"					%D				
+591				InstallShared	"vc IDE Packages, msdev_tip, msdev.tip,,2713"					%D				
+592				InstallShared	"vc IDE Packages, tools_tip, tools.tip,,2713"					%D				
+593				InstallShared	"vc IDE Packages, vcxx_tip, vcxx.tip,,2713"					%D				
+													
+594				CopySection	"VC IDE Packages2"									
+													
+595				Depend	"577 ? 596"									
+596				StampCDInfo	"577,20001, 20000"									
+													
+	=== VC IDE Macro Component (MACROS.ETF) ===													
+													
+601				Group	602 603					%D\Macros				
+602				InstallShared	"vc IDE Macros, sample_dsm, sample.dsm,,2713"					%D				
+603				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""sample.dsm"", ""%s"""					%D				
+													
+	=== VC IDE Help Component (Help.etf) ===													
+													
+611				Group	612 613 					%D\Help				
+612				Group	614 615 616					%D				
+613				Group	617 618 619 623 622 620 621					%D				
+													
+614				InstallShared	"vc IDE Help, exthelp_cnt, exthelp.cnt,,2713"					%D				
+615				InstallShared	"vc IDE Help, exthelp_hlp, exthelp.hlp,,2713"					%D				
+616				InstallShared	"vc IDE Help, msdev_hlp, msdev.hlp,,2713"					%D				
+													
+617				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""exthelp.cnt"", ""%s"""					%D				
+618				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""exthelp.hlp"", ""%s"""					%D				
+619				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""msdev.hlp"", ""%s"""					%D				
+620				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Help;msdev_gid"					%D
+621				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Help;exthelp_gid"					%D
+													
+622				CustomAction	"COMMON98.DLL,CheckRegKey,""LOCAL,Software\Microsoft\DevStudio\6.0\Help\Extension"""									
+623				Depend	622 ? : 624									
+624				Group	625 626 627					%615				
+625				AddRegData	"""LOCAL"",""Software\Microsoft\DevStudio\6.0\Help\Extension"",""Enable"",""1"",""DWORD"""					%D				
+626				AddRegData	"""LOCAL"",""Software\Microsoft\DevStudio\6.0\Help\Extension"",""Filename"",""%s\exthelp.hlp"""					%D				
+627				AddRegData	"""LOCAL"",""Software\Microsoft\DevStudio\6.0\Help\Extension"",""State"",""0"",""DWORD"""					%D				
+													
+	=== VC IDE Gallery Help Component (GallHelp.etf) ===													
+													
+631				Group	632 633 634					%D				
+													
+632				Group	635 636 637 638 639 640 641  642 643 644 645 646 647 648 649 650 651 652 653 654 655					%D\Bin\IDE				
+633				Group	656 657 658 659 660 661 662  663 664 665 666 667 668 669 670 671 672 673 674 675 676					%D\Bin\IDE				
+634				Group	677 678 679 680 681 682 683 684 685 686 687 688 689 690 691 692 693 694 695 696 697					%D\Bin\IDE
+													
+635				InstallShared	"vc IDE Gallery Help, cawutil_hlp, cawutil.hlp,,2713"					%D				
+636				InstallShared	"vc IDE Gallery Help, clipasst_hlp, clipasst.hlp,,2713"					%D				
+637				InstallShared	"vc IDE Gallery Help, ctip_hlp, ctip.hlp,,2713"					%D				
+638				InstallShared	"vc IDE Gallery Help, dlgbar_hlp, dlgbar.hlp,,2713"					%D				
+639				InstallShared	"vc IDE Gallery Help, docreg_hlp, docreg.hlp,,2713"					%D				
+640				InstallShared	"vc IDE Gallery Help, guidgen_hlp, guidgen.hlp,,2713"					%D				
+641				InstallShared	"vc IDE Gallery Help, idle_hlp, idle.hlp,,2713"					%D				
+642				InstallShared	"vc IDE Gallery Help, mapicomp_hlp, mapicomp.hlp,,2713"					%D				
+643				InstallShared	"vc IDE Gallery Help, media_hlp, media.hlp,,2713"					%D				
+644				InstallShared	"vc IDE Gallery Help, occ_hlp, occ.hlp,,2713"					%D				
+645				InstallShared	"vc IDE Gallery Help, owndraw_hlp, owndraw.hlp,,2713"					%D				
+646				InstallShared	"vc IDE Gallery Help, palette_hlp, palette.hlp,,2713"					%D				
+647				InstallShared	"vc IDE Gallery Help, popup_hlp, popup.hlp,,2713"					%D				
+648				InstallShared	"vc IDE Gallery Help, progdlg_hlp, progdlg.hlp,,2713"					%D				
+649				InstallShared	"vc IDE Gallery Help, propsht_hlp, propsht.hlp,,2713"					%D				
+650				InstallShared	"vc IDE Gallery Help, sockets_hlp, sockets.hlp,,2713"					%D				
+651				InstallShared	"vc IDE Gallery Help, splash_hlp, splash.hlp,,2713"					%D				
+652				InstallShared	"vc IDE Gallery Help, splitter_hlp, splitter.hlp,,2713"					%D				
+653				InstallShared	"vc IDE Gallery Help, statbar_hlp, statbar.hlp,,2713"					%D				
+654				InstallShared	"vc IDE Gallery Help, sysinfo_hlp, sysinfo.hlp,,2713"					%D				
+655				InstallShared	"vc IDE Gallery Help, tooltips_hlp, tooltips.hlp,,2713"					%D				
+													
+656				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""cawutil.hlp"", ""%s"""					%D				
+657				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""clipasst.hlp"", ""%s"""					%D				
+658				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""ctip.hlp"", ""%s"""					%D				
+659				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""dlgbar.hlp"", ""%s"""					%D				
+660				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""docreg.hlp"", ""%s"""					%D				
+661				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""guidgen.hlp"", ""%s"""					%D				
+662				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""idle.hlp"", ""%s"""					%D				
+663				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""mapicomp.hlp"", ""%s"""					%D				
+664				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""media.hlp"", ""%s"""					%D				
+665				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""occ.hlp"", ""%s"""					%D				
+666				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""owndraw.hlp"", ""%s"""					%D				
+667				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""palette.hlp"", ""%s"""					%D				
+668				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""popup.hlp"", ""%s"""					%D				
+669				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""progdlg.hlp"", ""%s"""					%D				
+670				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""propsht.hlp"", ""%s"""					%D				
+671				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""sockets.hlp"", ""%s"""					%D				
+672				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""splash.hlp"", ""%s"""					%D				
+673				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""splitter.hlp"", ""%s"""					%D				
+674				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""statbar.hlp"", ""%s"""					%D				
+675				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""sysinfo.hlp"", ""%s"""					%D				
+676				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""tooltips.hlp"", ""%s"""					%D				
+677				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;cawutil_gid"					%635														
+678				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;clipasst_gid"					%657														
+679				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;ctip_gid"					%637														
+680				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;dlgbar_gid"					%638														
+681				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;docreg_gid"					%639														
+682				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;guidgen_gid"					%640														
+683				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;idle_gid"					%641														
+684				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;mapicomp_gid"					%642														
+685				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;media_gid"					%643														
+686				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;occ_gid"					%644														
+687				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;owndraw_gid"					%645														
+688				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;palette_gid"					%646														
+689				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;popup_gid"					%647														
+690				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;progdlg_gid"					%648														
+691				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;propsht_gid"					%649														
+692				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;sockets_gid"					%650														
+693				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;splash_gid"					%651														
+694				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;splitter_gid"					%652														
+695				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;statbar_gid"					%653														
+696				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;sysinfo_gid"					%654														
+697				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc IDE Gallery Help RemoveOnly;tooltips_gid"					%655														
+													
+	=== Gallery VC IDE Components (Gallery.etf) ===													
+													
+701				Group	702 703 704 705 706 707 708 709 710 711 712 713 714 715 716 717 718 719 720 721 722 723 745					%D\Bin\IDE				
+													
+702				InstallShared	"vc IDE Gallery, cawutil_dll, cawutil.dll,,2713"					%D				
+703				InstallShared	"vc IDE Gallery, clipasst_dll, clipasst.dll,,2713"					%D				
+704				InstallShared	"vc IDE Gallery, ctip_dll, ctip.dll,,2713"					%D				
+705				InstallShared	"vc IDE Gallery, dlgbar_dll, dlgbar.dll,,2713"					%D				
+706				InstallShared	"vc IDE Gallery, docreg_dll, docreg.dll,,2713"					%D				
+707				InstallShared	"vc IDE Gallery, guidgen_dll, guidgen.dll,,2713"					%D				
+708				InstallShared	"vc IDE Gallery, idle_dll, idle.dll,,2713"					%D				
+709				InstallShared	"vc IDE Gallery, mapicomp_dll, mapicomp.dll,,2713"					%D				
+710				InstallShared	"vc IDE Gallery, media_dll, media.dll,,2713"					%D				
+711				InstallShared	"vc IDE Gallery, occ_dll, occ.dll,,2713"					%D				
+712				InstallShared	"vc IDE Gallery, owndraw_dll, owndraw.dll,,2713"					%D				
+713				InstallShared	"vc IDE Gallery, palette_dll, palette.dll,,2713"					%D				
+714				InstallShared	"vc IDE Gallery, popup_dll, popup.dll,,2713"					%D				
+715				InstallShared	"vc IDE Gallery, progdlg_dll, progdlg.dll,,2713"					%D				
+716				InstallShared	"vc IDE Gallery, propsht_dll, propsht.dll,,2713"					%D				
+717				InstallShared	"vc IDE Gallery, sockets_dll, sockets.dll,,2713"					%D				
+718				InstallShared	"vc IDE Gallery, splash_dll, splash.dll,,2713"					%D				
+719				InstallShared	"vc IDE Gallery, splitter_dll, splitter.dll,,2713"					%D				
+720				InstallShared	"vc IDE Gallery, statbar_dll, statbar.dll,,2713"					%D				
+721				InstallShared	"vc IDE Gallery, sysinfo_dll, sysinfo.dll,,2713"					%D				
+722				InstallShared	"vc IDE Gallery, tooltips_dll, tooltips.dll,,2713"					%D				
+													
+723				Group	724 725 726 727 728 729 730 731 732 733 734 735 736 737 738 739 740 741 742 743 744 									
+													
+724		cawutil.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,cawutil_dll,3"""					%702				
+725		clipasst.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,clipasst_dll,3"""					%703				
+726		ctip.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,ctip_dll,3"""					%704				
+727		dlgbar.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,dlgbar_dll,3"""					%705				
+728		docreg.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,docreg_dll,3"""					%706				
+729		guidgen.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,guidgen_dll,3"""					%707				
+730		idle.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,idle_dll,3"""					%708				
+731		mapicomp.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,mapicomp_dll,3"""					%709				
+732		media.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,media_dll,3"""					%710				
+733		occ.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,occ_dll,3"""					%711				
+734		owndraw.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,owndraw_dll,3"""					%712				
+735		palette.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,palette_dll,3"""					%713				
+736		popup.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,popup_dll,3"""					%714				
+737		progdlg.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,progdlg_dll,3"""					%715				
+738		propsht.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,propsht_dll,3"""					%716				
+739		sockets.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,sockets_dll,3"""					%717				
+740		splash.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,splash_dll,3"""					%718				
+741		splitter.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,splitter_dll,3"""					%719				
+742		statbar.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,statbar_dll,3"""					%720				
+743		sysinfo.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,sysinfo_dll,3"""					%721				
+744		tooltips.dll		CustomAction	"COMMON98.DLL,RegisterFile,""vc IDE Gallery,tooltips_dll,3"""					%722				
+													
+745				CreateDir	"Gallery"					%6\MSDev98																							
+													
+	=== VC SQL Debugger SelfReg(sqldbgsr.etf) ===													
+										
+751				Group	752 753					%6\MSDev98\Bin 				
+													
+752				CopyFile	"VC SQL debugger Self Reg,nsodbc_dll"					%d				
+													
+753		nsodbc.dll		SelfReg	"VC SQL debugger Self Reg,nsodbc_dll,,,"					%752				
+													
+	=== vc DelayImp Lib (dimplib.etf)========													
+													
+761				CopyFile	"Delay Imp Lib Section,delayimp_lib_1"					%294\Lib				
+													
+	=== vc DelayImp Includes (dimpincl.etf)========													
+													
+771				CopySection	"Delay Imp Includes Section"					%294\Include				
+													
+	Updates reg values(bldtlreg.etf)													
+													
+781				Group	782					%294				
+													
+782				Depend	"30? 783"									
+783				Depend	"335 ? 784 785"									
+													
+784				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;include;%s\include"					%D				
+785				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;lib;%s\lib"					%D				
+													
+	=== win32sdk Build Tools(sdkbuild.etf) ===													
+													
+791				Group	792 793 794 801					%294				
+792				CopySection	"win32sdk build tools"				   	%d\Bin 				
+													
+793				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""mc.hlp"", ""%s"", """" "					%792				
+													
+794				CustomAction	"COMMON98.DLL,RemoveAuxFile,win32sdk build tools RemoveOnly;mc_gid"					%792					
+													
+ 
+ 
+==== Win32 SDK General Build Tools component (sdkbldg.etf) ======
+ 
+801				Group	802					%6\Tools				
+802				InstallShared	"win32sdk general build tools,guidgen_exe,guidgen.exe,,2713"					%D				
+ 
+ 
+													
+	=== VC Utils (vcutils.etf) ===													
+													
+811				Group	812					%294				
+812				CopySection	"VC - Utilities"					%d\Bin 				
+													
+	=== VC Compiler Components (vccompil.etf)===													
+													
+821				Group	822 823 824  825 					%294\Bin 				
+822				CopySection	"VC - Compiler Back End"									
+823				CopySection	"VC - Compiler Front End"									
+													
+824				AddRegData	"LOCAL,SOFTWARE\Microsoft\VisualStudio\6.0\Setup,VSCommonDir,%s,"					%6				
+													
+825				CustomAction	"COMMON98.DLL,MakeSetVarBat,%s\vcvars32.bat"					%294\Bin				
+													
+	=== VC Help compiler Components (helptool.etf)===													
+													
+831				Group	832 833 834 835 836 837 838 839 840 841 842 843 846 844 845					%6\Tools				
+													
+832				InstallShared	"VC - Help Tools, hcrtf_exe,hcrtf.exe,,2713"					%d				
+833				InstallShared	"VC - Help Tools, hcw_cnt,hcw.cnt,,2713"					%d				
+834				InstallShared	"VC - Help Tools, hcw_exe,hcw.exe,,2713"					%d				
+835				InstallShared	"VC - Help Tools, hcw_hlp,hcw.hlp,,2713"					%d				
+836				InstallShared	"VC - Help Tools, hwdll_dll,hwdll.dll,,2713"					%d				
+837				InstallShared	"VC - Help Tools, makehm_exe,makehm.exe,,2713"					%d				
+838				InstallShared	"VC - Help Tools, mrbc_exe,mrbc.exe,,2713"					%d				
+839				InstallShared	"VC - Help Tools, shed_exe,shed.exe,,2713"					%d				
+840				InstallShared	"VC - Help Tools, shed_hlp,shed.hlp,,2713"					%d				
+													
+841				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""hcw.cnt"", ""%s"", """" "					%833				
+842				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""hcw.hlp"", ""%s"", """" "					%835				
+843				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""shed.hlp"", ""%s"", """" "					%840				
+844				CustomAction	"COMMON98.DLL,RemoveAuxFile,VC - Help Tools;hcw_gid_1"					%835
+845				CustomAction	"COMMON98.DLL,RemoveAuxFile,VC - Help Tools;shed_gid_1"					%840
+													
+846				Depend	"834 ? 847"									
+847				InstallShortcut	"%834\%F834, helpwrks<Help Workshop>, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+	=== VC Resource Compiler (rescomp.etf)===													
+													
+851				Group	852 853 854					%6\MSDev98				
+													
+852				CopySection	"VC - Resource Compiler"					%d\Bin				
+													
+853				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""rc.hlp"", ""%s"", """" "					%852				
+854				CustomAction	"COMMON98.DLL,RemoveAuxFile,VC - Resource Compiler RemoveOnly;rc_gid"					%852
+														
+	Installs the VC CRT OS Debug (crtosdbg.etf)													
+													
+861				Group	862 863 864									
+862				CopyFile	"Vc Crt OS Debug,msvcirtd_dll"					%M				
+863				CopyFile	"Vc Crt OS Debug,msvcrtd_dll"					%M				
+864				CopyFile	"Vc Crt OS Debug,msvcp50d_dll"					%M				
+													
+	====VC CRT Static Single Thread Symbols (statstsy.etf) ===========													
+													
+871				Group	872									
+872				CopySection	"CRT Stat Sin Thrd Sym"					%D\Lib				
+													
+	====VC CRT Shared Symbols (shrsym.etf) ===========													
+													
+881				Group	882									
+882				CopySection	"CRT Shr Sym"					%M				
+													
+	====VC CRT Static Single Thread Libs (statstlb.etf) ===========													
+													
+891				Group	892									
+892				CopySection	"CRT Stat Sin Trd Lib"					%D\Lib				
+													
+	====VC CRT Static Libs (statlib.etf) ===========													
+													
+901				Group	902									
+902				CopySection	"CRT Stat Lib"					%D\Lib				
+													
+	====VC CRT Sources Intel xst_lib (sintxst.etf) ===========													
+													
+911				Group	912 913 914									
+912				CopySection	"CRT Src Int xst_lib1"					%D\CRT\SRC\Intel\XSt_lib				
+913				CopySection	"CRT Src Int xst_lib2"					%D\CRT\SRC\Intel\XSt_lib				
+914				CopySection	"CRT Src Int xst_lib3"					%D\CRT\SRC\Intel\XSt_lib				
+													
+	====VC CRT Sources Intel xmt_lib (sintxmt.etf) ===========													
+													
+921				Group	922 923 924									
+922				CopySection	"CRT Src Int xmt_lib1"					%D\CRT\SRC\Intel\XMt_lib				
+923				CopySection	"CRT Src Int xmt_lib2"					%D\CRT\SRC\Intel\XMt_lib				
+924				CopySection	"CRT Src Int xmt_lib3"					%D\CRT\SRC\Intel\XMt_lib				
+													
+	====VC CRT Sources Intel xdll_lib (sintxdll.etf) ===========													
+													
+931				Group	932 933 934									
+932				CopySection	"CRT Src Int xdll_lib1"					%D\CRT\SRC\Intel\XDll_lib				
+933				CopySection	"CRT Src Int xdll_lib2"					%D\CRT\SRC\Intel\XDll_lib				
+934				CopySection	"CRT Src Int xdll_lib3"					%D\CRT\SRC\Intel\XDll_lib				
+													
+	====VC CRT Sources Intel st_lib (sintst.etf) ===========													
+													
+941				Group	942 943 944									
+942				CopySection	"CRT Src Int st_lib1"					%D\CRT\SRC\Intel\St_lib				
+943				CopySection	"CRT Src Int st_lib2"					%D\CRT\SRC\Intel\St_lib				
+944				CopySection	"CRT Src Int st_lib3"					%D\CRT\SRC\Intel\St_lib				
+													
+	====VC CRT Sources Intel MT_Lib (sintmt.dll) =============													
+													
+951				Group	952 953 954									
+952				CopySection	"Src Int MT Lib1"					%D\CRT\SRC\Intel\Mt_lib				
+953				CopySection	"Src Int MT Lib2"					%D\CRT\SRC\Intel\Mt_lib				
+954				CopySection	"Src Int MT Lib3"					%D\CRT\SRC\Intel\Mt_lib				
+													
+	===== VC CRT Sources Intel DLL_LIB (sintdll.etf)===== 													
+													
+961				Group	962 963 964 965 									
+962				CopySection	"Src Int Dll Lib1"					%D\CRT\SRC\Intel\Dll_lib				
+963				CopySection	"Src Int Dll Lib2"					%D\CRT\SRC\Intel\Dll_lib				
+964				CopySection	"Src Int Dll Lib3"					%D\CRT\SRC\Intel\Dll_lib				
+965				CopySection	"Src Int Dll Lib4"					%D\CRT\SRC\Intel\Dll_lib				
+													
+	====== Installs VC CRT Sources Common (srccmn.etf )=======													
+													
+971				Group	972 973 974 975 976 977 978 979 980 981 982 983 984 985 986 987 988 989 990 991 992 993 994 995 996 997 998 999 1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 									
+972				CopySection	"VC CRT SRC Common1"					%D\CRT\SRC				
+973				CopySection	"VC CRT SRC Common2"					%D\CRT\SRC				
+974				CopySection	"VC CRT SRC Common3"					%D\CRT\SRC				
+975				CopySection	"VC CRT SRC Common4"					%D\CRT\SRC				
+976				CopySection	"VC CRT SRC Common5"					%D\CRT\SRC				
+977				CopySection	"VC CRT SRC Common6"					%D\CRT\SRC				
+978				CopySection	"VC CRT SRC Common7"					%D\CRT\SRC				
+979				CopySection	"VC CRT SRC Common8"					%D\CRT\SRC				
+980				CopySection	"VC CRT SRC Common9"					%D\CRT\SRC				
+981				CopySection	"VC CRT SRC Common10"					%D\CRT\SRC				
+982				CopySection	"VC CRT SRC Common11"					%D\CRT\SRC				
+983				CopySection	"VC CRT SRC Common12"					%D\CRT\SRC				
+984				CopySection	"VC CRT SRC Common13"					%D\CRT\SRC				
+985				CopySection	"VC CRT SRC Common14"					%D\CRT\SRC				
+986				CopySection	"VC CRT SRC Common15"					%D\CRT\SRC				
+987				CopySection	"VC CRT SRC Common16"					%D\CRT\SRC				
+988				CopySection	"VC CRT SRC Common17"					%D\CRT\SRC				
+989				CopySection	"VC CRT SRC Common18"					%D\CRT\SRC				
+990				CopySection	"VC CRT SRC Common19"					%D\CRT\SRC				
+991				CopySection	"VC CRT SRC Common20"					%D\CRT\SRC				
+992				CopySection	"VC CRT SRC Common21"					%D\CRT\SRC				
+993				CopySection	"VC CRT SRC Common22"					%D\CRT\SRC				
+994				CopySection	"VC CRT SRC Common23"					%D\CRT\SRC				
+995				CopySection	"VC CRT SRC Common24"					%D\CRT\SRC				
+996				CopySection	"VC CRT SRC Common25"					%D\CRT\SRC				
+997				CopySection	"VC CRT SRC Common26"					%D\CRT\SRC				
+998				CopySection	"VC CRT SRC Common27"					%D\CRT\SRC				
+999				CopySection	"VC CRT SRC Common28"					%D\CRT\SRC				
+1000				CopySection	"VC CRT SRC Common29"					%D\CRT\SRC				
+1001				CopySection	"VC CRT SRC Common30"					%D\CRT\SRC				
+1002				CopySection	"VC CRT SRC Common31"					%D\CRT\SRC				
+1003				CopySection	"VC CRT SRC Common32"					%D\CRT\SRC				
+1004				CopySection	"VC CRT SRC Common33"					%D\CRT\SRC				
+1005				CopySection	"VC CRT SRC Common34"					%D\CRT\SRC				
+1006				CopySection	"VC CRT SRC Common35"					%D\CRT\SRC				
+1007				CopySection	"VC CRT SRC Common36"					%D\CRT\SRC				
+1008				CopySection	"VC CRT SRC Common37"					%D\CRT\SRC				
+1009				CopySection	"VC CRT SRC Common38"					%D\CRT\SRC				
+													
+	======Installs component VC CRT Shared Libs (shrlib.etf )======													
+													
+1011				Group	1012									
+1012				CopySection	"Shr Lib Copy"					%D\Lib				
+													
+	=======Installs component VC CRT Sources Sys (sourcsys.etf)========													
+													
+1021				Group	1022					%D\CRT\SRC\SYS				
+1022				CopySection	"crt sourc system"									
+													
+	 ===== VC CRT Static Symbols (statsym.etf) ======													
+1031				Group	1032									
+1032				CopySection	"CRT Stat Sym"					%D\Lib				
+													
+	=====Installs component VC CRT Sys Headers(syshead.etf)=======													
+1041				Group	1042									
+1042				CopySection	"CRT Sys Head"					%D\Include\SYS				
+													
+	====VC CRT OS Retail(C++) (crtoscpp.etf) ======													
+													
+1051				Group	1052									
+1052				InstallShared	"MSVCP60 DLL SYS,msvcp60_dll,msvcp60.dll,,2713"					%M				
+													
+	===== Installs component VC CRT Headers (crthead.etf)====													
+1061				Group	1062 1063 1064 1065 1066 1067									
+													
+1062				CopySection	"vc crt header1"					%d\Include				
+1063				CopySection	"vc crt header2"					%d\Include				
+1064				CopySection	"vc crt header3"					%d\Include				
+1065				CopySection	"vc crt header4"					%d\Include				
+1066				CopySection	"vc crt header5"					%d\Include				
+1067				CopySection	"vc crt header6"					%d\Include				
+													
+	=== VC CRT Sources Intel Components(crtsourc.etf) ===													
+1071				Group	1072 1073					%d\CRT\SRC\Intel 				
+1072				CopySection 	"Vc CRT Sources Intel 1"									
+1073				CopySection 	"Vc CRT Sources Intel 2"									
+													
+	=====Installs component VC CRT OBJs (vccrtobj.etf) ============													
+													
+1081				Group	1082									
+													
+1082				CopySection	"VC Crt Obj"					%d\Lib				
+													
+1091				CopySection	"vc Headers Section"					%D\Include				
+													
+1101				CopySection	"vc Libraries Section"					%D\Lib				
+													
+	====makes reg entries for MFC(mfcregen.etf)====													
+													
+1111				Group	1112					%294				
+													
+1112				Depend	"30? 1113"									
+1113				Depend	"335 ? 1114 1115"									
+1114				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;include;%s\mfc\include"					%D				
+1115				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;lib;%s\mfc\lib"					%D				
+													
+ 	===== VC MFC IIS Shared Libs component (iisshrlb.etf) ===========													
+													
+1121				Group	1122					%D				
+1122				CopySection	"vc MFC IIS Shr Lib"					%D\MFC\Lib				
+													
+ 	===== VC MFC ANSI Shared Libs (ashrlibs.etf) ===========													
+													
+1131				Group	1132					%D				
+1132				CopySection	"vc MFC Ansi Shared Libs"					%D\MFC\Lib				
+													
+ 	===== VC MFC Unicode Shared Libs (ushrlibs.etf) ===========													
+													
+1141				Group	1142					%D				
+1142				CopySection	"vc MFC Unicode Shared Libs"					%D\MFC\Lib				
+													
+comment :	=====vc MFC Os Unicode Retail (unirtail.etf)========													
+													
+1151				Group	1152									
+													
+1152				InstallSysFile	"VC MFC OS Unicode Retail,mfc42u_dll"									
+													
+	=== VC MFC OS Ansi SharedSymbols Component (ashrlbsy.etf)===													
+													
+1161				Group	1162					%d 			 	
+													
+1162				CopySection	"VC - MFC OS Ansi Shared Lib Symbols"					%M				
+													
+	=== vc MFC Unicode Shared Lib Symb (ushrlbsy.etf) ===													
+													
+1171				Group	1172					%M			 	
+1172				CopySection	"VC MFC OS Uni Shr Lib Symbol"									
+													
+ 														
+													
+ 														
+	=== VC MFC OS Ansi Debug (vcansdbg.etf)===													
+													
+1181				Group	1182 1183					%M				
+													
+1182				CopySection	"VC - MFC - Ansi - Debug"					%M				
+1183				InstallShared	"VC MFC Ansi Debug Shared,mfc42d_dll, mfc42d.dll,,2713"					%M														
+													
+	=== VC MFC OS Unicode Debug (vcunidbg.etf)===													
+													
+1191				Group	1192 1193 1194 1195 					%M				
+													
+1192				CopyFile	"VC - MFC - Unicode - Debug, mfc42ud_dll"					%M				
+1193				CopyFile	"VC - MFC - Unicode - Debug, mfcd42ud_dll"					%M				
+1194				CopyFile	"VC - MFC - Unicode - Debug, mfcn42ud_dll"					%M				
+1195				CopyFile	"VC - MFC - Unicode - Debug, mfco42ud_dll"					%M				
+													
+	==== VC MFC Sources CHS component (mfcsrkor.etf) ======													
+													
+1201				Group	1202					%D				
+1202				CopySection	"VC-MFC-SRC-KOR"					%D\MFC\SRC\l.kor				
+													
+	==== VC MFC Sources CHS component (mfcsrjpn.etf) ======													
+													
+1211				Group	1212					%D				
+1212				CopySection	"VC-MFC-SRC-JPN"					%D\MFC\SRC\l.jpn				
+													
+	==== VC MFC Sources CHS component (mfcsrita.etf) ======													
+													
+1221				Group	1222					%D				
+1222				CopySection	"VC-MFC-SRC-ITA"					%D\MFC\SRC\l.ita				
+													
+	==== VC MFC Sources CHS component (mfcsrfra.etf) ======													
+													
+1231				Group	1232					%D				
+1232				CopySection	"VC-MFC-SRC-FRA"					%D\MFC\SRC\l.fra				
+													
+	==== VC MFC Sources CHS component (mfcsresp.etf) ======													
+													
+1241				Group	1242					%D				
+1242				CopySection	"VC-MFC-SRC-ESP"					%D\MFC\SRC\l.esp				
+													
+	==== VC MFC Sources CHS component (mfcsrdeu.etf) ======													
+													
+1251				Group	1252					%D				
+1252				CopySection	"VC-MFC-SRC-DEU"					%D\MFC\SRC\l.deu				
+													
+	==== VC MFC Sources CHS component (mfcsrcht.etf) ======													
+													
+1261				Group	1262					%D				
+1262				CopySection	"VC-MFC-SRC-CHT"					%D\MFC\SRC\l.cht				
+													
+	==== VC MFC Sources CHS component (mfcsrchs.etf) ======													
+													
+1271				Group	1272					%D				
+1272				CopySection	"VC-MFC-SRC-CHS"					%D\MFC\SRC\l.chs				
+													
+	==== VC MFC Resources KOR component (mfcrekor.etf) ======													
+													
+1281				Group	1282					%D				
+1282				CopySection	"VC-MFC-RESKOR"					%D\MFC\Include\l.kor				
+													
+	==== VC MFC Resources JPN component (mfcrejpn.etf) ======													
+													
+1291				Group	1292					%D				
+1292				CopySection	"VC-MFC-RESJPN"					%D\MFC\Include\l.jpn				
+													
+	==== VC MFC Resources ITA component (mfcreita.etf) ======													
+													
+1301				Group	1302					%D				
+1302				CopySection	"VC-MFC-RESITA"					%D\MFC\Include\l.ita				
+													
+	==== VC MFC Resources FRA component (mfcrefra.etf) ======													
+													
+1311				Group	1312					%D				
+1312				CopySection	"VC-MFC-RESFRA"					%D\MFC\Include\l.fra				
+													
+	==== VC MFC Resources ESP component (mfcreesp.etf) ======													
+													
+1321				Group	1322					%D				
+1322				CopySection	"VC-MFC-RESESP"					%D\MFC\Include\l.esp				
+													
+	==== VC MFC Resources DEU component (mfcredeu.etf) ======													
+													
+1331				Group	1332					%D				
+1332				CopySection	"VC-MFC-RESDEU"					%D\MFC\Include\l.deu				
+													
+	==== VC MFC Resources CHT component (mfcrecht.etf) ======													
+													
+1341				Group	1342					%D				
+1342				CopySection	"VC-MFC-RESCHT"					%D\MFC\Include\l.cht				
+													
+	==== VC MFC Resources CHS component (mfcrechs.etf) ======													
+													
+1351				Group	1352					%D				
+1352				CopySection	"VC-MFC-RESCHS-CHS"					%D\MFC\Include\l.chs				
+													
+	=== VC MFC Micros ReadMe Component (vcmcRead.etf)===													
+													
+1361				Group	1362					%d 			 	
+													
+1362				CopyFile	"VC - MFC Micros ReadMe , readme_txt_1"					%d\Macros				
+													
+	=== VC MFC Source Intel Components (srcintel.etf)===													
+													
+1371				Group	1372					%d 			 	
+													
+1372				CopySection	"VC - MFC Source Intel"					%d\MFC\SRC\Intel				
+													
+	=== VC MFC Source Alpha Components (srcalpha.etf)===													
+													
+1381				Group	1382					%d 			 	
+													
+1382				CopySection	"VC - MFC Source Alpha"					%d\MFC\SRC\Alpha				
+													
+	==== VC MFC header(vcmfchdr.etf) ======													
+													
+1391				Group	1392 1393 1394 1395					%D				
+1392				CopySection	"VC-MFC-Header1"					%D\MFC\Include				
+1393				CopySection	"VC-MFC-Header2"					%D\MFC\Include				
+1394				CopySection	"VC-MFC-Header3"					%D\MFC\Include				
+1395				CopySection	"VC-MFC-Header4"					%D\MFC\Include				
+													
+	==== VC MFC Browser component (vcmfcbsr.etf) ======													
+													
+1401				Group	1402					%D				
+1402				CopyFile	"VC-MFC-Browser,mfc_bsc"					%D\MFC\SRC				
+													
+	=== VC MFC Include Resource Component (inclres.etf)===													
+													
+1411				Group	1412					%d 			 	
+													
+1412				CopySection	"VC - MFC Include Resource"					%d\MFC\Include\Res				
+													
+	=== VC MFC Source Components (mfcsourc.etf)===													
+													
+1421				Group	1422 1423 1424 1425 1426 1427 1428 1429 1430 1431 1432 1433 1434 1435					%d\MFC\SRC				
+													
+1422				CopySection	"VC - MFC Sources 1"					%d				
+1423				CopySection	"VC - MFC Sources 2"					%d				
+1424				CopySection	"VC - MFC Sources 3"					%d				
+1425				CopySection	"VC - MFC Sources 4"					%d				
+1426				CopySection	"VC - MFC Sources 5"					%d				
+1427				CopySection	"VC - MFC Sources 6"					%d				
+1428				CopySection	"VC - MFC Sources 7"					%d				
+1429				CopySection	"VC - MFC Sources 8"					%d				
+1430				CopySection	"VC - MFC Sources 9"					%d				
+1431				CopySection	"VC - MFC Sources 10"					%d				
+1432				CopySection	"VC - MFC Sources 11"					%d				
+1433				CopySection	"VC - MFC Sources 12"					%d				
+1434				CopySection	"VC - MFC Sources 13"					%d				
+1435				CopySection	"VC - MFC Sources 14"					%d				
+													
+ 	==makes reg entries when ATL components are installed (atlregen.etf) =====													
+													
+1441				Group	1442					%294				
+													
+1442				Depend	"30? 1443"									
+1443				Depend	"335 ? 1444"									
+1444				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;include;%s\atl\include"					%D				
+	==== VC ATL COMMON HEADERS (ATLCMNHD.ETF) ======													
+													
+1451				Group	1452					%D				
+1452				CopySection	"VC-ATL-COMMON-HDR"					%D\ATL\Include				
+													
+	=== VC ATL LIB Components  (atllib.etf)===													
+													
+1461				Group	1462			 						
+													
+1462				CopyFile	"VC - ATL LIB, atl_lib"					%d\Lib				
+													
+	=== VC ATL Source Components (atlsourc.etf)===													
+													
+1471				Group	1472					%d\ATL\SRC				
+1472				CopySection	"VC - ATL source"									
+													
+	=== VC ATL Header Components (atlhead.etf)===													
+													
+1481				Group	1482					%d\ATL\Include				
+1482				CopySection	"VC - ATL Header"									
+													
+	=== Data Access Object (dao350.etf) ===											
+1491				Group	1492 1493 1494							
+1492				InstallShared	"DAO,dao350_dll,dao350.dll,,2713"					%H\DAO		
+1493				InstallShared	"DAO,dao2535_tlb,dao2535.tlb,,2713"					%1492		
+1494				Depend	"1492?1495 1496 1497 1498 1499 1500 1501 1502 1503"							
+1495		dao350.dll		SelfReg	"DAO,dao350_dll,,, "					%1492		
+1496				AddRegData	"""CLASSES"",""Licenses\F4FC596D-DFFE-11CF-9551-00AA00A3DC45"","""",""mbmabptebkjcdlgtjmskjwtsdhjbmkmwtrak"","""""							
+1497				CopyFile	"DAO,dao35_hlp"					%W\Help		
+1498				CopyFile	"DAO,dao35_cnt"					%W\Help		
+1499				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,dao35.hlp,%s,"					%1497		
+1500				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,dao35.cnt,%s,"					%1498		
+1501				CustomAction	"COMMON98.DLL, RemoveAuxFile, DAO;dao35_ftg"							
+1502				CustomAction	"COMMON98.DLL, RemoveAuxFile, DAO;dao35_fts"							
+1503				CustomAction	"COMMON98.DLL, RemoveAuxFile, DAO;dao35_gid"							
+											
+	=== VC Templates Readme file(vctrdme.etf) ===													
+													
+1511				Group	1512  					%d				
+													
+1512				CopyFile	"VC - Template - Readme, readme_txt_3"					%D\Template				
+													
+	=== VC Readme file (vcreadme.etf) ===													
+													
+1521				Group	1522 					%d				
+													
+1522				CopyFile	"VC - Addins - Readme, readme_txt"					%D\AddIns				
+													
+===SDK Fixes(VCSDKFIX.ETF)===
+1531				Group	1532 1533					%294
+1532				CopySection	"vc SDK Fixes Section"					%D\Include
+1533				CopySection	"vc SDK Fixes Section Lib"					%D\Lib
+													
+	==File Associations (vcfileas.etf) ===													
+1541				Group	1542 1565 1558									
+													
+1542				Group	1543 1544 1545 1546 1547 1548 1549 1550 1551 1552 1553 1554 1555					%503				
+													
+1543				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".odl;odlfile;YES;ALWAYS;&Open with MSDev;-20213;msdev;system;Object Definition Language file;""""%s\msdev.exe,<"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1544				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".idl;idlfile;YES;ALWAYS;&Open with MSDev;-20213;msdev;system;IDL file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1545				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".mdp;mdpfile;YES;ALWAYS;&Open with MSDev;-20213;msdev;system;MDP file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1546				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".dsw;dswfile;YES;ALWAYS;&Open with MSDev;-20214;msdev;system;Project Workspace;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1547				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".dsp;dspfile;YES;ALWAYS;&Open with MSDev;-20214;msdev;system;Project File;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1548				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".rc;rcfile;YES;ALWAYS;&Open with MSDev;-20212;msdev;system;Resource Template;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1549				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".rct;rctfile;YES;ALWAYS;&Open with MSDev;-20212;msdev;system;Resource Template;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1550				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".bsc;bscfile;YES;ALWAYS;&Open with MSDev;-20212;msdev;system;BSC File;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1551				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".dsm;dsmfile;YES;ALWAYS;&Open with MSDev;-20212;msdev;system;DSM File;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1552				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".res;resfile;YES;ALWAYS;&Open with MSDev;-20215;msdev;system;RES File;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1553				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".tlh;tlhfile;YES;ALWAYS;&Open with MSDev;-20215;msdev;system;TLH file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1554				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".tli;tlifile;YES;ALWAYS;&Open with MSDev;-20215;msdev;system;TLI file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+													
+1555				Group	1556 1557									
+1556				AddRegData	"HKEY_CLASSES_ROOT,"".plg"","""",""htmlfile"""									
+1557				AddRegData	"HKEY_CLASSES_ROOT,"".plg"",""Content Type"",""text/html"""									
+													
+1558				Group	1559 1560 1561 1562 1563 1564 									
+													
+1559				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".h;hfile;YES;CONDITIONAL;&Open with MSDev;-20211;msdev;system;C Header file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1560				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".hxx;hxxfile;YES;CONDITIONAL;&Open with MSDev;-20211;msdev;system;HXX file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1561				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".hpp;hppfile;YES;CONDITIONAL;&Open with MSDev;-20208;msdev;system;HPP file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1562				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".c;cfile;YES;CONDITIONAL;&Open with MSDev;-20210;msdev;system;C Source file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1563				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".cxx;cxxfile;YES;CONDITIONAL;&Open with MSDev;-20210;msdev;system;CXX File;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+1564				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".cpp;cppfile;YES;CONDITIONAL;&Open with MSDev;-20209;msdev;system;C++ Source file;""""%s\msdev.exe"""";%s\msdev.exe;&Open with MSDEV"""					%503				
+													
+1565				Group	 1566 1567  1568 1569 1570 1571 1572									
+1566				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".pdb;pdbfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1567				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".idb;idbfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1568				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".sbr;sbrfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1569				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".obj;objfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1570				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".pch;pchfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1571				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".ilk;ilkfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Intermediate file;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+1572				CustomAction	"COMMON98.DLL,FileAssociateCAH,"".tlb;tlbfile;YES;NOL;&Open with MSDev;-20215;msdev;system;Type Library;""""%s\msdev.exe"""";%s\msdev.exe;NOTHING"""					%503				
+													
+	======= nt imagehelp (ntimghlp.etf)======= 													
+													
+1581				InstallSysFile	"NT Image Help Section,imagehlp_dll"					%M				
+													
+		=====win32sdk headers (Open GL) (opnglhdr.etf)======
+1591				Group	1592					%D
+1592				CopySection	"win32sdk Headers OpenGL Section"					%D\Include\GL
+	====win32sdk Headers(sdkhdr.etf) ======													
+													
+1601				Group	1602 1617									
+1602				Group	1603 1604 1605 1606 1607 1608 1609 1610 1611 1612 1613 1614 1615 1616 					%D				
+1603				CopySection	"WIN32 SDK Headers1"					%D\Include				
+1604				CopySection	"WIN32 SDK Headers2"					%D\Include				
+1605				CopySection	"WIN32 SDK Headers3"					%D\Include				
+1606				CopySection	"WIN32 SDK Headers4"					%D\Include				
+1607				CopySection	"WIN32 SDK Headers5"					%D\Include				
+1608				CopySection	"WIN32 SDK Headers6"					%D\Include				
+1609				CopySection	"WIN32 SDK Headers7"					%D\Include				
+1610				CopySection	"WIN32 SDK Headers8"					%D\Include				
+1611				CopySection	"WIN32 SDK Headers9"					%D\Include				
+1612				CopySection	"WIN32 SDK Headers10"					%D\Include				
+1613				CopySection	"WIN32 SDK Headers11"					%D\Include				
+1614				CopySection	"WIN32 SDK Headers12"					%D\Include				
+1615				CopySection	"WIN32 SDK Headers13"					%D\Include				
+1616				CopySection	"WIN32 SDK Headers14"					%D\Include				
+													
+1617				Group	1618 1619 1620 1621 1622 1623 1624 1625 1626 1627 1628 1629 1630 1631 1632 1633 1634 1635 1636 1637					%D				
+													
+1618				CopySection	"WIN32 SDK Headers15"					%D\Include				
+1619				CopySection	"WIN32 SDK Headers16"					%D\Include				
+1620				CopySection	"WIN32 SDK Headers17"					%D\Include				
+1621				CopySection	"WIN32 SDK Headers18"					%D\Include				
+1622				CopySection	"WIN32 SDK Headers19"					%D\Include				
+1623				CopySection	"WIN32 SDK Headers20"					%D\Include				
+1624				CopySection	"WIN32 SDK Headers21"					%D\Include				
+1625				CopySection	"WIN32 SDK Headers22"					%D\Include				
+1626				CopySection	"WIN32 SDK Headers23"					%D\Include				
+1627				CopySection	"WIN32 SDK Headers24"					%D\Include				
+1628				CopySection	"WIN32 SDK Headers25"					%D\Include				
+1629				CopySection	"WIN32 SDK Headers26"					%D\Include				
+1630				CopySection	"WIN32 SDK Headers27"					%D\Include				
+1631				CopySection	"WIN32 SDK Headers28"					%D\Include				
+1632				CopySection	"WIN32 SDK Headers29"					%D\Include				
+1633				CopySection	"WIN32 SDK Headers30"					%D\Include				
+1634				CopySection	"WIN32 SDK Headers31"					%D\Include				
+1635				CopySection	"WIN32 SDK Headers32"					%D\Include				
+1636				CopySection	"WIN32 SDK Headers33"					%D\Include				
+1637				CopySection	"WIN32 SDK Headers34"					%D\Include				
+													
+														                     
+														                      
+														                       
+														                       
+														                       
+														                      
+														                      
+														                     
+														                     
+														                    
+														                    
+														                    
+														                     
+														                   
+														                     
+														                        
+														                     
+													
+														                       
+														                        
+														                        
+														                       
+														                       
+														                       
+														                       
+														                       
+														                       
+														                     
+														                      
+														                     
+														                     
+														                      
+														                     
+														                     
+														                   
+														                      
+														                      
+														                     
+													
+														                       
+														                      
+														                      
+														                       
+														                     
+														                     
+														                     
+														                   
+														                       
+														                      
+														                     
+														                   
+														                   
+														                     
+														                           
+														                         
+														                   
+														                        
+														                      
+														                       
+													
+														                      
+														                        
+														                   
+														                       
+														                       
+														                       
+														                       
+														                       
+														                   
+														                        
+														                      
+														                      
+														                      
+														                     
+														                      
+														                       
+														                      
+														                        
+														                      
+														                        
+														                      
+													
+														                    
+														                     
+														                      
+														                       
+														                      
+														                     
+														                   
+														                      
+														                      
+														                          
+														                      
+														                       
+														                      
+														                     
+														                       
+														                     
+														                      
+														                     
+														                    
+														                      
+													
+														                     
+														                      
+														                   
+														                    
+														                    
+														                     
+														                     
+														                      
+														                     
+														                     
+														                     
+														                     
+														                      
+														                     
+														                     
+														                   
+														                       
+														                          
+														                       
+														                        
+														                     
+													
+														                      
+														                     
+														                          
+														                      
+														                        
+														                     
+														                     
+														                     
+														                     
+														                     
+														                        
+														                     
+														                         
+														                      
+														                     
+														                      
+														                     
+														                      
+														                     
+														                       
+														                          
+													
+														                          
+														                         
+														                        
+														                     
+														                        
+														                      
+														                     
+														                   
+														                    
+														                      
+														                      
+														                     
+														                       
+														                     
+														                      
+														                       
+														                     
+														                       
+														                         
+														                       
+													
+														                     
+														                     
+														                        
+														                      
+														                      
+														                     
+														                       
+														                     
+														                   
+														                       
+														                     
+														                      
+														                      
+														                           
+														                     
+														                      
+														                     
+														                        
+														                          
+														                       
+														                      
+														                      
+														                       
+														                     
+													
+														                          
+														                       
+														                       
+														                      
+														                     
+														                     
+														                      
+														                      
+														                       
+														                       
+														                     
+														                     
+														                     
+														                     
+														                     
+														                      
+														                     
+														                       
+														                       
+														                      
+													
+														                        
+														                       
+														                       
+														                     
+														                     
+														                      
+														                      
+														                      
+														                     
+														                     
+														                       
+														                     
+														                     
+														                     
+														                   
+														                       
+														                      
+														                   
+														                          
+														                       
+														                        
+													
+														                      
+														                     
+														                     
+														                     
+														                        
+														                   
+														                      
+														                       
+														                     
+														                       
+														                      
+														                      
+														                    
+														                        
+														                      
+														                     
+														                      
+														                     
+													
+														                      
+														                    
+														                        
+														                         
+														                    
+														                          
+														                      
+														                          
+														                     
+														                      
+														                         
+														                      
+														                      
+														                      
+														                    
+														                        
+														                      
+														                     
+														                          
+														                     
+														                          
+														                   
+													
+														                      
+														                      
+														                    
+														                       
+														                     
+														                      
+														                     
+														                     
+														                     
+														                     
+														                      
+														                     
+														                     
+														                       
+														                     
+														                       
+														                      
+														                      
+														                      
+														                         
+														                      
+														                     
+														                     
+														                           
+														                      
+														                     
+														                         
+													
+														                    
+														                           
+														                     
+														                      
+														                     
+														                         
+														                      
+														                     
+														                      
+														                     
+														                       
+														                        
+														                        
+														                     
+														                        
+														                     
+														                       
+														                     
+														                      
+														                      
+														                      
+														                        
+														                        
+													
+														                     
+														                      
+														                     
+														                   
+														                        
+														                        
+														                     
+														                       
+														                         
+														                     
+														                      
+														                     
+														                     
+														                     
+														                     
+														                      
+														                      
+														                      
+														                     
+														                     
+														                      
+														                     
+														                      
+														                       
+														                        
+														                      
+														                      
+														                       
+														                          
+													
+														                     
+														                       
+														                        
+														                         
+														                     
+														                      
+														                       
+														                     
+														                   
+														                        
+														                      
+														                          
+														                        
+														                        
+														                     
+														                   
+														                     
+														                      
+														                      
+														                     
+														                     
+														                     
+														                       
+														                     
+														                           
+														                        
+														                        
+														                   
+													
+														                     
+														                       
+														                     
+														                     
+														                       
+														                     
+														                       
+														                     
+														                      
+														                     
+														                         
+														                      
+														                     
+														                     
+														                     
+														                   
+														                       
+														                     
+														                          
+														                     
+														                        
+														                        
+														                      
+														                     
+														                     
+														                       
+													
+														                     
+														                       
+														                         
+														                      
+														                        
+														                      
+														                     
+														                     
+														                     
+														                       
+														                     
+														                          
+														                     
+														                     
+														                      
+														                        
+														                      
+														                       
+														                     
+														                     
+														                          
+														                     
+														                    
+														                     
+														                       
+														                         
+														                      
+														                      
+														                       
+													
+														                      
+														                       
+														                       
+														                      
+														                     
+														                     
+														                       
+														                    
+														                        
+														                      
+														                      
+														                     
+														                     
+														                       
+														                     
+														                      
+														                    
+														                        
+														                      
+														                       
+														                     
+														                       
+														                      
+														                   
+														                          
+														                      
+													
+														                          
+														                         
+														                      
+														                       
+														                      
+														                       
+														                     
+														                    
+														                   
+														                    
+														                   
+														                     
+														                       
+														                       
+														                     
+														                       
+														                     
+														                     
+														                       
+														                          
+														                       
+														                          
+														                       
+														                       
+														                         
+													
+														                       
+														                      
+														                      
+														                    
+														                       
+														                      
+														                   
+														                    
+														                   
+														                   
+														                     
+														                   
+														                      
+														                     
+														                     
+														                        
+														                     
+														                     
+														                     
+														                     
+														                     
+														                          
+														                      
+														                     
+														                        
+														                          
+													
+														                      
+														                       
+														                     
+														                     
+														                      
+														                     
+														                       
+														                      
+														                     
+														                       
+														                     
+														                     
+														                       
+														                         
+														                       
+														                   
+														                      
+														                     
+														                      
+														                     
+														                       
+														                       
+														                     
+														                          
+														                     
+														                       
+													
+														                       
+														                      
+														                       
+														                       
+														                      
+														                     
+														                       
+														                     
+														                       
+														                       
+														                       
+														                          
+														                          
+														                      
+														                      
+														                       
+														                     
+														                   
+														                     
+														                     
+														                   
+														                     
+														                   
+														                     
+														                      
+														                        
+														                     
+														                     
+														                     
+														                   
+													
+														                       
+														                       
+														                       
+														                      
+														                     
+														                       
+														                       
+														                     
+														                   
+														                    
+														                     
+														                      
+														                     
+														                      
+														                       
+														                      
+														                     
+														                   
+														                      
+														                        
+														                        
+														                        
+														                       
+														                      
+														                     
+														                      
+														                       
+													
+														                       
+														                         
+														                      
+														                          
+														                        
+														                       
+														                     
+														                       
+														                     
+														                     
+														                     
+														                        
+														                     
+														                   
+														                   
+														                    
+														                   
+														                     
+														                   
+														                      
+														                         
+														                      
+														                      
+														                    
+														                      
+														                        
+														                     
+														                          
+													
+														                      
+														                     
+														                       
+														                     
+														                     
+														                      
+														                    
+														                      
+														                       
+														                     
+														                     
+														                         
+														                        
+														                        
+														                     
+														                     
+														                         
+														                      
+														                        
+														                       
+														                     
+														                       
+														                         
+													
+														                          
+														                   
+														                      
+														                      
+														                       
+														                     
+														                     
+														                      
+														                        
+														                     
+														                       
+														                     
+														                      
+														                    
+														                     
+														                       
+														                     
+														                       
+														                     
+														                       
+														                        
+														                        
+														                      
+														                      
+														                       
+														                          
+														                       
+														                          
+														                        
+													
+														                      
+														                    
+														                      
+														                          
+														                      
+														                     
+														                     
+														                     
+														                     
+														                       
+														                         
+														                         
+														                     
+														                    
+														                       
+														                          
+														                       
+														                      
+														                      
+														                       
+														                       
+														                       
+														                      
+														                      
+														                     
+														                        
+													
+														                      
+														                      
+														                      
+														                      
+														                       
+														                      
+														                     
+														                       
+														                       
+														                      
+														                     
+														                   
+														                     
+														                       
+														                      
+														                     
+														                      
+														                       
+														                       
+														                     
+														                       
+														                     
+														                        
+														                       
+														                      
+														                       
+														                     
+													
+														                       
+														                     
+														                       
+														                     
+														                      
+														                      
+														                     
+														                     
+														                       
+														                     
+														                      
+														                     
+														                       
+														                       
+														                      
+														                      
+														                      
+														                        
+														                     
+														                     
+														                     
+														                       
+														                        
+														                      
+														                     
+													
+														                        
+														                      
+														                     
+														                      
+														                     
+														                      
+														                       
+														                      
+														                       
+														                     
+														                     
+														                        
+														                      
+														                     
+														                        
+														                         
+														                       
+														                     
+														                           
+														                     
+														                         
+														                      
+														                     
+														                     
+														                      
+														
+														                      
+														                      
+													
+	====WIN32 SDK Libs(sdklibs.etf) ======													
+													
+1641				Group	1642 1643 1644 1645 1646 1647 1648 1649 1650 1651 1652 1653					%D				
+1642				CopySection	"WIN32 SDK Libs1"					%D\Lib				
+1643				CopySection	"WIN32 SDK Libs2"					%D\Lib				
+1644				CopySection	"WIN32 SDK Libs3"					%D\Lib				
+1645				CopySection	"WIN32 SDK Libs4"					%D\Lib				
+1646				CopySection	"WIN32 SDK Libs5"					%D\Lib				
+1647				CopySection	"WIN32 SDK Libs6"					%D\Lib				
+1648				CopySection	"WIN32 SDK Libs7"					%D\Lib				
+1649				CopySection	"WIN32 SDK Libs8"					%D\Lib				
+1650				CopySection	"WIN32 SDK Libs9"					%D\Lib				
+1651				CopySection	"WIN32 SDK Libs10"					%D\Lib				
+1652				CopySection	"WIN32 SDK Libs11"					%D\Lib				
+1653				CopySection	"WIN32 SDK Libs12"					%D\Lib				
+													
+														                     
+														                   
+														                   
+														                       
+														                      
+														                     
+														                     
+														                   
+														                    
+														                   
+														                      
+														                     
+														                        
+														                    
+														                    
+														                    
+														                   
+														                    
+														                     
+														                    
+														                     
+														                   
+														                    
+														                   
+														                   
+														                    
+														                    
+														                   
+														                      
+														                     
+														                      
+														                       
+														                       
+														                     
+														                      
+														                   
+														                     
+														                     
+														                   
+														                      
+														                     
+														                     
+														                     
+														                     
+														                     
+														                      
+														                    
+														                   
+														                     
+														                     
+														                    
+														                     
+														                   
+														                    
+														                     
+														                   
+														                   
+														                    
+														                    
+														                     
+														                   
+														                   
+														                   
+														                    
+														                   
+														                    
+														                   
+														                        
+														                     
+														                   
+														                   
+														                      
+														                      
+														                      
+														                   
+														                      
+														                     
+														                     
+														                   
+														                    
+														                      
+														                      
+														                    
+														                   
+														                      
+														                    
+														                   
+														                     
+														                   
+														                   
+														                     
+														                    
+														                       
+														                       
+														                     
+														                    
+														                    
+														                   
+														                   
+														                    
+														                        
+														                    
+														                        
+														                     
+														                       
+														                       
+														                    
+														                      
+														                   
+														                   
+														                     
+														                   
+														                   
+														                   
+														                    
+														                    
+														                        
+														                   
+														                   
+														                     
+														                    
+														                   
+														                   
+														                   
+														                     
+														                   
+														                   
+														                    
+														                        
+														                      
+														                    
+														                      
+														                        
+														                    
+														                   
+														                     
+														                      
+														                    
+														                   
+														                   
+														                      
+														                     
+														                   
+														                      
+														                     
+														                   
+														                     
+														                   
+														                 
+														                   
+														                     
+														                        
+														                     
+														                   
+														                     
+														                    
+														                     
+														                   
+														                     
+														                    
+														                     
+														                   
+														                   
+														                     
+														                     
+														                     
+														                   
+														                        
+														                    
+														                    
+														                     
+														                     
+														                   
+														                   
+														                   
+														                   
+														                   
+														                   
+														                   
+														                   
+														                    
+														                    
+														                       
+														                     
+														                     
+														                     
+														                    
+														                    
+														                      
+														                   
+														                   
+														                   
+														                    
+														                     
+														                      
+														                     
+														                       
+														                    
+														                    
+														                     
+														                    
+														                    
+														                        
+														                   
+														                     
+														                     
+														                       
+														                       
+														                     
+														                    
+														                      
+														                    
+														                    
+														                    
+														                   
+														                   
+														                   
+														                    
+														                      
+														                   
+														                   
+														                   
+														                   
+														                    
+														                   
+														                    
+														                    
+														                      
+														                     
+														                    
+														                    
+														                        
+														                   
+														                   
+														                    
+													
+	=== VB Runtime (vbruntm.etf)===													
+1661				Group	1662 1663 									
+1662				InstallSysFile	"VB Runtime,msvbvm50_dll"		Vital			%M				
+1663				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""1664"""									
+1664		msvbvm60.dll		CustomAction	"COMMON98.DLL,RegisterFile,""VB Runtime,msvbvm50_dll,2"""					%1662				
+														
+	====MSDN HTML HELP Component (hhelp.etf) ======											
+											
+1671				Group	1672 1673 1674 1676 1681 1682 1683					%D		
+1672				InstallSysFile	"HTML Help,itircl_dll"							
+1673				InstallSysFile	"HTML Help,itss_dll"							
+1674				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""1675"""					%D		
+1675				CopyFile	"HTML Help,hh_exe"					%W		
+											
+1676				Group	1677 1679							
+											
+1677				Depend	1672 ? 1678							
+1678		itircl.dll		SelfReg	"HTML Help,itircl_dll,,"					%1672		
+											
+1679				Depend	1673 ? 1680							
+1680		itss.dll		SelfReg	"HTML Help,itss_dll,,"					%1673		
+1681				Group	1684 1687 1690 1693 1696 1699 1702 1705 1708 1711 1714 1717 1720 1723 1726					%D		
+1682				Group	1729 1732 1735 1738 1741 1744 1747 1750 1753 1756 1759 1762 1765					%D		
+1683				Group	1685 1769					%D		
+1684				CustomAction	"COMMON98.DLL,LangCheckCAH,ARA"									
+1685				Depend	"1684 ? 1686 : 1688"									
+1686				InstallSysFile	"HTML Help, hhctrl_ocx_ara"					%M				
+1687				CustomAction	"COMMON98.DLL,LangCheckCAH,BAS"									
+1688				Depend	"1687 ? 1689 : 1691"									
+1689				InstallSysFile	"HTML Help, hhctrl_ocx_bas"					%M				
+1690				CustomAction	"COMMON98.DLL,LangCheckCAH,CAT"									
+1691				Depend	"1690 ? 1692 : 1694"									
+1692				InstallSysFile	"HTML Help, hhctrl_ocx_cat"					%M				
+1693				CustomAction	"COMMON98.DLL,LangCheckCAH,CHS"									
+1694				Depend	"1693 ? 1695 : 1697"									
+1695				InstallSysFile	"HTML Help, hhctrl_ocx_chs"					%M				
+1696				CustomAction	"COMMON98.DLL,LangCheckCAH,CHT"									
+1697				Depend	"1696 ? 1698 : 1700"									
+1698				InstallSysFile	"HTML Help, hhctrl_ocx_cht"					%M				
+1699				CustomAction	"COMMON98.DLL,LangCheckCAH,CSY"									
+1700				Depend	"1699 ? 1701 : 1703"									
+1701				InstallSysFile	"HTML Help, hhctrl_ocx_csy"					%M				
+1702				CustomAction	"COMMON98.DLL,LangCheckCAH,DAN"									
+1703				Depend	"1702 ? 1704 : 1706"									
+1704				InstallSysFile	"HTML Help, hhctrl_ocx_dan"					%M				
+1705				CustomAction	"COMMON98.DLL,LangCheckCAH,DEU"									
+1706				Depend	"1705 ? 1707 : 1709"									
+1707				InstallSysFile	"HTML Help, hhctrl_ocx_deu"					%M				
+1708				CustomAction	"COMMON98.DLL,LangCheckCAH,ELL"									
+1709				Depend	"1708 ? 1710 : 1712"									
+1710				InstallSysFile	"HTML Help, hhctrl_ocx_ell"					%M				
+1711				CustomAction	"COMMON98.DLL,LangCheckCAH,ENU"									
+1712				Depend	"1711 ? 1713 : 1715"									
+1713				InstallSysFile	"HTML Help, hhctrl_ocx_enu"					%M				
+1714				CustomAction	"COMMON98.DLL,LangCheckCAH,ESP"									
+1715				Depend	"1714 ? 1716 : 1718"									
+1716				InstallSysFile	"HTML Help, hhctrl_ocx_esp"					%M				
+1717				CustomAction	"COMMON98.DLL,LangCheckCAH,FIN"									
+1718				Depend	"1717 ? 1719 : 1721"									
+1719				InstallSysFile	"HTML Help, hhctrl_ocx_fin"					%M				
+1720				CustomAction	"COMMON98.DLL,LangCheckCAH,FRA"									
+1721				Depend	"1720 ? 1722 : 1724"									
+1722				InstallSysFile	"HTML Help, hhctrl_ocx_fra"					%M				
+1723				CustomAction	"COMMON98.DLL,LangCheckCAH,HEB"									
+1724				Depend	"1723 ? 1725 : 1727"									
+1725				InstallSysFile	"HTML Help, hhctrl_ocx_heb"					%M				
+1726				CustomAction	"COMMON98.DLL,LangCheckCAH,HUN"									
+1727				Depend	"1726 ? 1728 : 1730"									
+1728				InstallSysFile	"HTML Help, hhctrl_ocx_hun"					%M				
+1729				CustomAction	"COMMON98.DLL,LangCheckCAH,ITA"									
+1730				Depend	"1729 ? 1731 : 1733"									
+1731				InstallSysFile	"HTML Help, hhctrl_ocx_ita"					%M				
+1732				CustomAction	"COMMON98.DLL,LangCheckCAH,JPN"									
+1733				Depend	"1732 ? 1734 : 1736"									
+1734				InstallSysFile	"HTML Help, hhctrl_ocx_jpn"					%M				
+1735				CustomAction	"COMMON98.DLL,LangCheckCAH,KOR"									
+1736				Depend	"1735 ? 1737 : 1739"									
+1737				InstallSysFile	"HTML Help, hhctrl_ocx_kor"					%M				
+1738				CustomAction	"COMMON98.DLL,LangCheckCAH,NLD"									
+1739				Depend	"1738 ? 1740 : 1742"									
+1740				InstallSysFile	"HTML Help, hhctrl_ocx_nld"					%M				
+1741				CustomAction	"COMMON98.DLL,LangCheckCAH,NOR"									
+1742				Depend	"1741 ? 1743 : 1745"									
+1743				InstallSysFile	"HTML Help, hhctrl_ocx_nor"					%M				
+1744				CustomAction	"COMMON98.DLL,LangCheckCAH,PLK"									
+1745				Depend	"1744 ? 1746 : 1748"									
+1746				InstallSysFile	"HTML Help, hhctrl_ocx_plk"					%M				
+1747				CustomAction	"COMMON98.DLL,LangCheckCAH,PTB"									
+1748				Depend	"1747 ? 1749 : 1751"									
+1749				InstallSysFile	"HTML Help, hhctrl_ocx_ptb"					%M				
+1750				CustomAction	"COMMON98.DLL,LangCheckCAH,PTG"									
+1751				Depend	"1750 ? 1752 : 1754"									
+1752				InstallSysFile	"HTML Help, hhctrl_ocx_ptg"					%M				
+1753				CustomAction	"COMMON98.DLL,LangCheckCAH,RUS"									
+1754				Depend	"1753 ? 1755 : 1757"									
+1755				InstallSysFile	"HTML Help, hhctrl_ocx_rus"					%M				
+1756				CustomAction	"COMMON98.DLL,LangCheckCAH,SKY"									
+1757				Depend	"1756 ? 1758 : 1760"									
+1758				InstallSysFile	"HTML Help, hhctrl_ocx_sky"					%M				
+1759				CustomAction	"COMMON98.DLL,LangCheckCAH,SLV"									
+1760				Depend	"1759 ? 1761 : 1763"									
+1761				InstallSysFile	"HTML Help, hhctrl_ocx_slv"					%M				
+1762				CustomAction	"COMMON98.DLL,LangCheckCAH,SVE"									
+1763				Depend	"1762 ? 1764 : 1766"									
+1764				InstallSysFile	"HTML Help, hhctrl_ocx_sve"					%M				
+1765				CustomAction	"COMMON98.DLL,LangCheckCAH,TRK"									
+1766				Depend	"1765 ? 1767 : 1768"									
+1767				InstallSysFile	"HTML Help, hhctrl_ocx_trk"					%M				
+1768				InstallSysFile	"HTML Help, hhctrl_ocx_enu"					%M				
+1769				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""1770"""					%D		
+1770				CustomAction	"COMMON98.DLL,QuietReg,""%s\hhctrl.ocx"""					%m
+											
+	=== BILLBOARDS === <fn: bboard.etf>													
+													
+1781				Group	1782 1783 1784 									
+													
+1782		bb_vcbok		CustomAction	"bboard.dll,AddBillboard,1125"									
+1783		bb_msdn		CustomAction	"bboard.dll,AddBillboard,6000"									
+1784				CustomAction	"bboard.dll,RemoveFontFiles"					%W				
+													
+ 
+													
+ 
+	=== TOOLS.ETF - tools custom option menu structure (tools.etf) ===													
+													
+	STFWIZ	82												
+1791	yes	Tools	Tools such as the Spy++, Win32 SDK and OLE Development tools.	CustomDlg	1792 1793 1794 1795 1796 1797 					%d				
+													
+	STFWIZ	85												
+1792	Yes	MFC Trace Utilty	Installs a utility application that customizes the kinds of data debug MFC applications emit to the Output Window in the Development Environment.	Group	2341					%d				
+													
+	STFWIZ	86												
+1793	Yes	Spy++	Installs a utility application that allows you to monitor the types of messages an application recieves.	Group	2321					%d				
+													
+	STFWIZ	87												
+1794	Yes	Win32 SDK Tools	Installs an assortment of Win32SDK tools like the OLE Client Test Application, DDE Spy, Process Viewer, etc.	Group	2251 2201					%d				
+													
+	STFWIZ	89												
+1795	Yes	OLE/Com Object Viewer	OLE/Com Object Viewer.	Group	2181					%d				
+													
+	STFWIZ	90												
+1796	Yes	ActiveX Control Test Container	Installs a utility that allows for testing and debugging ActiveX Controls.	Group	2161					%d				
+													
+	STFWIZ	91												
+1797	Yes	VC Error Lookup	Installs a lookup utility that displays comments associated with various error return codes, that are located in the Win32 SDK header files.	Group	2141					%d
+													
+1798				CustomAction 	"COMMON98.DLL, NopCAH"
+													
+	=== VB Controls for Enterprise, Professional & Learning editions (vbeplctl.etf) ===													
+1801				Group	1802 1811  1831 									
+1802				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""1803"""									
+1803				AddRegData	"""CLASSES"",""Licenses"","""",""Licensing: Copying the keys may be a violation of established copyrights."","""""									
+													
+	=== COMDLG32.OCX (vbcomdlg.etf) ===											
+1811				Group	1812 1813  1814 1821							
+1812				InstallShared	"VB COMDLG32,comdlg32_ocx,comdlg32.ocx,,2713"					%M		
+1813				InstallShared	"VB COMDLG32,comdlg32_dep,comdlg32.dep,,2713"					%1812		
+1814				Depend	"1812?1815 1816 1817 1818 1819 1820"							
+1815		comdlg32.ocx		SelfReg	"VB COMDLG32,comdlg32_ocx,,, "					%1812		
+1816				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMDLG32;comdlgd_oca"					%1812		
+1817				CopyFile	"VB COMDLG32,cmdlg98_chi_1"					%W\Help		
+1818				CopyFile	"VB COMDLG32,cmdlg98_chm_1"					%W\Help		
+1819				CopyFile	"VB COMDLG32,cmdialog_srg"					%1812		
+1820				CustomAction	"COMMON98.DLL,RegFile,1819"					%1819		
+1821				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1822 1823"""					%1812		
+1822				CopyFile	"VB COMDLG32,cmdialog_srg"					%1812		
+1823				CustomAction	"COMMON98.DLL,RegFile,1819"					%1819		
+											
+	=== MSFLXGRD.OCX (vbflxgrd.etf) ===											
+1831				Group	1832 1833  1834 1841							
+1832				InstallShared	"VB MSFLXGRD,msflxgrd_ocx,msflxgrd.ocx,,2713"					%M		
+1833				InstallShared	"VB MSFLXGRD,msflxgrd_dep,msflxgrd.dep,,2713"					%1832		
+1834				Depend	"1832?1835 1836 1837 1838 1839 1840"							
+1835		msflxgrd.ocx		SelfReg	"VB MSFLXGRD,msflxgrd_ocx,,, "					%1832		
+1836				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSFLXGRD;msflxgrd_oca"					%1832		
+1837				CopyFile	"VB MSFLXGRD,mshflx98_chi_1"					%W\Help		
+1838				CopyFile	"VB MSFLXGRD,mshflx98_chm_1"					%W\Help		
+1839				CopyFile	"VB MSFLXGRD,vsdbflex_srg_1"					%1832		
+1840				CustomAction	"COMMON98.DLL,RegFile,1839"					%1839		
+1841				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1842 1843"""					%1832		
+1842				CopyFile	"VB MSFLXGRD,vsdbflex_srg_1"					%1832		
+1843				CustomAction	"COMMON98.DLL,RegFile,1839"					%1839		
+											
+	=== VB Controls for ENT & PRO versions (vbepctl.etf) ===													
+1851				Group	1852 1853									
+1852				Group	1861  1901  1921 1941 1961									
+1853				Group	1981 2001    2021 2041 2061									
+													
+	=== COMCT232.OCX (vbcomct2.etf) ===											
+1861				Group	1862 1881							
+1862				Group	1863 1864  1865 1878
+1863				InstallShared	"VB COMCT232,comct232_ocx,comct232.ocx,,2713"					%M		
+1864				InstallShared	"VB COMCT232,comct232_dep,comct232.dep,,2713"					%1863		
+1865				Depend	"1863?1866 1874 1875 1876 1877 2681 2691"							
+1866				Group	1867 1868 1869 1870 1871 1872 1873
+1867				CopyFile	"VB COMCT232,comctl2_hlp"					%W\Help		
+1868				CopyFile	"VB COMCT232,comctl2_cnt"					%W\Help		
+1869				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,comctl2.hlp,%s,"					%1867		
+1870				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,comctl2.cnt,%s,"					%1868		
+1871				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCT232;comctl2_ftg"							
+1872				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCT232;comctl2_fts"							
+1873				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCT232;comctl2_gid"							
+1874		comct232.ocx		SelfReg	"VB COMCT232,comct232_ocx,,, "					%1863		
+1875				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCT232;comct232_oca"					%1863		
+1876				CopyFile	"VB COMCT232,comct232_srg"					%1863		
+1877				CustomAction	"COMMON98.DLL,RegFile,1876"					%1876		
+1878				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1879 1880"""					%1863		
+1879				CopyFile	"VB COMCT232,comct232_srg"					%1863		
+1880				CustomAction	"COMMON98.DLL,RegFile,1876"					%1876		
+											
+1881				Group	1882 1883  1884 1891							
+1882				InstallShared	"VB COMCT232,mscomct2_ocx,mscomct2.ocx,,2713"					%M		
+1883				InstallShared	"VB COMCT232,mscomct2_dep,MSComCt2.dep,,2713"					%1882		
+1884				Depend	"1882?1885 1886 1887 1888 1889 1890"							
+1885		mscomct2.ocx		SelfReg	"VB COMCT232,mscomct2_ocx,,, "					%1882		
+1886				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCT232;mscomct2_oca"					%1882		
+1887				CopyFile	"VB COMCT232,cmctl298_chi_1"					%W\Help		
+1888				CopyFile	"VB COMCT232,cmctl298_chm_1"					%W\Help		
+1889				CopyFile	"VB COMCT232,mscomct2_srg"					%1882		
+1890				CustomAction	"COMMON98.DLL,RegFile,1889"					%1889		
+1891				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1892 1893"""					%1882		
+1892				CopyFile	"VB COMCT232,mscomct2_srg"					%1882		
+1893				CustomAction	"COMMON98.DLL,RegFile,1889"					%1889		
+												
+	=== MSCOMM32.OCX (vbmscomm.etf) ===											
+1901				Group	1902 1903  1904 1911							
+1902				InstallShared	"VB MSCOMM32,mscomm32_ocx,mscomm32.ocx,,2713"					%M		
+1903				InstallShared	"VB MSCOMM32,mscomm32_dep,mscomm32.dep,,2713"					%1902		
+1904				Depend	"1902?1905 1906 1907 1908 1909 1910"							
+1905		mscomm32.ocx		SelfReg	"VB MSCOMM32,mscomm32_ocx,,, "					%1902		
+1906				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSCOMM32;mscomm32_oca"					%1902		
+1907				CopyFile	"VB MSCOMM32,comm98_chi_1"					%W\Help		
+1908				CopyFile	"VB MSCOMM32,comm98_chm_1"					%W\Help		
+1909				CopyFile	"VB MSCOMM32,mscomm_srg"					%1902		
+1910				CustomAction	"COMMON98.DLL,RegFile,1909"					%1909		
+1911				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1912 1913"""					%1902		
+1912				CopyFile	"VB MSCOMM32,mscomm_srg"					%1902		
+1913				CustomAction	"COMMON98.DLL,RegFile,1909"					%1909		
+											
+	=== MSINET.OCX (vbmsinet.etf) ===											
+1921				Group	1922 1923  1924 1931							
+1922				InstallShared	"VB MSINET,msinet_ocx,msinet.ocx,,2713"					%M		
+1923				InstallShared	"VB MSINET,msinet_dep,msinet.dep,,2713"					%1922		
+1924				Depend	"1922?1925 1926 1927 1928 1929 1930"							
+1925		msinet.ocx		SelfReg	"VB MSINET,msinet_ocx,,, "					%1922		
+1926				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSINET;msinet_oca"					%1922		
+1927				CopyFile	"VB MSINET,inet98_ch2"					%W\Help		
+1928				CopyFile	"VB MSINET,inet98_ch1"					%W\Help		
+1929				CopyFile	"VB MSINET,inetctls_srg"					%1922		
+1930				CustomAction	"COMMON98.DLL,RegFile,1929"					%1929		
+1931				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1932 1933"""					%1922		
+1932				CopyFile	"VB MSINET,inetctls_srg"					%1922		
+1933				CustomAction	"COMMON98.DLL,RegFile,1929"					%1929		
+											
+	=== MSMAPI32.OCX (vbmsmapi.etf) ===											
+1941				Group	1942 1943  1944 1951							
+1942				InstallShared	"VB MSMAPI32,msmapi32_ocx,msmapi32.ocx,,2713"					%M		
+1943				InstallShared	"VB MSMAPI32,msmapi32_dep,msmapi32.dep,,2713"					%1942		
+1944				Depend	"1942?1945 1946 1947 1948 1949 1950"							
+1945		msmapi32.ocx		SelfReg	"VB MSMAPI32,msmapi32_ocx,,, "					%1942		
+1946				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSMAPI32;msmapi32_oca"					%1942		
+1947				CopyFile	"VB MSMAPI32,mapi98_ch2"					%W\Help		
+1948				CopyFile	"VB MSMAPI32,mapi98_ch1"					%W\Help		
+1949				CopyFile	"VB MSMAPI32,msmapi_srg"					%1942		
+1950				CustomAction	"COMMON98.DLL,RegFile,1949"					%1949		
+1951				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1952 1953"""					%1942		
+1952				CopyFile	"VB MSMAPI32,msmapi_srg"					%1942		
+1953				CustomAction	"COMMON98.DLL,RegFile,1949"					%1949		
+											
+	=== MSMASK32.OCX (vbmsmask.etf) ===											
+1961				Group	1962 1963  1964 1971							
+1962				InstallShared	"VB MSMASK32,msmask32_ocx,msmask32.ocx,,2713"					%M		
+1963				InstallShared	"VB MSMASK32,msmask32_dep,msmask32.dep,,2713"					%1962		
+1964				Depend	"1962?1965 1966 1967 1968 1969 1970"							
+1965		msmask32.ocx		SelfReg	"VB MSMASK32,msmask32_ocx,,, "					%1962		
+1966				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSMASK32;msmask32_oca"					%1962		
+1967				CopyFile	"VB MSMASK32,masked98_ch2"					%W\Help		
+1968				CopyFile	"VB MSMASK32,masked98_ch1"					%W\Help		
+1969				CopyFile	"VB MSMASK32,msmask_srg"					%1962		
+1970				CustomAction	"COMMON98.DLL,RegFile,1969"					%1969		
+1971				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1972 1973"""					%1962		
+1972				CopyFile	"VB MSMASK32,msmask_srg"					%1962		
+1973				CustomAction	"COMMON98.DLL,RegFile,1969"					%1969		
+											
+	=== MCI32.OCX (vbmci32.etf) ===											
+1981				Group	1982 1983  1984 1991							
+1982				InstallShared	"VB MCI32,mci32_ocx,mci32.ocx,,2713"					%M		
+1983				InstallShared	"VB MCI32,mci32_dep,mci32.dep,,2713"					%1982		
+1984				Depend	"1982?1985 1986 1987 1988 1989 1990"							
+1985		mci32.ocx		SelfReg	"VB MCI32,mci32_ocx,,, "					%1982		
+1986				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MCI32;mci32_oca"					%1982		
+1987				CopyFile	"VB MCI32,mmedia98_chi_1"					%W\Help		
+1988				CopyFile	"VB MCI32,mmedia98_chm_1"					%W\Help		
+1989				CopyFile	"VB MCI32,mci_srg"					%1982		
+1990				CustomAction	"COMMON98.DLL,RegFile,1989"					%1989		
+1991				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""1992 1993"""					%1982		
+1992				CopyFile	"VB MCI32,mci_srg"					%1982		
+1993				CustomAction	"COMMON98.DLL,RegFile,1989"					%1989		
+											
+	=== PICCLP32.OCX (vbpicclp.etf) ===											
+2001				Group	2002 2003  2004 2011							
+2002				InstallShared	"VB PICCLP32,picclp32_ocx,picclp32.ocx,,2713"					%M		
+2003				InstallShared	"VB PICCLP32,picclp32_dep,picclp32.dep,,2713"					%2002		
+2004				Depend	"2002?2005 2006 2007 2008 2009 2010"							
+2005		picclp32.ocx		SelfReg	"VB PICCLP32,picclp32_ocx,,, "					%2002		
+2006				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB PICCLP32;picclp32_oca"					%2002		
+2007				CopyFile	"VB PICCLP32,picclp98_ch2"					%W\Help		
+2008				CopyFile	"VB PICCLP32,picclp98_ch1"					%W\Help		
+2009				CopyFile	"VB PICCLP32,picclip_srg"					%2002		
+2010				CustomAction	"COMMON98.DLL,RegFile,2009"					%2009		
+2011				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2012 2013"""					%2002		
+2012				CopyFile	"VB PICCLP32,picclip_srg"					%2002		
+2013				CustomAction	"COMMON98.DLL,RegFile,2009"					%2009		
+											
+	=== SYSINFO.OCX (vbsysinf.etf) ===											
+2021				Group	2022 2023  2024 2031							
+2022				InstallShared	"VB SYSINFO,sysinfo_ocx,sysinfo.ocx,,2713"					%M		
+2023				InstallShared	"VB SYSINFO,sysinfo_dep,sysinfo.dep,,2713"					%2022		
+2024				Depend	"2022?2025 2026 2027 2028 2029 2030"							
+2025		sysinfo.ocx		SelfReg	"VB SYSINFO,sysinfo_ocx,,, "					%2022		
+2026				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB SYSINFO;sysinfo_oca"					%2022		
+2027				CopyFile	"VB SYSINFO,sysinf98_ch2"					%W\Help		
+2028				CopyFile	"VB SYSINFO,sysinf98_ch1"					%W\Help		
+2029				CopyFile	"VB SYSINFO,sysinfo_srg"					%2022		
+2030				CustomAction	"COMMON98.DLL,RegFile,2029"					%2029		
+2031				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2032 2033"""					%2022		
+2032				CopyFile	"VB SYSINFO,sysinfo_srg"					%2022		
+2033				CustomAction	"COMMON98.DLL,RegFile,2029"					%2029		
+											
+	=== TABCTL32.OCX (vbtabctl.etf) ===											
+2041				Group	2042 2043  2044 2051							
+2042				InstallShared	"VB TABCTL32,tabctl32_ocx,tabctl32.ocx,,2713"					%M		
+2043				InstallShared	"VB TABCTL32,tabctl32_dep,tabctl32.dep,,2713"					%2042		
+2044				Depend	"2042?2045 2046 2047 2048 2049 2050"							
+2045		tabctl32.ocx		SelfReg	"VB TABCTL32,tabctl32_ocx,,, "					%2042		
+2046				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB TABCTL32;tabctl32_oca"					%2042		
+2047				CopyFile	"VB TABCTL32,mstab98_chb"					%W\Help		
+2048				CopyFile	"VB TABCTL32,mstab98_cha"					%W\Help		
+2049				CopyFile	"VB TABCTL32,sstab_srg"					%2042		
+2050				CustomAction	"COMMON98.DLL,RegFile,2049"					%2049		
+2051				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2052 2053"""					%2042		
+2052				CopyFile	"VB TABCTL32,sstab_srg"					%2042		
+2053				CustomAction	"COMMON98.DLL,RegFile,2049"					%2049		
+											
+	=== MSWINSCK.OCX (vbwinsck.etf) ===											
+2061				Group	2062 2063  2064 2071							
+2062				InstallShared	"VB MSWINSCK,mswinsck_ocx,mswinsck.ocx,,2713"					%M		
+2063				InstallShared	"VB MSWINSCK,mswinsck_dep,mswinsck.dep,,2713"					%2062		
+2064				Depend	"2062?2065 2066 2067 2068 2069 2070"							
+2065		mswinsck.ocx		SelfReg	"VB MSWINSCK,mswinsck_ocx,,, "					%2062		
+2066				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB MSWINSCK;mswinsck_oca"					%2062		
+2067				CopyFile	"VB MSWINSCK,mswnsk98_ch2"					%W\Help		
+2068				CopyFile	"VB MSWINSCK,mswnsk98_ch1"					%W\Help		
+2069				CopyFile	"VB MSWINSCK,winsock_srg"					%2062		
+2070				CustomAction	"COMMON98.DLL,RegFile,2069"					%2069		
+2071				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2072 2073"""					%2062		
+2072				CopyFile	"VB MSWINSCK,winsock_srg"					%2062		
+2073				CustomAction	"COMMON98.DLL,RegFile,2069"					%2069		
+											
+	=== VB Controls for all versions (vballctl.etf) ===													
+2081				Group	2082 2091 2101 									
+2082				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2083"""									
+2083				AddRegData	"""CLASSES"",""Licenses"","""",""Licensing: Copying the keys may be a violation of established copyrights."","""""									
+													
+	=== MSSTKPRP.DLL (vbmsstkp.etf) ===											
+2091				Group	2092 2093  							
+2092				InstallSysFile	"VB MSSTKPRP,msstkprp_dll"					%M		
+2093				Depend	"2092?2094"							
+2094		msstkprp.dll		SelfReg	"VB MSSTKPRP,msstkprp_dll,,, "					%2092		
+											
+	=== COMCTL32.OCX (vbcomctl.etf) ===											
+2101				Group	2102 2121							
+2102				Group	2103 2104  2105 2118							
+2103				InstallShared	"VB COMCTL32,comctl32_ocx,comctl32.ocx,,2713"					%M		
+2104				InstallShared	"VB COMCTL32,comctl32_dep,comctl32.dep,,2713"					%2103		
+2105				Depend	"2103?2106 2114 2115 2116 2117 2681 2691"							
+2106				Group	2107 2108 2109 2110 2111 2112 2113
+2107				CopyFile	"VB COMCTL32,comctl1_hlp_1"					%W\Help		
+2108				CopyFile	"VB COMCTL32,comctl1_cnt_1"					%W\Help		
+2109				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,comctl1.hlp,%s,"					%2107		
+2110				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,comctl1.cnt,%s,"					%2108		
+2111				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCTL32;comctl1_ftg"							
+2112				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCTL32;comctl1_fts"							
+2113				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCTL32;comctl1_gid"							
+2114		comctl32.ocx		CustomAction	"COMMON98.DLL,RegisterFile,""VB COMCTL32,comctl32_ocx,3"""					%2103				
+2115				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCTL32;comctl32_oca"					%2103		
+2116				CopyFile	"VB COMCTL32,comctl32_srg"					%2103		
+2117				CustomAction	"COMMON98.DLL,RegFile,2116"					%2116		
+2118				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2119 2120"""					%2103		
+2119				CopyFile	"VB COMCTL32,comctl32_srg"					%2103		
+2120				CustomAction	"COMMON98.DLL,RegFile,2116"					%2116		
+											
+2121				Group	2122 2123  2124 2131							
+2122				InstallShared	"VB COMCTL32,mscomctl_ocx,mscomctl.ocx,,2713"					%M		
+2123				InstallShared	"VB COMCTL32,mscomctl_dep,MSComCtl.dep,,2713"					%2122		
+2124				Depend	"2122?2125 2126 2127 2128 2129 2130"							
+2125		mscomctl.ocx		CustomAction	"COMMON98.DLL,RegisterFile,""VB COMCTL32,mscomctl_ocx,3"""					%2122				
+2126				CustomAction	"COMMON98.DLL, RemoveAuxFile, VB COMCTL32;mscomctl_oca"					%2122		
+2127				CopyFile	"VB COMCTL32,cmctl198_chi_1"					%W\Help		
+2128				CopyFile	"VB COMCTL32,cmctl198_chm_1"					%W\Help		
+2129				CopyFile	"VB COMCTL32,mscomctl_srg"					%2122		
+2130				CustomAction	"COMMON98.DLL,RegFile,2129"					%2129		
+2131				CustomAction	"COMMON98.DLL, NeverRemoveGroup, ""2132 2133"""					%2122		
+2132				CopyFile	"VB COMCTL32,mscomctl_srg"					%2122		
+2133				CustomAction	"COMMON98.DLL,RegFile,2129"					%2129		
+												
+	Installs the vc ErrLook component (errlook.etf)													
+													
+2141	Yes	Error Lookup		Group	2142 2143 2144 2145 2148 2149  2147					%6\Tools				
+													
+2142				InstallShared	"Error Look Section,errlook_exe,errlook.exe,,2713"					%6\Tools				
+2143				InstallShared	"Error Look Section,errlook_hlp,errlook.hlp,,2713"					%6\Tools				
+2144				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""errlook.hlp"", ""%s"", """" "					%2143				
+2145				Depend	"2142 ? 2146"									
+2146				InstallShortcut	"%2142\%F2142,Error Lookup, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+2147				CustomAction	"COMMON98.DLL,RemoveAuxFile,Error Look Section;errlook_gid"					%2143
+													
+2148				CustomAction	"COMMON98.DLL,AddTool,0;0;;Error Loo&kup;1;$ (TargetDir);Error Loo&kup;0;%s\errlook.exe;0;"					%6\Tools				
+2149				Depend	"2142 ? 2150"
+2150				CustomAction	"COMMON98.DLL,RemoveTool,errlook.exe"
+													
+	=== vc TSTCONxx(testcon.etf)===													
+													
+2161	Yes	ActiveX Control Test Container	Installs a utility that allows for testing and debugging ActiveX Controls	Group	2162 2163 2164 2166 2174 2175  2168 2169 2165 2171 2172					%6\Tools			 	
+													
+2162				InstallShared	"vc Test Container,tstcon32_exe,tstcon32.exe,,2713"					%d				
+2163				InstallShared	"vc Test Container,tstcon32_hlp,tstcon32.hlp,,2713"					%d				
+													
+2164				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""tstcon32.hlp"", ""%s"", """" "					%2163				
+2165				CustomAction	"COMMON98.DLL,RemoveAuxFile,vc Test Container;tstcon32_gid"					%2163
+													
+2166				Depend	"2162 ? 2167"									
+2167				InstallShortcut	"%2162\%F2162,ActiveX Control Test Container, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2168				InstallShared	"vc Test Container,tcprops_dll,tcprops.dll,,2713"									
+2169				Depend	"2168 ? 2170"									
+2170		tcprops.dll		SelfReg	"vc Test Container,tcprops_dll,,,"					%2168				
+													
+2171				InstallShared	"vc Test Container,tstcon32_cnt,tstcon32.cnt,,2713"					%D
+2172				Depend	"2171 ? 2173"
+2173				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""tstcon32.cnt"", ""%s"", """" "					%2171	
+2174				CustomAction	"COMMON98.DLL,AddTool,0;0;;Activ&eX Control Test Container;1;$ (TargetDir);Activ&eX Control Test Container;0;%s\tstcon32.exe;0;"					%d				
+2175				Depend	"2162 ? 2176"
+2176				CustomAction	"COMMON98.DLL,RemoveTool,tstcon32.exe"
+													
+ 
+	=== win32sdk OleView (oleview.etf)===													
+													
+2181	Yes	OLE View	OLE common object viewer	Group	2182 2183 2191 2184 2185 					%6\Tools			 	
+													
+2182				InstallShared	"vc OleView Section,oleview_exe,oleview.exe,,2713"					%D				
+2183				InstallShortcut	"%2182\%F2182,OLE View, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2184				CustomAction	"COMMON98.DLL,AddTool,0;0;;OLE/COM Object &Viewer;1;%s;OLE/COM Object &Viewer;0;%s\oleview.exe;0;"					%D				
+2185				Depend	"2182 ? 2186"
+2186				CustomAction	"COMMON98.DLL,RemoveTool,oleview.exe"										
+													
+	===Installs the win32sdk lViewer (iviewer.etf)====													
+													
+ 
+													
+2191				Group	2192 2193					%6\Tools				
+2192				InstallShared	"iviewer Cpy File Section,iviewers_dll,iviewers.dll,,2713"					%D				
+2193				Depend	2192 ? 2194									
+2194		iviewers.dll		SelfReg	"iviewer Cpy File Section,iviewers_dll,,,"					%2192				
+													
+	==== Win32 SDK Tools component (sdktools.etf) ======													
+													
+2201				Group	2202 2203 2204 2205 2213 2215 2217 2219 2212 2206 2231 2207 2208 2209 2210 2211					%D				
+2202				InstallShared	"Win32-SDK-Tools2,irotview_exe,irotview.exe,,2713"					%6\Tools				
+2203				InstallShared	"Win32 SDKTools Shared Section, dfview_exe, dfview.exe,,2713"					%6\Tools				
+2204				InstallShared	"Win32 SDKTools Shared Section, dobjview_exe, dobjview.exe,,2713"					%6\Tools				
+2205				InstallShared	"Win32 SDKTools Shared Section, oletools_hlp, oletools.hlp,,2713"					%6\Tools				
+2206				CustomAction	"COMMON98.DLL,RemoveAuxFile,Win32 SDKTools Shared Section;oletools_gid"					%6\Tools				
+2207				InstallShared	"Win32 SDKTools Shared Section,undname_exe, undname.exe,,2713"					%6\Tools
+2208				InstallShared	"Win32-SDK-Tools2,bind_exe,bind.exe,,2713"					%6\Tools
+2209				InstallShared	"Win32-SDK-Tools2,fontedit_exe,Fontedit.exe,,2713"					%6\Tools
+2210				InstallShared	"Win32-SDK-Tools2,fontedit_hlp,Fontedit.hlp,,2713"					%6\Tools
+2211				CustomAction	"COMMON98.DLL,RemoveAuxFile,Win32-SDK-Tools2;fontedit_gid"					%6\Tools
+								
+2212				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""oletools.hlp"", ""%s"""					%6\Tools
+2213				Depend	"2202 ? 2214"									
+2214				InstallShortcut	"%2202\%F2202,ROT Viewer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2215				Depend	"2203 ? 2216"									
+2216				InstallShortcut	"%2203\%F2203,DocFile Viewer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2217				Depend	"2204 ? 2218"									
+2218				InstallShortcut	"%2204\%F2204,DataObject Viewer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2219				Depend	"2205 ? 2220"									
+2220				InstallShortcut	"%2205\%F2205,OLE Tools, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+ 
+ 
+==== Win32 SDK General Tools component (sdktoolg.etf) ======
+ 
+2231				Group	2232 2233 2234 2235 2236 2237 2238 2239 2240 2241 2242 2243 2245					%D				
+2232				InstallShared	"Win32 SDKTool General, gutils_dll, gutils.dll,,2713"					%6\Tools				
+2233				InstallShared	"Win32 SDKTool General, windiff_exe, windiff.exe,,2713"					%6\Tools				
+2234				InstallShortcut	"%2233\%F2233,Windiff, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+2235				InstallShared	"Win32 SDKTool General, windiff_hlp, windiff.hlp,,2713"					%6\Tools				
+2236				CustomAction	"COMMON98.DLL,RemoveAuxFile,Win32 SDKTool General;windiff_gid"					%6\Tools
+2237				InstallShared	"Win32 SDKTool General,uuidgen_exe,uuidgen.exe,,2713"					%6\Tools				
+2238				InstallShared	"Win32 SDKTool General,depends_exe,depends.exe,,2713"					%6\Tools																													
+2239				InstallShortcut	"%2238\%F2238,Depends, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools	
+2240				InstallShared	"Win32 SDKTool General,depends_hlp,depends.hlp,,2713"					%6\Tools
+2241				InstallShared	"Win32 SDKTool General,depends_cnt,depends.cnt,,2713"					%6\Tools
+2242				CustomAction	"COMMON98.DLL,RemoveAuxFile,Win32 SDKTool General;depends_gid"					%6\Tools
+ 
+2243				Depend	"2238 ? 2244"									
+2244				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""depends.hlp"", ""%s"""					%6\Tools					
+2245				Depend	"2233 ? 2246"									
+2246				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""windiff.hlp"", ""%s"""					%6\Tools					
+ 
+ 
+														
+	====WIN32SDK Tools Win(sdktwin.etf) ======													
+													
+2251				Depend	"28 ? 2252:2277"									
+2252				Group	2263 2253 2254 2255 2256 2257 2258 2259 2260 2261 2262 2265 2267 2269 2271 2273 2275 2264 2301					%6\Tools				
+2253				InstallShared	"WIN32 SDK Tools Win95,aviedit_exe,aviedit.exe,,2713"					%D\Win95				
+2254				InstallShared	"WIN32 SDK Tools Win95,cl32test_exe_1,cl32test.exe_W95,,2713"					%D\Win95				
+2255				InstallShared	"WIN32 SDK Tools Win95,ddespy_exe_1,ddespy.exe_W95,,2713"					%D\Win95				
+2256				InstallShared	"WIN32 SDK Tools Win95,heapwalk_exe,heapwalk.exe,,2713"					%D\Win95				
+2257				InstallShared	"WIN32 SDK Tools Win95,sr32test_exe_1,sr32test.exe_W95,,2713"					%D\Win95				
+2258				InstallShared	"WIN32 SDK Tools Win95,stress_dll,stress.dll,,2713"					%D\Win95				
+2259				InstallShared	"WIN32 SDK Tools Win95,stress_exe,stress.exe,,2713"					%D\Win95				
+2260				InstallShared	"WIN32 SDK Tools Win95,stress_hlp,stress.hlp,,2713"					%D\Win95				
+2261				InstallShared	"WIN32 SDK Tools Win95,stresshk_dll,stresshk.dll,,2713"					%D\Win95				
+2262				InstallShared	"WIN32 SDK Tools Win95,stresslg_dll,stresslg.dll,,2713"					%D\Win95				
+													
+2263				AddRegData	"""LOCAL"",""Software\Microsoft\Windows\Help"",""stress_hlp"",""%s"","""""					%D\Win95				
+2264				CustomAction	"COMMON98.DLL,RemoveAuxFile,WIN32 SDK Tools Win95;stress_gid"					%D\Win95
+													
+2265				Depend	"2253 ? 2266"									
+2266				InstallShortcut	"%2253\%F2253,AVI Editor, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2267				Depend	"2254 ? 2268"									
+2268				InstallShortcut	"%2254\%F2254,OLE Client Test, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2269				Depend	"2255 ? 2270"									
+2270				InstallShortcut	"%2255\%F2255,DDE Spy, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2271				Depend	"2256 ? 2272"									
+2272				InstallShortcut	"%2256\%F2256,Heap Walk Utility, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2273				Depend	"2257 ? 2274"									
+2274				InstallShortcut	"%2257\%F2257,OLE Server Test, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2275				Depend	"2259 ? 2276"									
+2276				InstallShortcut	"%2259\%F2259,Stress Utility, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2277				Group	2278 2282 2283 2284 2285 2287 2311 2289 2301					%6\Tools\WinNT				
+													
+2278				Depend	"294 ? 2279 2280"									
+2279				CustomAction	"COMMON98.DLL,AskSetEnv"
+2280				Depend	"2279 ? 2281"									
+2281				CustomAction	"COMMON98.DLL,AddToReg,HKCU;Environment;path;%s"					%6\Tools\WinNT				
+													
+2282				InstallShared	"WIN32 SDK Tools NT,cl32test_exe,cl32test.exe_NT,,2713"					%D				
+2283				InstallShared	"WIN32 SDK Tools NT,ddespy_exe,ddespy.exe_NT,,2713"					%D				
+2284				InstallShared	"WIN32 SDK Tools NT,sr32test_exe,sr32test.exe_NT,,2713"					%D				
+													
+2285				Depend	"2282 ? 2286"									
+2286				InstallShortcut	"%2282\%F2282,OLE Client Test, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2287				Depend	"2283 ? 2288"									
+2288				InstallShortcut	"%2283\%F2283,DDE Spy, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2289				Depend	"2284 ? 2290"									
+2290				InstallShortcut	"%2284\%F2284,OLE Server Test, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+ 
+ 
+==== Win32 SDK Windows General Tools component (sdktwing.etf) ======
+2301				Group	2305 2306 2302 
+2302				Depend	"28 ? 2303 2304" 
+2303		pview95.exe		InstallShared	"WIN32 SDK Win General Tools,pview95_exe,pview95.exe,,2713"					%6\Tools\Win95				
+2304				InstallShortcut	"%2303\%F2303,Process Viewer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+ 
+2305		zoomin.exe		InstallShared	"WIN32 SDK Win General Tools,zoomin_exe,zoomin.exe,,2713"					%6\Tools				
+2306				InstallShortcut	"%2305\%F2305,Zoomin, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+ 
+ 
+ 
+ 
+==== Win32 SDK NT General Tools component (sdktntg.etf) ======
+ 
+2311				Group	2312 2313 2314					%D				
+2312				InstallShared	"WIN32 SDK NT General Tools,pstat_exe,pstat.exe,,2713"					%D				
+2313				InstallShared	"WIN32 SDK NT General Tools,pview_exe,pview.exe,,2713"					%D				
+2314				InstallShortcut	"%2313\%F2313,Process Viewer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+ 
+ 
+													
+	=== VC SPY Components (file: vcspy.etf) ===													
+													
+2321	Yes	Spy++	Installs a utility application that allows you to monitor the types of messages an application receives.	Group	2322 2323 2324 2325 2326 2327 2329 2332 2333  2331 					%6\Tools				
+													
+2322				InstallShared	"VC - Spy, spyxx_cnt,spyxx.cnt,,2713"	 				%6\Tools				
+2323				InstallShared	"VC - Spy, spyxx_hlp,spyxx.hlp,,2713"	 				%6\Tools				
+2324				InstallShared	"VC - Spy, spyhk50_dll,spyhk55.dll,,2713"	 				%6\Tools				
+2325				InstallShared	"VC - Spy, spyxx_exe,spyxx.exe,,2713"	 				%6\Tools				
+2326				InstallShortcut	"%2325\%F2325, spyshort<Spy++>, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+													
+2327				Depend	"2322 ? 2328"									
+2328				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""spyxx.cnt"", ""%s"", """" "					%2322				
+2329				Depend	"2323 ? 2330"									
+2330				AddRegData	"""LOCAL"", ""Software\Microsoft\Windows\Help"", ""spyxx.hlp"", ""%s"", """" "					%2323				
+2331				CustomAction	"COMMON98.DLL,RemoveAuxFile,VC - Spy;spyxx_gid"					%2323
+													
+2332				CustomAction	"COMMON98.DLL,AddTool,0;0;;S&py++;1;%s;S&py++;0;%s\spyxx.exe;0;"					%d				
+2333				Depend	"2325 ? 2334"
+2334				CustomAction	"COMMON98.DLL,RemoveTool,spyxx.exe"
+													
+	=== vc MFC Tracer(tracer.etf)===													
+													
+2341	Yes	MFC Trace Utility	Installs a utility application that customizes the kinds of data debug MFC applications emit to the Output Window in the Development Environment	Group	2342 2343 2345 2346 					%6\Tools			 	
+													
+2342				InstallShared	"vc Tracer Section,tracer_exe,tracer.exe,,2713"					%d				
+2343				Depend	"2342 ? 2344"									
+2344				InstallShortcut	"%2342\%F2342,Tracer, , , , , "					%27\Microsoft Visual C++ 6.0\Microsoft Visual C++ 6.0 Tools				
+2345				CustomAction	"COMMON98.DLL,AddTool,0;0;;MFC &Tracer;1;%s;MFC &Tracer;0;%s\tracer.exe;0;"					%d				
+2346				Depend	"2342 ? 2347"
+2347				CustomAction	"COMMON98.DLL,RemoveTool,tracer.exe"
+													
+	=== ATL Component (atl.etf) ===
+2351				Group	2352					%d				
+	...copying files (atl.etf)
+2352				Group	2353					%d				
+2353				Depend	"28 ? 2354 2356:2355 2358"							
+2354		atl.dll		InstallShared	"ATL,atl_dll_1,atl.dll,,2713 "					%m		
+2355		atl.dll		InstallShared	"ATL,atl_dll_2,atl.dll,,2713 "					%m		
+2356				Depend	2354 ? 2357							
+2357		atl.dll		SelfReg	"ATL,""atl_dll_1"","""","""","""""					%2354		
+2358				Depend	2355 ? 2359							
+2359		atl.dll		SelfReg	"ATL,""atl_dll_2"","""","""","""""					%2355		
+													
+	=== DA.ETF - dag custom option menu structure (da.etf) ===													
+													
+2361	yes			Group	2364 2365 2367 2368 2369 									
+													
+	==**==VC Lrn (da.etf)==**==													
+	STFWIZ	41												
+2362	yes	Data Access	Data Access Components	OptionDlg	2366 2363 2379									
+													
+	STFWIZ	49												
+2363	yes	Microsoft ODBC Drivers	Drivers to data sources via ODBC	OptionDlg	2364 2365 2372 2373 2374 2375 2376 2377 2378									
+	STFWIZ	53												
+2364	yes	Microsoft SQL Server ODBC Driver	ODBC driver for Microsoft SQL Server databases	Group	2541									
+	STFWIZ	57												
+2365	yes	Microsoft Oracle ODBC Driver	Microsoft's ODBC driver for Oracle databases	Group	2531									
+													
+	STFWIZ	42												
+2366	yes	ADO, RDS, and OLE DB Providers	ADO (ActiveX Data Objects), RDS (Remote Data Services), and OLE DB data providers.	OptionDlg	2367 2368 2369 2370 2371		Vital							 									
+	STFWIZ	43												
+2367	yes	ADO and RDS	ActiveX Data Objects (ADO) and Remote Data Service (RDS) for easy access to data from Visual Basic and the Web	Group	2561 2621		Vital							 									
+	STFWIZ	46												
+2368	yes	Microsoft OLE DB SQL Server Provider	OLE DB Provider for Microsoft SQL Server databases	Group	2611									
+	STFWIZ	47												
+2369	yes	Microsoft OLE DB Oracle Provider	Microsoft OLE DB provider for Oracle databases	Group	2591									
+	STFWIZ	48												
+2370	yes	Microsoft OLE DB Simple Provider (OSP)	Runtime for OSP - build OLE DB providers for simple and tabular data	Group	2581									
+													
+	STFWIZ	45												
+2371	yes	Microsoft OLE DB JET Provider	Microsoft OLE DB JET Provider	Group	2551									
+													
+	STFWIZ	52												
+2372	yes	Microsoft Access ODBC Driver	Microsoft Access ODBC Driver.	Group	2521									
+													
+	STFWIZ	50												
+2373		Microsoft dBase ODBC Driver	Microsoft ODBC Driver for dBase databases	Group	2501									
+	STFWIZ	56												
+2374		Microsoft Excel ODBC Driver	Microsoft ODBC Driver for Excel data sources	Group	2481									
+	STFWIZ	51												
+2375		Microsoft FoxPro ODBC Driver	Microsoft ODBC Driver for FoxPro databases	Group	2471									
+	STFWIZ	58												
+2376	yes	Microsoft Visual FoxPro ODBC Driver	ODBC driver for Microsoft Visual FoxPro databases	Group	2451									
+	STFWIZ	55												
+2377		Microsoft Paradox ODBC Driver	Microsoft's ODBC driver for Paradox databases	Group	2431									
+	STFWIZ	54												
+2378		Microsoft Text ODBC Driver	Microsoft's ODBC driver for Text data sources	Group	2411									
+	STFWIZ	59												
+2379		Jet IISAM Drivers	Drivers to data sources via Microsoft Jet	OptionDlg	2380 2381 2382 2383 2384 2385									
+													
+	STFWIZ	63												
+2380		Jet IISAM Excel Driver	Microsoft Jet IISAM driver for Excel data sources	Group	2491									
+	STFWIZ	61												
+2381		Jet IISAM Exchange Driver	Jet IISAM Exchange Driver, requires that Microsoft Outlook or Exchange already be installed for successful registration to occur.	Group	2401									
+	STFWIZ	65												
+2382		Jet IISAM Lotus 1-2-3 Driver	Microsoft Jet IISAM driver for Lotus 1-2-3 data sources	Group	2391									
+	STFWIZ	62												
+2383		Jet IISAM Paradox Driver	Microsoft Jet IISAM driver for Paradox databases 	Group	2441									
+	STFWIZ	64												
+2384		Jet IISAM Text Driver	Microsoft Jet IISAM driver for Text data sources	Group	2421									
+	STFWIZ	60												
+2385		Jet IISAM XBase Driver	Microsoft Jet IISAM driver for XBase databases	Group	2511									
+													
+2386				CustomAction 	"COMMON98.DLL, NopCAH"
+													
+ 
+ 
+ 
+ 
+ 
+ 
+													
+	=== dag Jet IISAM Lotus Driver (jetlotus.etf) ===													
+													
+2391				Group	2392 2393					%M				
+													
+2392				InstallSysFile	"DAG Jet IISAM Lotus, msltus35_dll"					%M				
+2393				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2394"""									
+2394		msltus35.dll		SelfReg	"DAG Jet IISAM Lotus, msltus35_dll"					%2392				
+													
+	=== dag Jet IISAM Exchange Driver (jetexchg.etf) ===													
+													
+2401				Group	2402 2403					%M				
+													
+2402				InstallSysFile	"DAG Jet IISAM Exchange,msexch35_dll"					%M				
+2403		msexch35.dll		CustomAction	"COMMON98.DLL,SyncEXECalloutCAH,""%m\regsvr32 /s """"%s\msexch35.dll"""""""					%2402				
+													
+	=== dag Text ODBC Driver (odbctext.etf) ===													
+													
+2411			Microsoft Text Driver	Group	2421 2412 2413					%M				
+													
+2412				InstallSysFile	"dag Text ODBC Driver,odtext32_dll_1"					%M				
+2413				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA Text					%M				
+													
+	=== dag Jet IISAM Text Driver (jettext.etf) ===													
+													
+2421				Group	2422 2423					%M				
+													
+2422				InstallSysFile	"DAG Jet IISAM Text, mstext35_dll"					%M				
+2423				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2424"""									
+2424		mstext35.dll		SelfReg	"DAG Jet IISAM Text, mstext35_dll"					%2422				
+													
+	=== dag Paradox ODBC Driver (odbcpdox.etf)===													
+													
+2431			Microsoft Paradox Driver	Group	2441 2432 2433					%M				
+													
+2432				InstallSysFile	"dag Paradox ODBC Driver,odpdx32_dll_1"					%M				
+2433				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA Paradox					%M				
+													
+	=== dag Jet IISAM Paradox Driver (jetpdox.etf) ===													
+													
+2441				Group	2442 2443					%M				
+													
+2442				InstallSysFile	"DAG Jet IISAM Paradox, mspdox35_dll"					%M				
+2443				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2444"""									
+2444		mspdox35.dll		SelfReg	"DAG Jet IISAM Paradox, mspdox35_dll"					%2442				
+													
+	=== VFP ODBC Driver (odbcvfp.etf)===													
+													
+2451			Microsoft Visual FoxPro Driver	Group	2452 2457 2458 2459 2460 2461 2462					%M				
+2452				Group	2453 2454 2455					%M				
+2453				InstallSysFile	"DA Visual Foxpro, vfpodbc_dll"					%M				
+2454				CustomAction	"odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA Visual FoxPro:Y"									
+2455				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2456"""									
+2456				CustomAction	"odbcstf.dll,AcmeConfigDataSource,odbckey.inf:ADD:Microsoft Visual FoxPro Driver:DSN=Visual FoxPro Database|SourceDB=|SourceType=DBC||"					%2453				
+2457				InstallSysFile	"DA Visual Foxpro, vfpodbc_txt"					%M				
+2458				InstallSysFile	"DA Visual Foxpro, drvvfp_hlp_1"					%M				
+2459				InstallSysFile	"DA Visual Foxpro, drvvfp_cnt_1"					%M				
+2460				CustomAction	"COMMON98.DLL, RemoveAuxFile, DA Visual Foxpro;drvvfp_gid"									
+2461				CustomAction	"COMMON98.DLL, RemoveAuxFile, DA Visual Foxpro;drvvfp_ftg"									
+2462				CustomAction	"COMMON98.DLL, RemoveAuxFile, DA Visual Foxpro;drvvfp_fts"									
+											
+	=== dag FoxPro ODBC Driver (odbcfox.etf)===													
+													
+2471			Microsoft FoxPro Driver	Group	2511 2472 2473					%M				
+													
+2472				InstallSysFile	"dag FoxPro ODBC Driver,odfox32_dll_1"					%M				
+2473				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA FoxPro					%M				
+													
+	=== dag Excel ODBC Driver (odbcxls.etf) ===													
+													
+2481			Microsoft Excel Driver	Group	2491 2482 2483					%M				
+													
+2482				InstallSysFile	"dag Excel ODBC Driver,odexl32_dll_1"					%M				
+2483				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:da Excel					%M				
+													
+	=== dag Jet IISAM Excel Driver (jetexcel.etf) ===													
+													
+2491				Group	2492 2493					%M				
+													
+2492				InstallSysFile	"DAG Jet IISAM Excel,msexcl35_dll"					%M				
+2493				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2494"""									
+2494		msexcl35.dll		SelfReg	"DAG Jet IISAM Excel, msexcl35_dll"					%2492				
+													
+	=== dag dBase ODBC Driver (odbcdbse.etf)===													
+													
+2501			Microsoft dBase Driver	Group	2511 2502 2503					%M				
+													
+2502				InstallSysFile	"dag dBase ODBC Driver,oddbse32_dll_1"					%M				
+2503				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA dBase					%M				
+													
+	=== dag Jet IISAM XBase Driver (jetxbse.etf) ===													
+													
+2511				Group	2512 2513					%M				
+													
+2512				InstallSysFile	"DAG Jet IISAM XBase, msxbse35_dll"					%M				
+2513				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2514"""									
+2514		msxbse35.dll		SelfReg	"DAG Jet IISAM XBase, msxbse35_dll"					%2512				
+													
+	=== dag Text ODBC Driver (odbcaccs.etf)===													
+													
+2521			Microsoft Access Driver	CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:DA Access					%M				
+													
+	=== dag ODBC Oracle Driver (odbcorc.etf)===
+													
+2531				Group	2601 2532 2533 2535 2536 2537					%M				
+2532				InstallSysFile	"dag ODBC Oracle Driver,msorcl20_dll"					%M				
+2533				Depend	2532 ? 2534									
+2534		msorcl32.dll		SelfReg	"dag ODBC Oracle Driver,msorcl20_dll"					%M				
+													
+2535				InstallSysFile	"dag ODBC Oracle Driver,msorcl32_hlp"					%M				
+2536				InstallSysFile	"dag ODBC Oracle Driver,msorcl32_cnt"					%M				
+2537				InstallSysFile	"dag ODBC Oracle Driver,msorcl32_txt"					%M				
+													
+	=== dag ODBC SQL Server Driver (odbcsql.etf) ===													
+													
+2541				Group	2542					%M				
+													
+2542			Microsoft SQL Server Driver	Group	2543 2544 2545 2546 2547 2548					%M				
+2543				InstallSysFile	"dag ODBC SQL Driver,sqlsrv32_dll"					%M				
+2544				CustomAction	odbcstf.dll,AcmeInstallDriver,odbckey.inf:SQL Server Driver					%M				
+													
+2545				InstallSysFile	"dag ODBC SQL Driver,odbcbcp_dll"					%M				
+2546				InstallSysFile	"dag ODBC SQL Driver,windbver_exe"					%M				
+2547				InstallSysFile	"dag ODBC SQL Driver,sqlsodbc_hlp"					%M				
+2548				InstallSysFile	"dag ODBC SQL Driver,sqlsrdme_txt"					%M				
+													
+	=== dag Jolt (jolt.etf) ===
+2551				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2552 2553 2554 2555 2556"""					%8\system\ole db				
+													
+2552				CopyFile	"dag Jolt, msjtor35_dll"					%2551				
+2553				CopyFile	"dag Jolt, msjt4jlt_dll"					%M				
+2554				CopyFile	"dag Jolt, joltread_txt"					%2551				
+2555		msjt4jlt.dll		SelfReg	"dag Jolt, msjt4jlt_dll"					%2553				
+2556		msjtor35.dll		SelfReg	"dag Jolt, msjtor35_dll"					%2552				
+											
+	=== dag ADO (ado.etf) ===													
+													
+2561				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2562 2563 2564 2565 2566 2567 2568 2569 2570 2571 2572 2573 2574 2575 2576"""					%8\system\ado				
+													
+2562				CopyFile	"dag ADO,msader15_dll"					%2561				
+													
+2563				CopyFile	"dag ADO,msado15_dll"					%2561				
+													
+2564				CopyFile	"dag ADO,msador15_dll"					%2561				
+													
+2565				CopyFile	"dag ADO,msadrh15_dll"					%2561				
+													
+2566				CopyFile	"dag ADO,adofre15_reg"					%2561				
+2567				CopyFile	"dag ADO,adoapt15_reg"					%2561				
+													
+2568				CopyFile	"dag ADO,readme_txt_13"					%2561				
+2569				CopyFile	"dag ADO,adojavas_inc"					%2561				
+2570				CopyFile	"dag ADO,adovbs_inc"					%2561				
+													
+2571				CopyFile	"dag ADO,makapt15_bat"					%2561				
+2572				CopyFile	"dag ADO,makfre_bat"					%2561				
+													
+2573				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\DataAccess,Version,2.0.0"					%2561				
+													
+2574		msador15.dll		SelfReg	"dag ADO,msador15_dll,,,"					%2564				
+2575		msadrh15.dll		SelfReg	"dag ADO,msadrh15_dll,,,"					%2565				
+2576		msado15.dll		SelfReg	"dag ADO,msado15_dll,,,"					%2563				
+													
+	=== dag OLEDB Simple Provider (oledbsp.etf)===													
+													
+2581				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2582 2583 2584 2585"""					%8\system\ole db				
+													
+2582				CopyFile	"dag OLEDB Simple Provider,msdaosp_dll"					%2581				
+2583		msdaosp.dll		SelfReg	"dag OLEDB Simple Provider,msdaosp_dll"					%2582				
+													
+2584				CopyFile	"dag OLEDB Simple Provider,simpdata_tlb"					%M				
+2585				CustomAction	"COMMON98.DLL,RegisterTypeLibrary,""dag OLEDB Simple Provider;simpdata_tlb"""					%2584		
+														
+	=== dag OLEDB Oracle Provider (oledborc.etf)===													
+													
+2591				Group	2601 2592					%8\system\ole db				
+													
+2592				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2593 2594 2595"""					%2591				
+2593				CopyFile	"dag OLEDB Oracle Provider,msdaora_dll"					%2591				
+2594		msdaora.dll		SelfReg	"dag OLEDB Oracle Provider,msdaora_dll"					%2593				
+													
+2595				CopyFile	"dag OLEDB Oracle Provider,oraoledb_txt"					%2591				
+													
+	=== dag MTS Runtimes (dagmts.etf)===
+											
+2601				Group	2602					%M				
+2602				InstallSysFile	"dag MTS,mtxoci_dll"					%M				
+													
+	=== dag OLEDB SQL Provider (oledbsql.etf)===													
+													
+2611				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2612 2613 2614 2615 2616 2617 2618 2619"""					%8\system\ole db				
+													
+2612				CopyFile	"dag OLEDB SQL Server Provider,sqloledb_dll"					%2611				
+2613		SQLOLEDB.DLL		SelfReg	"dag OLEDB SQL Server Provider,sqloledb_dll"					%2612				
+													
+2614				CopyFile	"dag OLEDB SQL Server Provider,dbmsshrn_dll"					%M				
+2615				CopyFile	"dag OLEDB SQL Server Provider,sqlsoldb_hlp"					%2611				
+2616				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag OLEDB SQL Server Provider;sqlsoldb_gid"									
+2617				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag OLEDB SQL Server Provider;sqlsoldb_ftg"									
+2618				CustomAction	"COMMON98.DLL, RemoveAuxFile, dag OLEDB SQL Server Provider;sqlsoldb_fts"									
+2619				CopyFile	"dag OLEDB SQL Server Provider,sqloledb_txt"					%2611				
+													
+	=== dag ADC (adc.etf) ===													
+ 														
+2621				Group	2622 2630 2653 					%8\system\msadc				
+ 														
+	=== dag ADC Server (adc.etf) ===													
+ 														
+2622				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2623 2624 2625 2626 2627 2628 2629"""					%8\system\msadc				
+													
+2623				CopyFile	"dag ADC Server,adcjavas_inc"					%2622				
+													
+2624				CopyFile	"dag ADC Server,adcvbs_inc_1"					%2622				
+													
+2625				CopyFile	"dag ADC Server,msadcf_dll"					%2622				
+2626		msadcf.dll		SelfReg	"dag ADC Server,msadcf_dll"					%2625				
+													
+2627				CopyFile	"dag ADC Server,msadcs_dll"					%2622				
+													
+2628				CopyFile	"dag ADC Server,msadds_dll"					%2622				
+2629		msadds.dll		SelfReg	"dag ADC Server,msadds_dll"					%2628				
+													
+	=== dag ADC Client (adc.etf) ===													
+2630				Group	2631 2632					%8\system\msadc				
+2631				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2633 2634 2635 2636 2637 2638 2639 2640 2641"""					%8\system\msadc				
+2632				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""2642 2643 2644 2645 2646 2647 2648 2649 2650 2651 2652"""					%8\system\msadc				
+													
+2633				CopyFile	"dag ADC Client,msadce_dll"					%2630				
+2634		msadce.dll		SelfReg	"dag ADC Client,msadce_dll"					%2633				
+													
+2635				CopyFile	"dag ADC Client,msadcer_dll"					%2630				
+													
+2636				CopyFile	"dag ADC Client,msadco_dll"					%2630				
+2637		msadco.dll		SelfReg	"dag ADC Client,msadco_dll"					%2636				
+													
+2638				CopyFile	"dag ADC Client,msadcor_dll"					%2630				
+2639				CopyFile	"dag ADC Client,msdatsrc_tlb"					%M				
+													
+2640				CopyFile	"dag ADC Client,handler_reg"					%2630				
+2641				CustomAction	"COMMON98.DLL,RegFile,2640"					%2640				
+													
+2642				CopyFile	"dag ADC Client,msdfmap_dll"					%2630				
+2643		msdfmap.dll		CustomAction	"COMMON98.DLL,RegSvrCAH,""""""%s\msdfmap.dll"""""""					%2642				
+													
+2644				CopyFile	"dag ADC Client,msdfmap_ini"					%W				
+													
+2645				CopyFile	"dag ADC Client,msaddsr_dll"					%2630				
+													
+2646				CopyFile	"dag ADC Client,msdaprst_dll"					%2630				
+2647		msdaprst.dll		SelfReg	"dag ADC Client,msdaprst_dll"					%2646				
+													
+2648				CopyFile	"dag ADC Client,msjtes_dll"					%M				
+2649		msjtes40.dll		SelfReg	"dag ADC Client,msjtes_dll"					%2648				
+													
+2650				CopyFile	"dag ADC Client,msadcfr_dll"					%2630				
+													
+2651				CopyFile	"dag ADC Client,mdac20_cab"					%2630				
+2652				CopyFile	"dag ADC Client,mdac20_a_cab"					%2630				
+													
+	=== dag ADC 1.1 Files (adc.etf) ===													
+2653				Group	2654 2655					%8\system\msadc				
+2654				CopyFile	"dag ADC 11,mdac11_cab"					%2653				
+2655				CopyFile	"dag ADC 11,readme_txt_11"					%2653\doc11				
+													
+	=== VI/VJ Common Shell Help Component  === <fn=shellhlp.etf>
+2661				Group	2662 2663 2665					%d		
+2662				InstallShared	"Shell Help, vshelp_dll, vshelp.dll,,2713"					%H\VS98				
+2663				Depend	"2662 ? 2664"									
+2664		vshelp.dll		SelfReg	"Shell Help,vshelp_dll,,,,"					%2662				
+2665				Group	2666					%2662\resources\1033		
+2666		vshelpui.dll		InstallShared	"Loc Shell Help,vshelpui_dll_enu,vshelpui.dll(enu),,2713"					%d				
+ 
+ 
+=====VB Docs for VC (vbforvc.etf)=========
+2671				Group	2672 2673					%W\Help
+2672				InstallShared	"VB Docs for VC Tag,vbcmn98_chi_1,vbcmn98.chi,,2713"					%D		
+2673				Depend	"2672?2674"							
+2674				CopySection	"VB Docs for VC Sec"					%D
+											
+	=== Control Helper (hlp95en.etf) ===											
+2681				InstallSysFile	"HLP95EN,hlp95en_dll_1"					%M		
+											
+	=== VB Control Help Files (vbctlhlp.etf) ===											
+2691				Group	2692 2700							
+2692				Group	2693 2694 2695 2696 2697 2698 2699
+2693				CopyFile	"VBCTLHLP,vbcmn96_hlp"					%W\Help		
+2694				CopyFile	"VBCTLHLP,vbcmn96_cnt"					%W\Help		
+2695				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,vbcmn96.hlp,%s,"					%2693		
+2696				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,vbcmn96.cnt,%s,"					%2694		
+2697				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vbcmn96_ftg"							
+2698				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vbcmn96_fts"							
+2699				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vbcmn96_gid"							
+2700				Group	2701 2702 2703 2704 2705
+2701				CopyFile	"VBCTLHLP,vb5def_hlp"					%W\Help		
+2702				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\Windows\Help,vb5def.hlp,%s,"					%2701		
+2703				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vb5def_ftg"							
+2704				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vb5def_fts"							
+2705				CustomAction	"COMMON98.DLL, RemoveAuxFile, VBCTLHLP;vb5def_gid"							
+												
+	=== Setup files (setup.etf) ===													
+2711				Group	2751 2741 2712 2718 2713 2714 2715 2716 2717 2731 					%294\Setup\1033				
+													
+2712				CopySection	"Common Setup"					%d				
+2713		vc98bok_dll		CopyFile	"SetupProdCah,vc98bok_dll"					%d				
+2714				WriteTableFile	"setup.stf"					%d				
+2715		selfreg.dll		InstallShared	"SetupProdCah,selfreg_dll,selfreg.dll,,2713 "					%m				
+													
+	=== Uninstall Strings (setup.etf) ===													
+													
+2716				AddRegData	"LOCAL,Software\Microsoft\Windows\CurrentVersion\Uninstall\Visual C++ 6.0 Introductory Edition ,DisplayName,Microsoft Visual C++ 6.0 Introductory Edition ,REG_SZ"									
+2717				AddRegData	"LOCAL,Software\Microsoft\Windows\CurrentVersion\Uninstall\Visual C++ 6.0 Introductory Edition ,UninstallString,""""""%s\Setup.exe"""""",REG_SZ"					%d				
+													
+ 														
+2718				Group	2719					%2712				
+2719				Depend	2712 ? 2720 2721 2722									
+2720		acmsetup.fts		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_fts"									
+2721		acmsetup.ftg		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_ftg"									
+2722		acmsetup.gid		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_gid"									
+ 														
+													
+	=== ODBC SETUP FILES (odbcstp.etf) ===
+2731				Group	2732 2733					%2711				
+2732				CopySection	"dag ODBC CAH"					%2711				
+								
+2733				CopyFile	"dag ODBC Conf Exe,odbcconf_exe"					%M				
+														
+	=== Product Specific Setup files (pssetup.etf) ===													
+2741				Group	2742									
+2742				CopySection	"Setup"					%d				
+ 														
+	=== ReadMe files (readme.etf) ===													
+2751				Group	2752					%294  	 														
+ 														
+2752				CopySection	"ReadMe"					%d				 
+2753				CustomAction 	"COMMON98.DLL, NopCAH"
+ 														
+														
+ 														
+													
+ 														
+	=== File Binding Component (binding.etf) ===													
+2761				Group	2764 2762									
+													
+2762				Depend	"2662 ? 2763"									
+2763				CopyBindExe	"Shell Help,vshelp_dll,"					%2662				
+												
+	=== Binding VC files ========													
+2764				Group	2765 2780 2797 2824 2839 2854 2897 2918									
+													
+2765				Group	2766 2768 2770 2772 2774 2776 2778									
+													
+2766				Depend	"463 ? 2767"									
+2767				CopyBindExe	"VC - Native Debugger,dm_dll,501 571"					%463				
+2768				Depend	"464 ? 2769"									
+2769				CopyBindExe	"VC - Native Debugger,eecxx_dll,501 571"					%464				
+2770				Depend	"465 ? 2771"									
+2771				CopyBindExe	"VC - Native Debugger,em_dll,501 571"					%465				
+2772				Depend	"466 ? 2773"									
+2773				CopyBindExe	"VC - Native Debugger,msvcmon_exe,501 571"					%466				
+2774				Depend	"467 ? 2775"									
+2775				CopyBindExe	"VC - Native Debugger,tlloc_dll,501 571"					%467				
+2776				Depend	"468 ? 2777"									
+2777				CopyBindExe	"VC - Native Debugger,tln0t_dll,501 571"					%468				
+2778				Depend	"469 ? 2779"									
+2779				CopyBindExe	"VC - Native Debugger, shcv_dll,501 571"					%469				
+													
+2780				Group	2781 2783 2785 2787 2789 2791 2793 2795									
+													
+2781				Depend	"503 ? 2782"									
+2782				CopyBindExe	"vc Core IDE, msdevb_exe,501 571"					%503				
+2783				Depend	"504 ? 2784"									
+2784				CopyBindExe	"vc Core IDE, autolayt_dll,501 571"					%504				
+2785				Depend	"505 ? 2786"									
+2786				CopyBindExe	"vc Core IDE, devedit_pkg,501 571"					%505				
+2787				Depend	"506 ? 2788"									
+2788				CopyBindExe	"vc Core IDE, devprj_pkg,501 571"					%506				
+2789				Depend	"507 ? 2790"									
+2790				CopyBindExe	"vc Core IDE, devshl_dll,501 571"					%507				
+2791				Depend	"510 ? 2792"									
+2792				CopyBindExe	"vc Core IDE, mfcclwz_dll,501 571"					%510				
+2793				Depend	"511 ? 2794"									
+2794				CopyBindExe	"vc Core IDE,feacp_dll,501 571"					%511				
+2795				Depend	"513 ? 2796"									
+2796				CopyBindExe	"vc Core IDE, vcspawn_exe, 501 571"					%513				
+													
+2797				Group	  2798 2800 2802 2804 2806 2808 2810 2812 2814 2816 2818 2820 2822									
+													
+2798				Depend	"573 ? 2799"									
+2799				CopyBindExe	"vc IDE Packages, devaut1_pkg,501 571"					%573				
+2800				Depend	"574 ? 2801"									
+2801				CopyBindExe	"vc IDE Packages, devbied_pkg, 501 571"					%574				
+2802				Depend	"575 ? 2803"									
+2803				CopyBindExe	"vc IDE Packages, devbld_pkg,501 571"					%575				
+2804				Depend	"576 ? 2805"									
+2805				CopyBindExe	"vc IDE Packages, devclvw_pkg,501 571"					%576				
+2806				Depend	"577 ? 2807"									
+2807				CopyBindExe	"vc IDE Packages, devcpp_pkg,501 571"					%577				
+2808				Depend	"578 ? 2809"									
+2809				CopyBindExe	"vc IDE Packages, devdbg_pkg,501 571"					%578				
+2810				Depend	"579 ? 2811"									
+2811				CopyBindExe	"vc IDE Packages, devgal_pkg,501 571"					%579				
+2812				Depend	"580 ?2813"									
+2813				CopyBindExe	"vc IDE Packages, devhtmx_pkg,501 571"					%580				
+2814				Depend	"581 ? 2815"									
+2815				CopyBindExe	"vc IDE Packages, devncb_pkg,501 571"					%581				
+2816				Depend	"582 ? 2817"									
+2817				CopyBindExe	"vc IDE Packages, devodl_pkg,501 571"					%582				
+2818				Depend	"583 ? 2819"									
+2819				CopyBindExe	"vc IDE Packages, devres_pkg,501 571"					%583				
+2820				Depend	"584 ? 2821"									
+2821				CopyBindExe	"vc IDE Packages, devtool_pkg,501 571"					%584 				
+2822				Depend	"594 ? 2823"									
+2823				CopyBindExe	"VC IDE Packages2,devhelp_pkg,501 571"					%594				
+													
+2824				Group	2825 2831 2827 2829  2833 2835 2837									
+													
+2825				Depend	"585 ? 2826"									
+2826				CopyBindExe	"vc IDE Packages, devxpgl_dll,501 571"					%585 				
+2827				Depend	"589 ? 2828"									
+2828				CopyBindExe	"vc IDE Packages, mfcapwz_dll,501 571"					%589				
+2829				Depend	"473 ? 2830"									
+2830				CopyBindExe	"vc NT DBG Setup, setupdbg_exe,501 571"					%473				
+2831				Depend	"752 ? 2832"									
+2832				CopyBindExe	"VC SQL debugger Self Reg, nsodbc_dll,501 571"					%752				
+2833				Depend	"852 ? 2834"									
+2834				CopyBindExe	"VC - Resource Compiler,rc_exe,501 571"					%852 				
+2835				Depend	"852 ? 2836"									
+2836				CopyBindExe	"VC - Resource Compiler,rcdll_dll,501 571"					%852 				
+2837				Depend	"852 ? 2838"									
+2838				CopyBindExe	"VC - Resource Compiler,rcxdti_dll,501 571"					%852 				
+													
+2839				Group	2840 2842 2844 2846 2848 2850 2852									
+													
+2840				Depend	"493 ? 2841"									
+2841				CopyBindExe	"vc IDE and Tools, msdis100_dll, 501 571"					%493 				
+2842				Depend	"412 ? 2843"									
+2843				CopyBindExe	"vc Only Common IDE and Tools,msobj10_dll,501 571"					%412				
+2844				Depend	"412 ? 2845"									
+2845				CopyBindExe	"vc Only Common IDE and Tools,msenc10_dll,501 571"					%412				
+2846				Depend	"494 ? 2847"									
+2847				CopyBindExe	"vc IDE and Tools,mspdb50_dll,501 571"					%494				
+2848				Depend	"483 ? 2849"									
+2849				CopyBindExe	"VC - ATL Wiz, atlobj_dll,501 571"					%483				
+2850				Depend	"551 ? 2851"									
+2851				CopyBindExe	"vc IDE Wizards, appwzenu_dll,501 571"					%551				
+2852				Depend	"72 ? 2853"									
+2853				CopyBindExe	"vc MFC Os Retail, mfc42_dll,501 571"					%72				
+													
+2854				Group	2855 2857 2859 2861 2863 2865 2867 2869 2871 2873 2875 2877 2879 2881 2883 2885 2887 2889 2891 2893 2895									
+													
+2855				Depend	"702 ? 2856"									
+2856				CopyBindExe	"vc IDE Gallery, cawutil_dll,501 571"					%702				
+2857				Depend	"703 ? 2858"									
+2858				CopyBindExe	"vc IDE Gallery, clipasst_dll,501 571"					%703				
+2859				Depend	"704 ? 2860"									
+2860				CopyBindExe	"vc IDE Gallery, ctip_dll,501 571"					%704				
+2861				Depend	"705 ? 2862"									
+2862				CopyBindExe	"vc IDE Gallery, dlgbar_dll, 501 571"					%705				
+2863				Depend	"706 ? 2864"									
+2864				CopyBindExe	"vc IDE Gallery, docreg_dll,501 571"					%706				
+2865				Depend	"707 ? 2866"									
+2866				CopyBindExe	"vc IDE Gallery, guidgen_dll,501 571"					%707				
+2867				Depend	"708 ? 2868"									
+2868				CopyBindExe	"vc IDE Gallery, idle_dll,501 571"					%708				
+2869				Depend	"709 ? 2870"									
+2870				CopyBindExe	"vc IDE Gallery, mapicomp_dll,501 571"					%709				
+2871				Depend	"710 ? 2872"									
+2872				CopyBindExe	"vc IDE Gallery, media_dll,501 571"					%710				
+2873				Depend	"711 ? 2874"									
+2874				CopyBindExe	"vc IDE Gallery, occ_dll,501 571"					%711				
+2875				Depend	"712 ? 2876"									
+2876				CopyBindExe	"vc IDE Gallery, owndraw_dll,501 571"					%712				
+2877				Depend	"713 ? 2878"									
+2878				CopyBindExe	"vc IDE Gallery, palette_dll,501 571"					%713				
+2879				Depend	"714 ? 2880"									
+2880				CopyBindExe	"vc IDE Gallery, popup_dll, 501 571"					%714				
+2881				Depend	"715 ? 2882"									
+2882				CopyBindExe	"vc IDE Gallery, progdlg_dll,501 571"					%715				
+2883				Depend	"716 ? 2884"									
+2884				CopyBindExe	"vc IDE Gallery, propsht_dll,501 571"					%716				
+2885				Depend	"717 ? 2886"									
+2886				CopyBindExe	"vc IDE Gallery, sockets_dll,501 571" 					%717				
+2887				Depend	"718 ? 2888"									
+2888				CopyBindExe	"vc IDE Gallery, splash_dll,501 571" 					%718				
+2889				Depend	"719 ? 2890"									
+2890				CopyBindExe	"vc IDE Gallery, splitter_dll,501 571"					%719				
+2891				Depend	"720 ? 2892"									
+2892				CopyBindExe	"vc IDE Gallery, statbar_dll,501 571"					%720				
+2893				Depend	"721 ? 2894"									
+2894				CopyBindExe	"vc IDE Gallery, sysinfo_dll,501 571"					%721				
+2895				Depend	"722 ? 2896"									
+2896				CopyBindExe	"vc IDE Gallery, tooltips_dll, 501 571"					%722				
+													
+2897				Group	2898 2900  2902 2904 2906 2908 2910 2912 2914 2916									
+													
+2898				Depend	"482 ? 2899"									
+2899				CopyBindExe	"VC - ATL Wiz, atlwiz_awx,501 571"					%482				
+2900				Depend	"572 ? 2901"									
+2901				CopyBindExe	"vc IDE Packages, addinwz_awx,501 571"					%572				
+2902				Depend	"588 ? 2903"									
+2903				CopyBindExe	"vc IDE Packages,inetawz_awx,501 571"					%588				
+2904				Depend	"589 ? 2905"									
+2905				CopyBindExe	"vc IDE Packages,mfctlwz_awx,501 571"					%589 				
+2906				Depend	"594 ? 2907"									
+2907				CopyBindExe	"VC IDE Packages2,dllwz_awx,501 571"					%594 				
+2908				Depend	"594 ? 2909"									
+2909				CopyBindExe	"VC IDE Packages2,exewz_awx,501 571"					%594 				
+2910				Depend	"594 ? 2911"									
+2911				CopyBindExe	"VC IDE Packages2,genwz_awx,501 571"					%594 				
+2912				Depend	"594 ? 2913"									
+2913				CopyBindExe	"VC IDE Packages2,libwz_awx,501 571"					%594 				
+2914				Depend	"594 ? 2915"									
+2915				CopyBindExe	"VC IDE Packages2,makwz_awx,501 571"					%594 				
+2916				Depend	"594 ? 2917"									
+2917				CopyBindExe	"VC IDE Packages2,conwz_awx,501 571"					%594 				
+													
+2918				Group	2919 2921 2923 2925 2927 2929 2931 2933 2935 2937 2939 2941 2943 2945 2947 2949 2951  2953
+2919				Depend	"812 ? 2920"									
+2920				CopyBindExe	"VC - Utilities,bscmake_exe,821"					%812 				
+2921				Depend	"812 ? 2922"									
+2922				CopyBindExe	"VC - Utilities,cvpack_exe,821"					%812 				
+2923				Depend	"812 ? 2924"									
+2924				CopyBindExe	"VC - Utilities,cvtres_exe,821"					%812 				
+2925				Depend	"812 ? 2926"									
+2926				CopyBindExe	"VC - Utilities,dumpbin_exe,821"					%812 				
+2927				Depend	"812 ? 2928"									
+2928				CopyBindExe	"VC - Utilities,editbin_exe,821"					%812 				
+2929				Depend	"812 ? 2930"									
+2930				CopyBindExe	"VC - Utilities,lib_exe,821"					%812 				
+2931				Depend	"812 ? 2932"									
+2932				CopyBindExe	"VC - Utilities,link_exe,821"					%812 				
+2933				Depend	"812 ? 2934"									
+2934				CopyBindExe	"VC - Utilities,nmake_exe,821"					%812 				
+2935				Depend	"822 ? 2936"									
+2936				CopyBindExe	"VC - Compiler Back End,c2_dll_2,821"					%822 				
+2937				Depend	"822 ? 2938"									
+2938				CopyBindExe	"VC - Compiler Back End,cl_exe_2,821"					%822 				
+2939				Depend	"823 ? 2940"									
+2940				CopyBindExe	"VC - Compiler Front End,c1_dll,821"					%823 				
+2941				Depend	"823 ? 2942"									
+2942				CopyBindExe	"VC - Compiler Front End,c1xx_dll,821"					%823 				
+2943				Depend	"792 ? 2944"									
+2944				CopyBindExe	"win32sdk build tools,mc_exe,821"					%792 				
+2945				Depend	"792 ? 2946"									
+2946				CopyBindExe	"win32sdk build tools,midl_exe,821"					%792 				
+2947				Depend	"792 ? 2948"									
+2948				CopyBindExe	"win32sdk build tools,mktyplib_exe,821"					%792 				
+2949				Depend	"792 ? 2950"									
+2950				CopyBindExe	"win32sdk build tools,mapsym_exe,821"					%792 				
+2951				Depend	"792 ? 2952"									
+2952				CopyBindExe	"win32sdk build tools,rebase_exe,821"					%792 				
+2953				Depend	"802 ? 2954"									
+2954				CopyBindExe	"win32sdk general build tools,guidgen_exe,821"					%802
+													
+ 														
+  														

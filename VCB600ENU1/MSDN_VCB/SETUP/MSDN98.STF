@@ -1,0 +1,488 @@
+													
+App Name	Microsoft Visual C++ 6.0 Docs											
+App Version	6.0.0.0.0806 (1033)											
+Frame Bitmap												
+Frame Caption	Microsoft Visual C++ 6.0 Docs											
+Dialog Caption Base	Microsoft Visual C++ 6.0 Docs											
+About Box String	Microsoft Visual C++ 6.0 Docs Setup\n\nCopyright (C) 1998 Microsoft Corporation.											
+Check Modules	ThunderRTMain,Microsoft VB Runtime,RaidClass,Microsoft Raid,MSVCED50,Visual Studio,wndclass_desked_gsk,Visual Studio											
+Check Modules2	Fox_4000001,Microsoft Visual FoxPro, graph, MS Graph, ed, MS Draw, msinfo, MS Info,odbcad32,ODBC administrator,odbcjt32, ODBC Driver, !Microsoft Exchange!, Microsoft Exchange											
+Check Modules3	OMain,Microsoft Access, msaccess,MS Access,msarn110,MS Access Runtime,msarn200,MS Access Runtime,MS:SCC:REFRESH,Microsoft Visual SourceSafe,MSOfficeWClass,Microsoft Office Manager											
+Check Modules4	VFP66400000,Microsoft Visual FoxPro,valecstart,Visual Studio Analyzer Server,HH Parent,HTML Help											
+MSAPPS Mode	local											
+Inf File Name	MSDN98.INF											
+Maximum Object ID	450											
+Floppy Mode Root Object ID	3 : 1 2											
+Maintenance Mode Root Object ID	4 : 1 2											
+Batch Mode Root Object ID	3 : 1 2											
+Setup Version	3.0.0.1210											
+ObjID	Install During Batch Mode	Title	Descr	Type	Data	BMP Id	Vital	Shared	Dir Chang	Dest Dir	Check Dir	Installed By Us												
+											
+1				CustomAction	"""COMMON98.DLL"", ""SetDefaultDir"", ""MSDN98;HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup\Microsoft Development NetWork,ProductDir"" "					%d				
+2		Microsoft Visual C++ 6.0 Docs		AppSearch	"%1,,,128,yes,no"									
+													
+ 														
+													
+ 														
+													
+	=== MSDN Install Modes (mainstf.etf) ===													
+													
+3	yes	Floppy Install		AppMainDlg	61 : 24 41 21 67 33 5					%2				
+4		Remove All		Group	61 24 41 21 67 33 5					%2				
+													
+5				Group	6 7 8 9									
+6				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup, VSCommonDir"" "					%p\Microsoft Visual Studio\Common				
+7				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup\Microsoft Development NetWork,ProductDir"" "					%d				
+													
+8				CustomAction	"""COMMON98.DLL"", ""GetPathFromReg"", ""HKEY_LOCAL_MACHINE,SOFTWARE\Microsoft\Windows\CurrentVersion,CommonFilesDir"" "					%p\Common<%p\Common Files>				
+													
+9				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""10"""					%d				
+10				AddRegData	"HKEY_LOCAL_MACHINE,Software\Microsoft\VisualStudio\6.0\Setup,VSCommonDir,%s"					%6				
+													
+ 														
+													
+ 
+														
+  														
+														
+  														
+													
+ 														
+													
+ 
+													
+	=== Main CAH/Detection (MainCah.etf) ===													
+													
+21				Group	22 33 27 28 29 30									
+22				CustomAction	"COMMON98.DLL,DetectWzRegKey,Microsoft Developer Network Library - Visual Studio 6.0"									
+													
+23				Group	33 27 28 29 30 26  25									
+													
+	=== EULA (MainCah.etf) ===													
+24				CustomAction	"COMMON98.DLL,LicenseDlg,Setup;eula_txt"									
+													
+25				CustomAction	"PHOLDER.DLL,SPPlaceHolderCAH"									
+													
+	=== IE4 Check (MainCah.etf) ===													
+26				CustomAction	"COMMON98.DLL,CheckRegKey,""LOCAL,Software\Microsoft\Internet Explorer,Version"""									
+	=== Set DestDir to Program Items (MainCah.etf) ===													
+27				CustomAction	"COMMON98.DLL,GetWindowsPathFromReg,""Programs, True"""									
+													
+	=== Check Operating System (MainCah.etf) ===													
+28		IsWin95		CustomAction	"COMMON98.DLL,DetectOS,Win95 "									
+29		IsWinnt3x		CustomAction	"COMMON98.DLL, DetectOS, winnt3x"									
+30		IsWinNT40		CustomAction	"COMMON98.DLL, DetectOS, winnt40"									
+31		Is40Shell		CustomAction	"COMMON98.DLL, DetectOS, 40shell"									
+32		IsWinNT50		CustomAction	"COMMON98.DLL, DetectOS, winnt50"									
+													
+	=== Check Admin Privileges (MainCah.etf) ===													
+33		Check Adminstrator		CustomAction	"COMMON98.DLL,DetectAdminPrivileges"									
+													
+	=== Sys Always (system.etf) ===													
+													
+41				Group	421 51					%d				
+													
+	=== RegSvr32 Component ( RegSvr32.etf ) ===													
+													
+51				Group	52 									
+52		regsvr32.exe		InstallSysFile	"Sys Files - Regsrv32, regsvr32_exe_3"					%m				
+													
+	=== Target of Setup Installation modes (i.e., choice of Typical or Minimal)  (msdn.etf)===											
+	MSDN HTML Help Setup fri27mar98 (8086), least msdn98.dll match is fri27mar98 (8086 string ID 4), least hhsetup.dll match is 30mar98 (8089)											
+											
+61	yes	&Typical	Installs all of the files in the Microsoft Visual C++ 6.0 Docs. 140MB Max.	Group	63 69 70 71 81 72 301 62	MSDN98.DLL,102				%D\VC6intro\1033		
+											
+62				Group	93 91 109					%D		
+											
+63		MSDN Viewer files		Group	64 311 65							
+											
+64				AddRegData	"""LOCAL"",""SOFTWARE\Microsoft\VisualStudio\6.0\Setup\Microsoft Visual C++ 6.0 Docs"",""ProductDir"",""%s"","""""							
+											
+65				Depend	26 ? 66							
+66				AddRegData	"LOCAL,""Software\Microsoft\IE4\DependentComponents"",""Microsoft Developer Network Library - Visual Studio 6.0 (enu)"",""MSDN Library - Visual Studio 6.0"""							
+											
+67				Group	68							
+68				CustomAction	"COMMON98.DLL,IE4Check,""IE4Check.ini;min;MSDN98.DLL;3;7;7;0"""							
+											
+69				CustomAction	"MSDN98.DLL,SaveDstDir,"""""							
+70				CustomAction	"MSDN98.DLL,SaveSrcDir,"""""					%S		
+											
+71				CustomAction	"MSDN98.DLL,OpenSetupCollection,""dnvcbook.col"""					%S		
+											
+72				Group	73 74 75							
+73				CustomAction	"MSDN98.DLL,addloc,""Microsoft Visual C++ 6.0 Docs;MSDN VS 6.0 Local;%D;VC6intro-1033-Local;NULL"""							
+74				CustomAction	"MSDN98.DLL,addloc,""Microsoft Visual C++ 6.0 Docs;MSDN VS 6.0 CD1;%SMSDN\;VC6intro-1033-CD1;1"""							
+75				CustomAction	"MSDN98.DLL,addloc,""Microsoft Visual C++ 6.0 Docs;MSDN VS 6.0 CD1;%SSamples\;VC6intro-1033-VC Samples;1"""							
+											
+	=== Beginning of Samples ===											
+											
+	==== MSDN General Component (General.etf) ======											
+											
+81				Group	82 86 83 85					%D		
+82				CopySection	"MSDN-General"					%D		
+											
+83				Group	84							
+											
+84				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vcedit.chm;vcedit.chi;NULL;F_MSDN;VC6intro-1033-Local"""							
+85				CustomAction	"COMMON98.DLL,RegCol,""1033;Microsoft Visual C++ 6.0 Docs;dnvcbook.col;0"""					%D		
+86				CustomAction	"COMMON98.DLL, RemoveAuxFile, MSDN-General;dnvcbook_chw"					%D		
+											
+	==== VC Book SKU (vcbook.etf) ======											
+											
+91				Group	92					%D		
+92				CopySection	"VCBook-pfmSDK-CHM"					%D		
+											
+93				Group	94					%D		
+94				CopySection	"VCBook-pfmSDK-CHI"					%D		
+											
+95				Depend	91 ? 109  :  96							
+											
+96				Group	97 98 99 100 101 102 103 104 105 106 107 108							
+97				Group	122 123 124 125 126 127 128 129 130 131							
+98				Group	132 133 134 135 136 137 138 139 140							
+99				Group	141 142 143 144 145 146 147							
+100				Group	148 149 150 151 152 153 154							
+101				Group	155 156 157 158 160 161 162 163 164							
+102				Group	165 166 167 168 169 170 172 173 174 175							
+103				Group	176 177 178 179 180 181 182 183 184							
+104				Group	185 186 187 188 189 190 191 192 193 194							
+105				Group	195 196 197 198 159							
+106				Group	171							
+107				Group	199 200 201 202 203 205 204							
+108				Group	206 207 208 209 210							
+											
+109				Group	110 111 112 113 114 115 116 117 118 119 120 121							
+110				Group	211 212 213 214 215 216 217 218 219 220							
+111				Group	221 222 223 224 225 226 227 228 229							
+112				Group	230 231 232 233 234 235 236							
+113				Group	237 238 239 240 241 242 243							
+114				Group	244 245 246 247 249 250 251 252 253							
+115				Group	254 255 256 257 258 259 261 262 263 264							
+116				Group	265 266 267 268 269 270 271 272 273							
+117				Group	274 275 276 277 278 279 280 281 282 283							
+118				Group	284 285 286 287 248							
+119				Group	260							
+120				Group	288 289 290 291 292 294 293							
+121				Group	295 296 297 298 299							
+											
+122				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ActiveX.chm;ActiveX.chi;;F_MSDN;VC6intro-1033-CD1"""							
+123				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ado200.chm;ado200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+124				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ADSchema.chm;ADSchema.chi;;F_MSDN;VC6intro-1033-CD1"""							
+125				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ADSI.chm;ADSI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+126				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ASP.chm;ASP.chi;;F_MSDN;VC6intro-1033-CD1"""							
+127				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Automat.chm;Automat.chi;;F_MSDN;VC6intro-1033-CD1"""							
+128				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\boguide.chm;boguide.chi;;F_MSDN;VC6intro-1033-CD1"""							
+129				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\bpc.chm;bpc.chi;;F_MSDN;VC6intro-1033-CD1"""							
+130				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\buildapp.chm;buildapp.chi;;F_MSDN;VC6intro-1033-CD1"""							
+131				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\cdo.chm;cdo.chi;;F_MSDN;VC6intro-1033-CD1"""							
+132				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ceguide.chm;ceguide.chi;;F_MSDN;VC6intro-1033-CD1"""							
+133				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\CertSrv.chm;CertSrv.chi;;F_MSDN;VC6intro-1033-CD1"""							
+134				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\CIFS.chm;CIFS.chi;;F_MSDN;VC6intro-1033-CD1"""							
+135				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x01.chm;Code0x01.chi;;F_MSDN;VC6intro-1033-CD1"""							
+136				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x02.chm;Code0x02.chi;;F_MSDN;VC6intro-1033-CD1"""							
+137				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x03.chm;Code0x03.chi;;F_MSDN;VC6intro-1033-CD1"""							
+138				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x04.chm;Code0x04.chi;;F_MSDN;VC6intro-1033-CD1"""							
+139				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x05.chm;Code0x05.chi;;F_MSDN;VC6intro-1033-CD1"""							
+140				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x06.chm;Code0x06.chi;;F_MSDN;VC6intro-1033-CD1"""							
+141				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x07.chm;Code0x07.chi;;F_MSDN;VC6intro-1033-CD1"""							
+142				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x08.chm;Code0x08.chi;;F_MSDN;VC6intro-1033-CD1"""							
+143				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x09.chm;Code0x09.chi;;F_MSDN;VC6intro-1033-CD1"""							
+144				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Code0x0a.chm;Code0x0a.chi;;F_MSDN;VC6intro-1033-CD1"""							
+145				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\COM.chm;COM.chi;;F_MSDN;VC6intro-1033-CD1"""							
+146				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\CompLib.chm;CompLib.chi;;F_MSDN;VC6intro-1033-CD1"""							
+147				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Crypto.chm;Crypto.chi;;F_MSDN;VC6intro-1033-CD1"""							
+148				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\dasdk200.chm;dasdk200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+149				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\DXFound.chm;DXFound.chi;;F_MSDN;VC6intro-1033-CD1"""							
+150				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\exchcli.chm;exchcli.chi;;F_MSDN;VC6intro-1033-CD1"""							
+151				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\exchserv.chm;exchserv.chi;;F_MSDN;VC6intro-1033-CD1"""							
+152				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\GDI.chm;GDI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+153				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\icm.chm;icm.chi;;F_MSDN;VC6intro-1033-CD1"""							
+154				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\IERef.chm;IERef.chi;;F_MSDN;VC6intro-1033-CD1"""							
+155				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\IISRef.chm;IISRef.chi;;F_MSDN;VC6intro-1033-CD1"""							
+156				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\IndexSrv.chm;IndexSrv.chi;;F_MSDN;VC6intro-1033-CD1"""							
+157				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\JavaAFC.chm;JavaAFC.chi;;F_MSDN;VC6intro-1033-CD1"""							
+158				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\JavaUser.chm;JavaUser.chi;;F_MSDN;VC6intro-1033-CD1"""							
+159				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\JavaVM.chm;JavaVM.chi;;F_MSDN;VC6intro-1033-CD1"""							
+160				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\mapi.chm;mapi.chi;;F_MSDN;VC6intro-1033-CD1"""							
+161				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MIDL.chm;MIDL.chi;;F_MSDN;VC6intro-1033-CD1"""							
+162				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MMC.chm;MMC.chi;;F_MSDN;VC6intro-1033-CD1"""							
+163				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MSAA.chm;MSAA.chi;;F_MSDN;VC6intro-1033-CD1"""							
+164				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MSAgent.chm;MSAgent.chi;;F_MSDN;VC6intro-1033-CD1"""							
+165				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MSCS.chm;MSCS.chi;;F_MSDN;VC6intro-1033-CD1"""							
+166				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MSI.chm;MSI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+167				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MSMQ.chm;MSMQ.chi;;F_MSDN;VC6intro-1033-CD1"""							
+168				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MTS.chm;MTS.chi;;F_MSDN;VC6intro-1033-CD1"""							
+169				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\MultiMed.chm;MultiMed.chi;;F_MSDN;VC6intro-1033-CD1"""							
+170				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\NetMeet.chm;NetMeet.chi;;F_MSDN;VC6intro-1033-CD1"""							
+171				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\NetShow.chm;NetShow.chi;;F_MSDN;VC6intro-1033-CD1"""							
+172				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Network.chm;Network.chi;;F_MSDN;VC6intro-1033-CD1"""							
+173				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\odbc200.chm;odbc200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+174				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\oledb200.chm;oledb200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+175				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\OpenGL.chm;OpenGL.chi;;F_MSDN;VC6intro-1033-CD1"""							
+176				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\PSDKRef.chm;PSDKRef.chi;;F_MSDN;VC6intro-1033-CD1"""							
+177				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\RPC.chm;RPC.chi;;F_MSDN;VC6intro-1033-CD1"""							
+178				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\RRAS.chm;RRAS.chi;;F_MSDN;VC6intro-1033-CD1"""							
+179				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\SCard.chm;SCard.chi;;F_MSDN;VC6intro-1033-CD1"""							
+180				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\sdkintro.chm;sdkintro.chi;;F_MSDN;VC6intro-1033-CD1"""							
+181				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\SetupAPI.chm;SetupAPI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+182				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\ShellCC.chm;ShellCC.chi;;F_MSDN;VC6intro-1033-CD1"""							
+183				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\SMS.chm;SMS.chi;;F_MSDN;VC6intro-1033-CD1"""							
+184				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\SNA.chm;SNA.chi;;F_MSDN;VC6intro-1033-CD1"""							
+185				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\sqlserv.chm;sqlserv.chi;;F_MSDN;VC6intro-1033-CD1"""							
+186				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Stillimg.chm;Stillimg.chi;;F_MSDN;VC6intro-1033-CD1"""							
+187				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\SysMgmt.chm;SysMgmt.chi;;F_MSDN;VC6intro-1033-CD1"""							
+188				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\TAPI.chm;TAPI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+189				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\TaskSchd.chm;TaskSchd.chi;;F_MSDN;VC6intro-1033-CD1"""							
+190				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\termserv.chm;termserv.chi;;F_MSDN;VC6intro-1033-CD1"""							
+191				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\tools.chm;tools.chi;;F_MSDN;VC6intro-1033-CD1"""							
+192				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\WBEM.chm;WBEM.chi;;F_MSDN;VC6intro-1033-CD1"""							
+193				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\Win9xMig.chm;Win9xMig.chi;;F_MSDN;VC6intro-1033-CD1"""							
+194				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\WinBase.chm;WinBase.chi;;F_MSDN;VC6intro-1033-CD1"""							
+195				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\winlogo.chm;winlogo.chi;;F_MSDN;VC6intro-1033-CD1"""							
+196				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\WinSock.chm;WinSock.chi;;F_MSDN;VC6intro-1033-CD1"""							
+197				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\WinUI.chm;WinUI.chi;;F_MSDN;VC6intro-1033-CD1"""							
+198				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\wp200.chm;wp200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+											
+199				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vccore.chm;vccore.chi;;F_MSDN;VC6intro-1033-CD1"""							
+200				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vcintro.chm;vcintro.chi;;F_MSDN;VC6intro-1033-CD1"""							
+201				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vclang.chm;vclang.chi;;F_MSDN;VC6intro-1033-CD1"""							
+202				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vcmfc.chm;vcmfc.chi;;F_MSDN;VC6intro-1033-CD1"""							
+203				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vctutor.chm;vctutor.chi;;F_MSDN;VC6intro-1033-CD1"""							
+204				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\glossary.chm;glossary.chi;;F_MSDN;VC6intro-1033-CD1"""							
+205				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vcug.chm;vcug.chi;;F_MSDN;VC6intro-1033-CD1"""							
+											
+206				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\dshelp.chm;dshelp.chi;;F_MSDN;VC6intro-1033-CD1"""							
+207				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\mdac200.chm;mdac200.chi;;F_MSDN;VC6intro-1033-CD1"""							
+208				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\vdbref.chm;vdbref.chi;;F_MSDN;VC6intro-1033-CD1"""							
+209				CustomAction	"MSDN98.DLL,addtitle,""NULL;%S\MSDN\dnembed.chm;dnembed.chi;;F_MSDN;VC6intro-1033-CD1"""							
+210				CustomAction	"MSDN98.DLL,addtitlewithsample,""NULL;%S\MSDN\vcsample.chm;vcsample.chi;;F_MSDN;VC6intro-1033-CD1;VC6intro-1033-VC Samples"""							
+											
+211				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ActiveX.chm;ActiveX.chi;;F_MSDN;VC6intro-1033-Local"""							
+212				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ado200.chm;ado200.chi;;F_MSDN;VC6intro-1033-Local"""							
+213				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ADSchema.chm;ADSchema.chi;;F_MSDN;VC6intro-1033-Local"""							
+214				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ADSI.chm;ADSI.chi;;F_MSDN;VC6intro-1033-Local"""							
+215				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ASP.chm;ASP.chi;;F_MSDN;VC6intro-1033-Local"""							
+216				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Automat.chm;Automat.chi;;F_MSDN;VC6intro-1033-Local"""							
+217				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\boguide.chm;boguide.chi;;F_MSDN;VC6intro-1033-Local"""							
+218				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\bpc.chm;bpc.chi;;F_MSDN;VC6intro-1033-Local"""							
+219				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\buildapp.chm;buildapp.chi;;F_MSDN;VC6intro-1033-Local"""							
+220				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\cdo.chm;cdo.chi;;F_MSDN;VC6intro-1033-Local"""							
+221				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ceguide.chm;ceguide.chi;;F_MSDN;VC6intro-1033-Local"""							
+222				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\CertSrv.chm;CertSrv.chi;;F_MSDN;VC6intro-1033-Local"""							
+223				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\CIFS.chm;CIFS.chi;;F_MSDN;VC6intro-1033-Local"""							
+224				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x01.chm;Code0x01.chi;;F_MSDN;VC6intro-1033-Local"""							
+225				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x02.chm;Code0x02.chi;;F_MSDN;VC6intro-1033-Local"""							
+226				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x03.chm;Code0x03.chi;;F_MSDN;VC6intro-1033-Local"""							
+227				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x04.chm;Code0x04.chi;;F_MSDN;VC6intro-1033-Local"""							
+228				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x05.chm;Code0x05.chi;;F_MSDN;VC6intro-1033-Local"""							
+229				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x06.chm;Code0x06.chi;;F_MSDN;VC6intro-1033-Local"""							
+230				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x07.chm;Code0x07.chi;;F_MSDN;VC6intro-1033-Local"""							
+231				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x08.chm;Code0x08.chi;;F_MSDN;VC6intro-1033-Local"""							
+232				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x09.chm;Code0x09.chi;;F_MSDN;VC6intro-1033-Local"""							
+233				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Code0x0a.chm;Code0x0a.chi;;F_MSDN;VC6intro-1033-Local"""							
+234				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\COM.chm;COM.chi;;F_MSDN;VC6intro-1033-Local"""							
+235				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\CompLib.chm;CompLib.chi;;F_MSDN;VC6intro-1033-Local"""							
+236				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Crypto.chm;Crypto.chi;;F_MSDN;VC6intro-1033-Local"""							
+237				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\dasdk200.chm;dasdk200.chi;;F_MSDN;VC6intro-1033-Local"""							
+238				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\DXFound.chm;DXFound.chi;;F_MSDN;VC6intro-1033-Local"""							
+239				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\exchcli.chm;exchcli.chi;;F_MSDN;VC6intro-1033-Local"""							
+240				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\exchserv.chm;exchserv.chi;;F_MSDN;VC6intro-1033-Local"""							
+241				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\GDI.chm;GDI.chi;;F_MSDN;VC6intro-1033-Local"""							
+242				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\icm.chm;icm.chi;;F_MSDN;VC6intro-1033-Local"""							
+243				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\IERef.chm;IERef.chi;;F_MSDN;VC6intro-1033-Local"""							
+244				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\IISRef.chm;IISRef.chi;;F_MSDN;VC6intro-1033-Local"""							
+245				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\IndexSrv.chm;IndexSrv.chi;;F_MSDN;VC6intro-1033-Local"""							
+246				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\JavaAFC.chm;JavaAFC.chi;;F_MSDN;VC6intro-1033-Local"""							
+247				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\JavaUser.chm;JavaUser.chi;;F_MSDN;VC6intro-1033-Local"""							
+248				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\JavaVM.chm;JavaVM.chi;;F_MSDN;VC6intro-1033-Local"""							
+249				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\mapi.chm;mapi.chi;;F_MSDN;VC6intro-1033-Local"""							
+250				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MIDL.chm;MIDL.chi;;F_MSDN;VC6intro-1033-Local"""							
+251				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MMC.chm;MMC.chi;;F_MSDN;VC6intro-1033-Local"""							
+252				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MSAA.chm;MSAA.chi;;F_MSDN;VC6intro-1033-Local"""							
+253				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MSAgent.chm;MSAgent.chi;;F_MSDN;VC6intro-1033-Local"""							
+254				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MSCS.chm;MSCS.chi;;F_MSDN;VC6intro-1033-Local"""							
+255				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MSI.chm;MSI.chi;;F_MSDN;VC6intro-1033-Local"""							
+256				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MSMQ.chm;MSMQ.chi;;F_MSDN;VC6intro-1033-Local"""							
+257				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MTS.chm;MTS.chi;;F_MSDN;VC6intro-1033-Local"""							
+258				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\MultiMed.chm;MultiMed.chi;;F_MSDN;VC6intro-1033-Local"""							
+259				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\NetMeet.chm;NetMeet.chi;;F_MSDN;VC6intro-1033-Local"""							
+260				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\NetShow.chm;NetShow.chi;;F_MSDN;VC6intro-1033-Local"""							
+261				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Network.chm;Network.chi;;F_MSDN;VC6intro-1033-Local"""							
+262				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\odbc200.chm;odbc200.chi;;F_MSDN;VC6intro-1033-Local"""							
+263				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\oledb200.chm;oledb200.chi;;F_MSDN;VC6intro-1033-Local"""							
+264				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\OpenGL.chm;OpenGL.chi;;F_MSDN;VC6intro-1033-Local"""							
+265				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\PSDKRef.chm;PSDKRef.chi;;F_MSDN;VC6intro-1033-Local"""							
+266				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\RPC.chm;RPC.chi;;F_MSDN;VC6intro-1033-Local"""							
+267				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\RRAS.chm;RRAS.chi;;F_MSDN;VC6intro-1033-Local"""							
+268				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\SCard.chm;SCard.chi;;F_MSDN;VC6intro-1033-Local"""							
+269				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\sdkintro.chm;sdkintro.chi;;F_MSDN;VC6intro-1033-Local"""							
+270				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\SetupAPI.chm;SetupAPI.chi;;F_MSDN;VC6intro-1033-Local"""							
+271				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\ShellCC.chm;ShellCC.chi;;F_MSDN;VC6intro-1033-Local"""							
+272				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\SMS.chm;SMS.chi;;F_MSDN;VC6intro-1033-Local"""							
+273				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\SNA.chm;SNA.chi;;F_MSDN;VC6intro-1033-Local"""							
+274				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\sqlserv.chm;sqlserv.chi;;F_MSDN;VC6intro-1033-Local"""							
+275				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Stillimg.chm;Stillimg.chi;;F_MSDN;VC6intro-1033-Local"""							
+276				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\SysMgmt.chm;SysMgmt.chi;;F_MSDN;VC6intro-1033-Local"""							
+277				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\TAPI.chm;TAPI.chi;;F_MSDN;VC6intro-1033-Local"""							
+278				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\TaskSchd.chm;TaskSchd.chi;;F_MSDN;VC6intro-1033-Local"""							
+279				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\termserv.chm;termserv.chi;;F_MSDN;VC6intro-1033-Local"""							
+280				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\tools.chm;tools.chi;;F_MSDN;VC6intro-1033-Local"""							
+281				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\WBEM.chm;WBEM.chi;;F_MSDN;VC6intro-1033-Local"""							
+282				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\Win9xMig.chm;Win9xMig.chi;;F_MSDN;VC6intro-1033-Local"""							
+283				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\WinBase.chm;WinBase.chi;;F_MSDN;VC6intro-1033-Local"""							
+284				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\winlogo.chm;winlogo.chi;;F_MSDN;VC6intro-1033-Local"""							
+285				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\WinSock.chm;WinSock.chi;;F_MSDN;VC6intro-1033-Local"""							
+286				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\WinUI.chm;WinUI.chi;;F_MSDN;VC6intro-1033-Local"""							
+287				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\wp200.chm;wp200.chi;;F_MSDN;VC6intro-1033-Local"""							
+											
+288				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vccore.chm;vccore.chi;;F_MSDN;VC6intro-1033-Local"""							
+289				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vcintro.chm;vcintro.chi;;F_MSDN;VC6intro-1033-Local"""							
+290				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vclang.chm;vclang.chi;;F_MSDN;VC6intro-1033-Local"""							
+291				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vcmfc.chm;vcmfc.chi;;F_MSDN;VC6intro-1033-Local"""							
+292				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vctutor.chm;vctutor.chi;;F_MSDN;VC6intro-1033-Local"""							
+293				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\glossary.chm;glossary.chi;;F_MSDN;VC6intro-1033-Local"""							
+294				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vcug.chm;vcug.chi;;F_MSDN;VC6intro-1033-Local"""							
+											
+295				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\dshelp.chm;dshelp.chi;;F_MSDN;VC6intro-1033-Local"""							
+296				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\mdac200.chm;mdac200.chi;;F_MSDN;VC6intro-1033-Local"""							
+297				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\vdbref.chm;vdbref.chi;;F_MSDN;VC6intro-1033-Local"""							
+298				CustomAction	"MSDN98.DLL,addtitle,""NULL;%D\dnembed.chm;dnembed.chi;;F_MSDN;VC6intro-1033-Local"""							
+299				CustomAction	"MSDN98.DLL,addtitlewithsample,""NULL;%D\vcsample.chm;vcsample.chi;;F_MSDN;VC6intro-1033-Local;VC6intro-1033-VC Samples"""							
+											
+	===Shortcut for MSDN (inshcut.etf)===											
+301		Setup files		Group	302							
+											
+302				InstallShortcut	"%W\hh.exe,msdn<Microsoft Visual C++ 6.0 Docs>,%82,,,%82\dnvcbook.col,"					%27\Microsoft Visual C++ 6.0		
+											
+	====MSDN HTML HELP Component (hhelp.etf) ======											
+											
+311				Group	312 313 314 316 321 322 323					%D		
+312				InstallSysFile	"HTML Help,itircl_dll"							
+313				InstallSysFile	"HTML Help,itss_dll"							
+314				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""315"""					%D		
+315				CopyFile	"HTML Help,hh_exe"					%W		
+											
+316				Group	317 319							
+											
+317				Depend	312 ? 318							
+318		itircl.dll		SelfReg	"HTML Help,itircl_dll,,"					%312		
+											
+319				Depend	313 ? 320							
+320		itss.dll		SelfReg	"HTML Help,itss_dll,,"					%313		
+321				Group	324 327 330 333 336 339 342 345 348 351 354 357 360 363 366					%D		
+322				Group	369 372 375 378 381 384 387 390 393 396 399 402 405					%D		
+323				Group	325 409					%D		
+324				CustomAction	"COMMON98.DLL,LangCheckCAH,ARA"									
+325				Depend	"324 ? 326 : 328"									
+326				InstallSysFile	"HTML Help, hhctrl_ocx_ara"					%M				
+327				CustomAction	"COMMON98.DLL,LangCheckCAH,BAS"									
+328				Depend	"327 ? 329 : 331"									
+329				InstallSysFile	"HTML Help, hhctrl_ocx_bas"					%M				
+330				CustomAction	"COMMON98.DLL,LangCheckCAH,CAT"									
+331				Depend	"330 ? 332 : 334"									
+332				InstallSysFile	"HTML Help, hhctrl_ocx_cat"					%M				
+333				CustomAction	"COMMON98.DLL,LangCheckCAH,CHS"									
+334				Depend	"333 ? 335 : 337"									
+335				InstallSysFile	"HTML Help, hhctrl_ocx_chs"					%M				
+336				CustomAction	"COMMON98.DLL,LangCheckCAH,CHT"									
+337				Depend	"336 ? 338 : 340"									
+338				InstallSysFile	"HTML Help, hhctrl_ocx_cht"					%M				
+339				CustomAction	"COMMON98.DLL,LangCheckCAH,CSY"									
+340				Depend	"339 ? 341 : 343"									
+341				InstallSysFile	"HTML Help, hhctrl_ocx_csy"					%M				
+342				CustomAction	"COMMON98.DLL,LangCheckCAH,DAN"									
+343				Depend	"342 ? 344 : 346"									
+344				InstallSysFile	"HTML Help, hhctrl_ocx_dan"					%M				
+345				CustomAction	"COMMON98.DLL,LangCheckCAH,DEU"									
+346				Depend	"345 ? 347 : 349"									
+347				InstallSysFile	"HTML Help, hhctrl_ocx_deu"					%M				
+348				CustomAction	"COMMON98.DLL,LangCheckCAH,ELL"									
+349				Depend	"348 ? 350 : 352"									
+350				InstallSysFile	"HTML Help, hhctrl_ocx_ell"					%M				
+351				CustomAction	"COMMON98.DLL,LangCheckCAH,ENU"									
+352				Depend	"351 ? 353 : 355"									
+353				InstallSysFile	"HTML Help, hhctrl_ocx_enu"					%M				
+354				CustomAction	"COMMON98.DLL,LangCheckCAH,ESP"									
+355				Depend	"354 ? 356 : 358"									
+356				InstallSysFile	"HTML Help, hhctrl_ocx_esp"					%M				
+357				CustomAction	"COMMON98.DLL,LangCheckCAH,FIN"									
+358				Depend	"357 ? 359 : 361"									
+359				InstallSysFile	"HTML Help, hhctrl_ocx_fin"					%M				
+360				CustomAction	"COMMON98.DLL,LangCheckCAH,FRA"									
+361				Depend	"360 ? 362 : 364"									
+362				InstallSysFile	"HTML Help, hhctrl_ocx_fra"					%M				
+363				CustomAction	"COMMON98.DLL,LangCheckCAH,HEB"									
+364				Depend	"363 ? 365 : 367"									
+365				InstallSysFile	"HTML Help, hhctrl_ocx_heb"					%M				
+366				CustomAction	"COMMON98.DLL,LangCheckCAH,HUN"									
+367				Depend	"366 ? 368 : 370"									
+368				InstallSysFile	"HTML Help, hhctrl_ocx_hun"					%M				
+369				CustomAction	"COMMON98.DLL,LangCheckCAH,ITA"									
+370				Depend	"369 ? 371 : 373"									
+371				InstallSysFile	"HTML Help, hhctrl_ocx_ita"					%M				
+372				CustomAction	"COMMON98.DLL,LangCheckCAH,JPN"									
+373				Depend	"372 ? 374 : 376"									
+374				InstallSysFile	"HTML Help, hhctrl_ocx_jpn"					%M				
+375				CustomAction	"COMMON98.DLL,LangCheckCAH,KOR"									
+376				Depend	"375 ? 377 : 379"									
+377				InstallSysFile	"HTML Help, hhctrl_ocx_kor"					%M				
+378				CustomAction	"COMMON98.DLL,LangCheckCAH,NLD"									
+379				Depend	"378 ? 380 : 382"									
+380				InstallSysFile	"HTML Help, hhctrl_ocx_nld"					%M				
+381				CustomAction	"COMMON98.DLL,LangCheckCAH,NOR"									
+382				Depend	"381 ? 383 : 385"									
+383				InstallSysFile	"HTML Help, hhctrl_ocx_nor"					%M				
+384				CustomAction	"COMMON98.DLL,LangCheckCAH,PLK"									
+385				Depend	"384 ? 386 : 388"									
+386				InstallSysFile	"HTML Help, hhctrl_ocx_plk"					%M				
+387				CustomAction	"COMMON98.DLL,LangCheckCAH,PTB"									
+388				Depend	"387 ? 389 : 391"									
+389				InstallSysFile	"HTML Help, hhctrl_ocx_ptb"					%M				
+390				CustomAction	"COMMON98.DLL,LangCheckCAH,PTG"									
+391				Depend	"390 ? 392 : 394"									
+392				InstallSysFile	"HTML Help, hhctrl_ocx_ptg"					%M				
+393				CustomAction	"COMMON98.DLL,LangCheckCAH,RUS"									
+394				Depend	"393 ? 395 : 397"									
+395				InstallSysFile	"HTML Help, hhctrl_ocx_rus"					%M				
+396				CustomAction	"COMMON98.DLL,LangCheckCAH,SKY"									
+397				Depend	"396 ? 398 : 400"									
+398				InstallSysFile	"HTML Help, hhctrl_ocx_sky"					%M				
+399				CustomAction	"COMMON98.DLL,LangCheckCAH,SLV"									
+400				Depend	"399 ? 401 : 403"									
+401				InstallSysFile	"HTML Help, hhctrl_ocx_slv"					%M				
+402				CustomAction	"COMMON98.DLL,LangCheckCAH,SVE"									
+403				Depend	"402 ? 404 : 406"									
+404				InstallSysFile	"HTML Help, hhctrl_ocx_sve"					%M				
+405				CustomAction	"COMMON98.DLL,LangCheckCAH,TRK"									
+406				Depend	"405 ? 407 : 408"									
+407				InstallSysFile	"HTML Help, hhctrl_ocx_trk"					%M				
+408				InstallSysFile	"HTML Help, hhctrl_ocx_enu"					%M				
+409				CustomAction	"COMMON98.DLL,NeverRemoveGroup,""410"""					%D		
+410				CustomAction	"COMMON98.DLL,QuietReg,""%s\hhctrl.ocx"""					%m
+											
+	=== Setup files (setup.etf) ===													
+421				Group	441 422 429 423 424 425 427 428 426					%d\VC6intro\1033\Setup				
+													
+422				CopySection	"Common Setup"					%d				
+423		msdn98_dll		CopyFile	"SetupProdCah,msdn98_dll"					%d				
+424				WriteTableFile	"setup.stf"					%d				
+425		selfreg.dll		InstallShared	"SetupProdCah,selfreg_dll,selfreg.dll,,423 "					%m				
+													
+426				CopyFile	"Setup-MSDN,hhsetup_dll_1"					%D				
+													
+	=== Uninstall Strings (setup.etf) ===													
+427				AddRegData	"LOCAL,Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Visual C++ 6.0 Docs ,DisplayName,Microsoft Visual C++ 6.0 Docs ,REG_SZ"									
+													
+428				AddRegData	"LOCAL,Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Visual C++ 6.0 Docs ,UninstallString,""""""%s\Setup.exe"""""",REG_SZ"					%d				
+													
+ 														
+429				Group	430					%422				
+430				Depend	422 ? 431 432 433									
+431		acmsetup.fts		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_fts"									
+432		acmsetup.ftg		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_ftg"									
+433		acmsetup.gid		CustomAction	"COMMON98.DLL, RemoveAuxFile, Remove ACME Help Files;acmsetup_gid"									
+ 														
+													
+	=== Product Specific Setup files (pssetup.etf) ===													
+441				Group	442									
+442				CopySection	"Setup"					%d				

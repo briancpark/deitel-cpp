@@ -1,0 +1,40 @@
+// Fig. 3.3: fig03_03.cpp
+// Creating and using a programmer-defined function
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+int square( int );   // function prototype
+
+int main()
+{
+   for ( int x = 1; x <= 10; x++ )
+      cout << square( x ) << "  ";
+
+   cout << endl;
+   return 0;
+}
+
+// Function definition 
+int square( int y )
+{
+   return y * y;
+}
+
+
+
+/**************************************************************************
+ * (C) Copyright 2000 by Deitel & Associates, Inc. and Prentice Hall.     *
+ * All Rights Reserved.                                                   *
+ *                                                                        *
+ * DISCLAIMER: The authors and publisher of this book have used their     *
+ * best efforts in preparing the book. These efforts include the          *
+ * development, research, and testing of the theories and programs        *
+ * to determine their effectiveness. The authors and publisher make       *
+ * no warranty of any kind, expressed or implied, with regard to these    *
+ * programs or to the documentation contained in these books. The authors *
+ * and publisher shall not be liable in any event for incidental or       *
+ * consequential damages in connection with, or arising out of, the       *
+ * furnishing, performance, or use of these programs.                     *
+ *************************************************************************/

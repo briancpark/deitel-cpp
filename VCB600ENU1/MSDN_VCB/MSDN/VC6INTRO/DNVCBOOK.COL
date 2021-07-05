@@ -1,0 +1,577 @@
+<XML>
+<HTMLHelpCollection>
+<masterchm value="vcedit"/>
+<masterlangid value=1033/>
+<samplelocation value=""/>
+<collectionnum value=2/>
+<refcount value=0/>
+<version value=1/>
+<Folders>
+<Folder>
+	<TitleString value = "Visual C++ 6.0 Introductory Edition"/>
+	<FolderOrder value=0/>
+	<Folder>
+		<TitleString value = "Welcome to the Visual C++ 6.0 Introductory Edition"/>
+		<FolderOrder value=1/>
+		<Folder>
+	                <TitleString value = "=vcedit"/>
+		        <FolderOrder value=1/>
+		        <LangId value=1033/>
+		</Folder>
+		<Folder>
+		     	<TitleString value = "Using Visual C++"/>
+			<FolderOrder value=2/>
+			<Folder>
+				<TitleString value = "=vctutor"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=vccore"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=vcug"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=glossary"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Reference"/>
+			<FolderOrder value=3/>
+			<Folder>
+				<TitleString value = "=vcmfc"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=vclang"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Samples"/>
+			<FolderOrder value=4/>
+			<Folder>
+				<TitleString value = "=vcsample"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+	</Folder>
+	<Folder>
+		<TitleString value = "Welcome to the MSDN Viewer Help"/>
+		<FolderOrder value=2/>
+		<Folder>
+			<TitleString value = "=dshelp"/>
+			<FolderOrder value=2/>
+			<LangId value=1033/>
+		</Folder>
+	</Folder>
+	<Folder>
+		<TitleString value = "Copyright, Accessibility and Technical Support Information"/>
+		<FolderOrder value=3/>
+	        <TitleString value = "=vcintro"/>
+		<FolderOrder value=1/>
+		<LangId value=1033/>
+	</Folder>
+	<Folder>
+		<TitleString value = "Data Access Tools and Technologies"/>
+		<FolderOrder value=4/>
+		<Folder>
+			<TitleString value = "=mdac200"/>
+			<FolderOrder value=1/>
+			<LangId value=1033/>
+		</Folder>
+		<Folder>
+			<TitleString value = "=vdbref"/>
+			<FolderOrder value=2/>
+			<LangId value=1033/>
+		</Folder>
+		<Folder>
+			<TitleString value = "=dnembed"/>
+			<FolderOrder value=3/>
+			<LangId value=1033/>
+		</Folder>
+	</Folder>
+	<Folder>
+		<TitleString value = "Platform SDK"/>
+		<FolderOrder value=5/>
+		<Folder>
+			<TitleString value = "What’s New?"/>
+			<FolderOrder value=1/>
+			<Folder>
+				<TitleString value = "=SdkIntro"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Windows Programming Guidelines"/>
+			<FolderOrder value=2/>
+			<Folder>
+				<TitleString value = "=CEGuide"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Tools"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=TermServ"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=WinLogo"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=BOGuide"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=BuildApp"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Database and Messaging Services"/>
+			<FolderOrder value=3/>
+			<Folder>
+				<TitleString value = "=daosdk"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "Microsoft Data Access SDK"/>
+				<FolderOrder value=2/>
+				<Folder>
+					<TitleString value = "=dasdk200"/>
+					<FolderOrder value=1/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=ado200"/>
+					<FolderOrder value=2/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=oledb200"/>
+					<FolderOrder value=3/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=odbc200"/>
+					<FolderOrder value=4/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=wp200"/>
+					<FolderOrder value=5/>
+					<LangId value=1033/>
+				</Folder>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ExchServ"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MAPI"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=CDO"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ExchCli"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SQLServ"/>
+				<FolderOrder value=7/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Graphics and Multimedia Services"/>
+			<FolderOrder value=4/>
+			<Folder>
+				<TitleString value = "=BPC"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ICM"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Dxmedia"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+                        <Folder>
+				<TitleString value = "=DXFound"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+		        <Folder>
+				<TitleString value = "=GDI"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MultiMed"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=StillImg"/>
+				<FolderOrder value=7/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=OpenGL"/>
+				<FolderOrder value=8/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Internet/Intranet/Extranet Services"/>
+			<FolderOrder value=5/>
+			<Folder>
+				<TitleString value = "=ASP"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=IndexSrv"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=IERef"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=IISRef"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MSAgent"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=JavaAFC"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=JavaUser"/>
+				<FolderOrder value=7/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Javavm"/>
+				<FolderOrder value=8/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=CIFS"/>
+				<FolderOrder value=9/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=NetMeet"/>
+				<FolderOrder value=10/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=NetShow"/>
+				<FolderOrder value=11/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "Scripting"/>
+				<FolderOrder value=12/>
+				<Folder>
+					<TitleString value = "=jscript"/>
+					<FolderOrder value=1/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=vbscript"/>
+					<FolderOrder value=2/>
+					<LangId value=1033/>
+				</Folder>
+                        </Folder>
+			<Folder>
+				<TitleString value = "=siteserv"/>
+				<FolderOrder value=13/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=CompLib"/>
+				<FolderOrder value=14/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Networking and Distributed Services"/>
+			<FolderOrder value=6/>
+			<Folder>
+				<TitleString value = "=ADSI"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ADSchema"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=WinSock"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Network"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MSMQ"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=RRAS"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=RPC"/>
+				<FolderOrder value=7/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SNA"/>
+				<FolderOrder value=8/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=TAPI"/>
+				<FolderOrder value=9/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "COM and ActiveX Object Services"/>
+			<FolderOrder value=7/>
+			<Folder>
+				<TitleString value = "=COM"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ActiveX"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Automat"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MTS"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MIDL"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Setup and Systems Management Services"/>
+			<FolderOrder value=8/>
+			<Folder>
+				<TitleString value = "=Win9xMig"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SysMgmt"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SMS"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MMC"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SetupAPI"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=MSI"/>
+				<FolderOrder value=6/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=TaskSchd"/>
+				<FolderOrder value=7/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=WBEM"/>
+				<FolderOrder value=8/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "User Interface Services"/>
+			<FolderOrder value=9/>
+			<Folder>
+				<TitleString value = "=MSAA"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=ShellCC"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=WinUI"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Windows Base Services"/>
+			<FolderOrder value=10/>
+			<Folder>
+				<TitleString value = "=MSCS"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=SCard"/>
+				<FolderOrder value=2/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=Crypto"/>
+				<FolderOrder value=3/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=CertSrv"/>
+				<FolderOrder value=4/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "=WinBase"/>
+				<FolderOrder value=5/>
+				<LangId value=1033/>
+			</Folder>
+		</Folder>
+		<Folder>
+			<TitleString value = "Reference"/>
+			<FolderOrder value=11/>
+			<Folder>
+				<TitleString value = "=PSDKRef"/>
+				<FolderOrder value=1/>
+				<LangId value=1033/>
+			</Folder>
+			<Folder>
+				<TitleString value = "Code Samples"/>
+				<FolderOrder value=2/>
+				<Folder>
+					<TitleString value = "=Code0x01"/>
+					<FolderOrder value=1/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x02"/>
+					<FolderOrder value=2/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x03"/>
+					<FolderOrder value=3/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x04"/>
+					<FolderOrder value=4/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x05"/>
+					<FolderOrder value=5/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x06"/>
+					<FolderOrder value=6/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x07"/>
+					<FolderOrder value=7/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x08"/>
+					<FolderOrder value=8/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x09"/>
+					<FolderOrder value=9/>
+					<LangId value=1033/>
+				</Folder>
+				<Folder>
+					<TitleString value = "=Code0x0a"/>
+					<FolderOrder value=10/>
+					<LangId value=1033/>
+				</Folder>
+			</Folder>	
+		</Folder>
+	</Folder>
+</Folder>
+</Folders>
+</HTMLHelpCollection>
+</XML>
